@@ -11,19 +11,27 @@ function getHandler(req,res) {
 }
 
 function postHandler(req,res,next){
+  res.rider_signin=true;
 	passport.authenticate('local', function(err, rider, info) {
     if (err) {
      return next(err);
      }
-    if (!rider) { 
-    	return res.render('signin',{link:"rider",error_msg:info.message});
-    	}
+     console.log(rider)
+     //allow only if he is rider
+     if(info.rider){
+            if (!rider) { 
+            	return res.render('signin',{link:"rider",error_msg:info.message});
+            	}
 
-    //if rider sucessfully login we need to call manually the login function
-    req.logIn(rider, function(err) {
-      if (err) { return next(err); }
-      return res.redirect('/rider/get/myrides');
-    });
+            //if rider sucessfully login we need to call manually the login function
+            req.logIn(rider, function(err) {
+              if (err) { return next(err); }
+              return res.redirect('/rider/get/myrides');
+            });
+      }
+      else{
+        return res.render("signin",{link:"rider",error_msg:"No Rider Exit"})
+      }
   })(req, res, next);	
 }
 

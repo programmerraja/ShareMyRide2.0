@@ -34,10 +34,11 @@ async function AuthUser(email, password, done)
             if (rider) {
                 let hash=rider.password;   
                  if(bcrypt.compareSync(password,hash)){
-                        return done(null, rider);
+                        return done(null, rider,{rider:true});
                 }
                 else{
-                     return done(null, false, { message: "Password does not match"});  
+                     //passing rider as true so only we can stop user try to login as rider 
+                     return done(null, false, { message: "Password does not match",rider:true});  
                 }
              }
 
@@ -47,19 +48,19 @@ async function AuthUser(email, password, done)
              if(user){
                 let hash=user.password;   
                  if(bcrypt.compareSync(password,hash)){
-                        return done(null, user);
+                        return done(null, user,{user:true});
                 }
                 else{
-                     return done(null, false, { message: "Password does not match"});  
+                     return done(null, false, { message: "Password does not match",user:true});  
                 }
              }
              //if user is null
              else if(!user){
-                 return done(null, false, { message: "No User exit" });   
+                 return done(null, false, { message: "No User exit" ,user:true});   
              }
              //if user is not null mean the rider is null
              else{
-                 return done(null, false, { message: "No Rider exit" });   
+                 return done(null, false, { message: "No Rider exit" ,rider:true});   
              }
             }
         catch (e){

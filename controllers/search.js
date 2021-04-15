@@ -4,7 +4,6 @@ const Rider = require("../models/Rider");
 
 async function post(req,res){
 	if(req.body){
-
 		 let {from,to,type,date}=req.body;
 		 type=type.toLowerCase();
 		 from=from.toLowerCase();
@@ -38,13 +37,8 @@ async function getSpecificRide(req,res) {
 			 	}
 			}
 			res.render("vehicleDetail",{ride,owner:{id:owner._id,name:owner.name},user:req.user})
-
 		 }
-		 res.render("error");
 	}
-
-	
-	
 }  
 module.exports={
 					post,

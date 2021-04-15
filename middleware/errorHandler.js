@@ -14,5 +14,4 @@ function errorHandler(err,req,res,next){
 		res.status(err.status_code).json({"msg":err.message,error:err});
 	}
 }
-// if(process.env.NODE_ENV==="DEVELPMENT")
 module.exports=errorHandler;

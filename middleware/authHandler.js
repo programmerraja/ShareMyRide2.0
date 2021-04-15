@@ -2,7 +2,8 @@
 const {AppError}=require("../util/util");
 
 function authUserHandler(req,res,next){
-	if(req.user){
+	//he must be user but not a rider
+	if(req.user && !req.user.licenseno){
 		next()
 		return
 	}
