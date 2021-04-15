@@ -53,7 +53,7 @@
 				</div>
 				<% } %>
 		</div>
-		<% if(ride.status!="Booked") { %>
+		<% if(ride.status!="Booked" && typeof rider==="undefined") { %>
 		<a href="/user/book/ride/<%= ride._id %>" class="text-decoration-none">
 		<input type="button" name="Book" value="Book This Ride" class="btn d-flex mx-auto mb-5 ">
 		</a>
