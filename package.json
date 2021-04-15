@@ -1,0 +1,30 @@
+{
+  "name": "InfoG",
+  "version": "1.0.0",
+  "description": "A tool to gather scammer information",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "author": "k.Boopathi",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^4.2.2",
+    "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-mongo-sanitize": "^2.0.2",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.11.0",
+    "nodemailer": "^6.5.0",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "ua-parser-js": "^0.7.22",
+    "validator": "^13.5.2",
+    "xss-clean": "^0.1.1"
+  }
+}

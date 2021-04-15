@@ -1,0 +1,27 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>My Booked Rides</title>
+	<!-- ############# HEADER #######################-->
+               <%- include('components/header.ejs');  -%>
+     <!--Custom css-->
+    <link rel="stylesheet" type="text/css" href="/public/styles/myRides.css">
+    
+</head>
+<body>
+	<!-- ############# NAVIGATION #######################-->
+             <%- include('components/nav.ejs') -%>
+    <!-- ############# POPUP #######################-->
+             <%- include('components/popup.ejs');  -%>
+  	<!-- ############# MY RIDES #######################-->
+             <%- include('components/myBookedRides.ejs') -%>
+    
+    
+</body>
+	  <!-- ############# FOOTER #######################-->
+             <%- include('components/footer.ejs');  -%>
+    <script  src="/public/js/myBookedRides.js"></script>
+    <script src="/public/js/popup.js"></script>
+</html>

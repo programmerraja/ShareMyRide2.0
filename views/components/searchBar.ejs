@@ -1,0 +1,78 @@
+<% if(!(typeof search==="undefined")){%>
+   <section class="search_container">
+		 <form novalidate="" class="container" action="/search/ride" method="post">
+   		   	
+   		   	<div class="search_card">
+	           <div class="search_input">
+	        	 <div class="circle"></div>
+	        	 
+				 <input value="<%=search.from%>" type="text"  name="from" class="search_src" placeholder="Leaving from..">
+	          </div>
+	       
+	           <div class="search_input">
+	        	 <div class="circle"></div>
+				  <input value="<%= search.to%>" type="text"  name="to" class="search_dest" placeholder="Going to..">
+	          </div>
+	          <div class="search_input">
+
+	               <select name="type" id="type">
+	                        <option value="Taxi" <%= search.type==='Taxi'?'selected':''%> >Taxi</option>
+	                        <option value="goods&services" <%=search.type==='goods&services'?'selected':''%>>Goods & Service</option>
+	                </select>
+	          </div>
+	          
+	          <div class="search_input" style="border-right: 0">
+	        
+				<input value="<%= search.date%>" type="date"  name="date" class="search_date">
+	          </div>
+
+	       	   <button type="submit" class="search_button">Search</button>
+	        </div>
+	    </form>
+</section>
+<%} else{ %>
+<section class="search_container">
+	<form novalidate="" class="container" action="/search/ride" method="post">
+   		   	<div class="search_card">
+	           <div class="search_input">
+	        		<div class="circle_wrapper">
+	        	 <div class="circle"></div>
+	        	</div>
+				 <input  type="text" value="" name="from" class="search_src" placeholder="Leaving from..">
+	          </div>
+
+	           <div class="search_input">
+	           	<div class="circle_wrapper">
+	        	 <div class="circle"></div>
+	        	</div>
+	       
+				  <input  type="text" value="" name="to" class="search_dest" placeholder="Going from..">
+	          </div>
+
+	          <div class="search_input">
+	               <select name="type" id="type">
+	                        <option value="taxi">Taxi</option>
+	                        <option value="goods&services">Goods & Service</option>
+	                </select>
+	          </div>
+	          
+	          <div class="search_input" style="border-right: 0">
+	       
+	            <% let dates=new Date();
+	               let year=dates.getFullYear();
+	               let month=dates.getMonth()+1;
+	               month=month>9?month:"0"+month;
+	               let day=dates.getDate();
+	               day=day>9?day:"0"+day;
+
+	               let date=year+"-"+month+"-"+day;
+	            %>
+				<input type="date" value="<%=date%>" name="date" class="search_date">
+	          </div>
+	       	  <button type="submit" class="search_button">Search</button>
+	        
+	        </div>
+    </form>
+</section>
+ <% } %>
+</div>

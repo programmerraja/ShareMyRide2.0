@@ -1,0 +1,28 @@
+
+<section class="signin_container">
+ 
+    <form novalidate="" class="container form_container" action="/signin/<%= link %>" method="post">
+      
+           <div class="form-group">
+              <label class="form-label"  for="formBasicEmail">Email address</label>
+              <input placeholder="Enter email" type="email" id="formBasicEmail" class="form-control" name="email">
+          </div>
+
+           <div class="form-group">
+              <label class="form-label" for="formBasicPassword">Password</label>
+              <input placeholder="Password" required="" type="password" id="formBasicPassword" class="form-control" name="password">
+          </div>
+
+          <input type="submit" class="btn signin_button" value="Log in">
+           <% if((typeof error_msg==="undefined")) {%>
+                <div class="error_msg"><span></span></div>
+                <%}else {%>
+                <div class="error_msg"><span><%= error_msg%></span></div>
+                <%}%>
+          <div class="mt-2 form-group">
+              <small class="text-primary"><a href="/<%= link %>/forget/password">Forget password?</a></small><br>
+              <small class="text">New to Share My Ride ?<a class="nav-link d-inline p-0" href="/signup/<%= link %>">Create an account</a></small>
+          </div>  
+    </form>
+
+  </section>

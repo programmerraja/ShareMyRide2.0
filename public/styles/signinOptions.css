@@ -1,0 +1,17 @@
+.options_container{
+	 display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.options1_container,
+.options2_container
+{
+	padding: 20px;
+    border: 1px solid;
+    width: 50%;
+    text-align: center;
+    border-radius: 10px;
+}

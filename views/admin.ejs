@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Admin</title>
+	 <!-- #############	HEADER #######################-->
+	           <%- include('components/header.ejs');  -%>
+   <link rel="stylesheet" type="text/css" href="/public/styles/admin.css">	
+
+<body>
+	<!-- ############# NAVIGATION #######################-->
+	<%- include('components/nav.ejs');  -%>
+	  <!-- ############# POPUP #######################-->
+             <%- include('components/popup.ejs');  -%>
+		<!-- ############# USER #######################-->
+		<%- include('components/admin.ejs');  -%>
+</body>
+<!-- #############	FOOTER #######################-->
+<%- include('components/footer.ejs');  -%>
+<script src="/public/js/admin.js"></script>
+    <script src="/public/js/popup.js"></script>
+
+</html>
