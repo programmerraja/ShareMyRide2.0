@@ -1,12 +1,12 @@
-const express=require("express");
-const signinUserController=require("../controllers/signinUser");
+const express = require("express");
+const signinUserController = require("../controllers/signinUser");
 
-const router= express.Router();
+const router = express.Router();
 
 // signin/rider
-router.get("/",signinUserController.getHandler);
+router.get("/", signinUserController.getHandler);
 
-router.post("/",signinUserController.postHandler);
+router.post("/", signinUserController.postHandler);
 
 
-module.exports=router;
+module.exports = router;

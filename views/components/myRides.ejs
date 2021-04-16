@@ -1,100 +1,101 @@
 <div class="loading_wrapper invisible">
-<!-- ################# LOADING ############# -->
-    <%- include('./loading.ejs');  -%>
+  <!-- ################# LOADING ############# -->
+  <%- include('./loading.ejs');  -%>
 </div>
 
 <div class="myrides_wrapper  invisible">
 </div>
 
 <div class="myrides_container">
-	
-	<p class="text-uppercase text-muted text-center mt-2">your ride's</p>
 
-<% if(!(typeof rides==="undefined")) {%>
-	 <% if(rides.length>0) { %>
-	 <% rides.forEach((ride,i)=>{ %>
-	<div class="myrides" >
-		
-		<div class="myrides-left">
-				<% if(ride.type==="taxi"){ %>
-						<img src="/public/img/taxi.jpg" alt="vechiles">
-						<% }else{ %>
-						<img src="/public/img/truck.svg" alt="vechiles">
-						<% } %>
-		</div>
+  <p class="text-uppercase text-muted text-center mt-2">your ride's</p>
 
-		<div class="myrides-right">
-						<div class="vechile_type font-weight-bold">
-							<p class="text-capitalize m-0"><%=ride.type%></p>
-						</div>
+  <% if(!(typeof rides==="undefined")) {%>
+  <% if(rides.length>0) { %>
+  <% rides.forEach((ride,i)=>{ %>
+  <div class="myrides">
 
-						<div class="myrides-right-location">
-							<div class="location_from text-muted  mx-2">
-								<p class="text-capitalize m-0"><i class="fas fa-circle" style="color: var(--secondary-color);" ></i><%=ride.from%></p>
-							</div>
-							<span class="line"></span>
-							<div class="location_to text-muted  mx-2">
-								<p class="text-capitalize m-0"><i class="fas fa-circle" style="color: var(--secondary-color);"></i><%=ride.to%><p>
-							</div>
-						</div>
-						<div class="myrides-right-detail">
-							<div class="ride_date text-muted mx-2">
-								
-								<p class="text-capitalize m-0"><i class="far fa-calendar-alt"></i><%=new Date(	ride.date).toDateString()%></p>
-							</div>
-							<div class="ride_time text-muted mx-2">
-								<p class="text-capitalize m-0"><i class="far fa-clock"></i><%=ride.time%></p>
-							</div>
-							 
-							<% if(ride.passenger) { %>
-							<div class="ride_passenger text-muted mx-2">
-								<p class="text-capitalize m-0"><i class="fas fa-riders"></i></i><%=ride.passenger%></p>
-							</div>
-							<% } %>
+    <div class="myrides-left">
+      <% if(ride.type==="taxi"){ %>
+      <img src="/public/img/taxi.jpg" alt="vechiles">
+      <% }else{ %>
+      <img src="/public/img/truck.svg" alt="vechiles">
+      <% } %>
+    </div>
 
-							<% if(ride.amount) { %>
-							<div class="ride_amount text-muted mx-2">
-								<p class="text-capitalize m-0"><i class="fas fa-rupee-sign"></i><%=ride.amount%></p>
-							</div>
-							<% } %>
-							<% if(ride.model) { %>
-							<div class="ride_model text-muted mx-2">
-								<p class="text-capitalize m-0">	<i class="fas fa-car-side"></i><%=ride.model%></p>
-							</div>
-							<% } %>
-							<% if(ride.status==="unbooked") { %>
-							<div class="ride_model text-muted mx-2">
-								<p class="text-capitalize m-0 text-danger"><%=ride.status%></p>
-							</div>
+    <div class="myrides-right">
+      <div class="vechile_type font-weight-bold">
+        <p class="text-capitalize m-0"><%=ride.type%></p>
+      </div>
 
-							<% }else{ %>
-							<div class="ride_model text-muted mx-2">
-								<p class="text-capitalize m-0 text-warning"><%=ride.status%></p>
-							</div>
-							<% } %>
-						</div>
-		</div>			
-		<div class="myrides-link">
-				
-					<div class="myrides-dot" index=<%= i %>>
-						<div class="small_dot" index=<%= i %>></div>
-						<div class="small_dot" index=<%= i %>></div>
-						<div class="small_dot" index=<%= i %>></div>
+      <div class="myrides-right-location">
+        <div class="location_from text-muted  mx-2">
+          <p class="text-capitalize m-0"><i class="fas fa-circle" style="color: var(--secondary-color);"></i><%=ride.from%></p>
+        </div>
+        <span class="line"></span>
+        <div class="location_to text-muted  mx-2">
+          <p class="text-capitalize m-0"><i class="fas fa-circle" style="color: var(--secondary-color);"></i><%=ride.to%>
+          <p>
+        </div>
+      </div>
+      <div class="myrides-right-detail">
+        <div class="ride_date text-muted mx-2">
 
-					</div>
-					<div class="myrides_dropdown index<%= i %>  invisible" >
-						<p class="myrides_dropdown-option1 text-capitalize"><a href="/rider/edit/myride/id/<%=ride._id%>">edit</a></p>
-						<p class="myrides_dropdown-option2 text-capitalize" id="<%=ride._id%>">remove</p>
-					</div>
-				
-		</div>
-					
-	</div>
-	<%});%>
-	<%}else { %>
-		<p class="text-muted text-capitalize text-center m-5">No ride's found</p>
-	<% } %>
+          <p class="text-capitalize m-0"><i class="far fa-calendar-alt"></i><%=new Date(	ride.date).toDateString()%></p>
+        </div>
+        <div class="ride_time text-muted mx-2">
+          <p class="text-capitalize m-0"><i class="far fa-clock"></i><%=ride.time%></p>
+        </div>
+
+        <% if(ride.passenger) { %>
+        <div class="ride_passenger text-muted mx-2">
+          <p class="text-capitalize m-0"><i class="fas fa-riders"></i></i><%=ride.passenger%></p>
+        </div>
+        <% } %>
+
+        <% if(ride.amount) { %>
+        <div class="ride_amount text-muted mx-2">
+          <p class="text-capitalize m-0"><i class="fas fa-rupee-sign"></i><%=ride.amount%></p>
+        </div>
+        <% } %>
+        <% if(ride.model) { %>
+        <div class="ride_model text-muted mx-2">
+          <p class="text-capitalize m-0"> <i class="fas fa-car-side"></i><%=ride.model%></p>
+        </div>
+        <% } %>
+        <% if(ride.status==="unbooked") { %>
+        <div class="ride_model text-muted mx-2">
+          <p class="text-capitalize m-0 text-danger"><%=ride.status%></p>
+        </div>
+
+        <% }else{ %>
+        <div class="ride_model text-muted mx-2">
+          <p class="text-capitalize m-0 text-warning"><%=ride.status%></p>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <div class="myrides-link">
+
+      <div class="myrides-dot" index=<%= i %>>
+        <div class="small_dot" index=<%= i %>></div>
+        <div class="small_dot" index=<%= i %>></div>
+        <div class="small_dot" index=<%= i %>></div>
+
+      </div>
+      <div class="myrides_dropdown index<%= i %>  invisible">
+        <p class="myrides_dropdown-option1 text-capitalize"><a href="/rider/edit/myride/id/<%=ride._id%>">edit</a></p>
+        <p class="myrides_dropdown-option2 text-capitalize" id="<%=ride._id%>">remove</p>
+      </div>
+
+    </div>
+
+  </div>
+  <%});%>
+  <%}else { %>
+  <p class="text-muted text-capitalize text-center m-5">No ride's found</p>
+  <% } %>
 </div>
 <%}else { %>
-		<p class="text-muted text-capitalize text-center m-5">No ride's found</p>
+<p class="text-muted text-capitalize text-center m-5">No ride's found</p>
 <% }%>

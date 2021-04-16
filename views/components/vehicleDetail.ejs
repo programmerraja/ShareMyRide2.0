@@ -1,61 +1,63 @@
 <section class="vehicle_container">
 
-		<div class="vehicle_card">
-			<div class="vehicle_card-date text-center">
-				<h3 class="font-weight-bold"><i class="far fa-calendar-alt"></i><%= new Date(ride.date).toDateString()%></h3>
-			</div>
+  <div class="vehicle_card">
+    <div class="vehicle_card-date text-center">
+      <h3 class="font-weight-bold"><i class="far fa-calendar-alt"></i><%= new Date(ride.date).toDateString()%></h3>
+    </div>
 
-		<div class="vehicle_card-location">
-			<div class="vehicle_card-from">
-				<div class="circle"></div>
-				<p class="m-0 font-weight-bold"><%= ride.from%></p>
-			</div>
-			<div class="line"></div>
-			<div class="vehicle_card-to">
-				<div class="circle"></div>
-				<p class="m-0 font-weight-bold"><%= ride.to%></p>
-			</div>
-		</div>
-		<div class="vehicle_card-time d-flex justify-content-around">
-			<p><i class="far fa-clock"></i><%= ride.time %></p>
-				<% if(ride.passenger) { %>
-			<p class="text-capitalize m-0"><i class="fas fa-users"></i><%=ride.passenger%></p>
-				<% } %>
-			
-		</div>
-	
-			<div class="vehicle_card-price">
-				<p class="text-capitalize m-0 text-muted">Amount for 1 seat</p>
-				<p class="m-0 font-weight-bold"><i class="fas fa-rupee-sign"></i><%= ride.amount.toLocaleString() %></p>
-			</div>
-			<div class="vehicle_card-model">
-				<p class="text-capitalize m-0 text-muted">Vehicle Model</p>
-				<p class="m-0 font-weight-bold"><%= ride.model %></p>
-			</div>
-			<div class="vehicle_card-owner">
+    <div class="vehicle_card-location">
+      <div class="vehicle_card-from">
+        <div class="circle"></div>
+        <p class="m-0 font-weight-bold"><%= ride.from%></p>
+      </div>
+      <div class="line"></div>
+      <div class="vehicle_card-to">
+        <div class="circle"></div>
+        <p class="m-0 font-weight-bold"><%= ride.to%></p>
+      </div>
+    </div>
+    <div class="vehicle_card-time d-flex justify-content-around">
+      <p><i class="far fa-clock"></i><%= ride.time %></p>
+      <% if(ride.passenger) { %>
+      <p class="text-capitalize m-0"><i class="fas fa-users"></i><%=ride.passenger%></p>
+      <% } %>
 
-					<div class="owner_name text-capitalize"><p><%= owner.name %></p></div>
-				<div class="owner_link">
-						<a href="/rider/profile/id/<%=owner.id%>">
-							<img src="/public/img/user.svg" class="rider_img">
-							
-						</a>
-				</div>
-			</div>
-			<% if(ride.status==="unbooked") { %>
-				<div class="ride_model text-muted mx-2 text-center p-2">
-					<p class="text-capitalize m-0 text-danger"><%=ride.status%></p>
-				</div>
+    </div>
 
-				<% }else{ %>
-				<div class="ride_model text-muted mx-2 text-center p-2" >
-					<p class="text-capitalize m-0 text-warning"><%=ride.status%></p>
-				</div>
-				<% } %>
-		</div>
-		<% if(ride.status!="Booked" && typeof rider==="undefined") { %>
-		<a href="/user/book/ride/<%= ride._id %>" class="text-decoration-none">
-		<input type="button" name="Book" value="Book This Ride" class="btn d-flex mx-auto mb-5 ">
-		</a>
-		<% } %>
+    <div class="vehicle_card-price">
+      <p class="text-capitalize m-0 text-muted">Amount for 1 seat</p>
+      <p class="m-0 font-weight-bold"><i class="fas fa-rupee-sign"></i><%= ride.amount.toLocaleString() %></p>
+    </div>
+    <div class="vehicle_card-model">
+      <p class="text-capitalize m-0 text-muted">Vehicle Model</p>
+      <p class="m-0 font-weight-bold"><%= ride.model %></p>
+    </div>
+    <div class="vehicle_card-owner">
+
+      <div class="owner_name text-capitalize">
+        <p><%= owner.name %></p>
+      </div>
+      <div class="owner_link">
+        <a href="/rider/profile/id/<%=owner.id%>">
+          <img src="/public/img/user.svg" class="rider_img">
+
+        </a>
+      </div>
+    </div>
+    <% if(ride.status==="unbooked") { %>
+    <div class="ride_model text-muted mx-2 text-center p-2">
+      <p class="text-capitalize m-0 text-danger"><%=ride.status%></p>
+    </div>
+
+    <% }else{ %>
+    <div class="ride_model text-muted mx-2 text-center p-2">
+      <p class="text-capitalize m-0 text-warning"><%=ride.status%></p>
+    </div>
+    <% } %>
+  </div>
+  <% if(ride.status!="Booked" && typeof rider==="undefined") { %>
+  <a href="/user/book/ride/<%= ride._id %>" class="text-decoration-none">
+    <input type="button" name="Book" value="Book This Ride" class="btn d-flex mx-auto mb-5 ">
+  </a>
+  <% } %>
 </section>

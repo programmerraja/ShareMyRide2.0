@@ -1,10 +1,10 @@
 <% if((typeof ride==="undefined")) {%>
- <section>
+<section>
   <% if((typeof error_msg==="undefined")) {%>
-                <div class="error_msg  text-capitalize"><span></span></div>
-                <%}else {%>
-                <div class="error_msg text-capitalize"><span><%= error_msg%></span></div>
-                <%}%>
+  <div class="error_msg  text-capitalize"><span></span></div>
+  <%}else {%>
+  <div class="error_msg text-capitalize"><span><%= error_msg%></span></div>
+  <%}%>
   <form novalidate="" class="container form_container" method="post" action="/rider/post/myride/form">
               <div class="form-group">
                 <label class="form-label" for="formBasicFrom">Leaving from</label>
@@ -55,65 +55,65 @@
         </form>
   </section>
 <% }else {%>
-<section>
-   <% if((typeof error_msg==="undefined")) {%>
-                <div class="error_msg"><span></span></div>
-                <%}else {%>
-                <div class="error_msg"><span><%= error_msg%></span></div>
-                <%}%>
+  <section>
+    <% if((typeof error_msg==="undefined")) {%>
+    <div class="error_msg"><span></span></div>
+    <%}else {%>
+    <div class="error_msg"><span><%= error_msg%></span></div>
+    <%}%>
   <form novalidate="" class="container form_container" method="post" action="/rider/edit/myride/id/<%= ride._id%>">
-              <div class="form-group">
-                <label class="form-label" for="formBasicFrom">Leaving from</label>
-                <input name="from" name="from" placeholder="Leaving from..."  type="text" id="formBasicFrom" class="form-control" required value="<%= ride.from %>">
-              </div>
+    <div class="form-group">
+      <label class="form-label" for="formBasicFrom">Leaving from</label>
+      <input name="from" name="from" placeholder="Leaving from..." type="text" id="formBasicFrom" class="form-control" required value="<%= ride.from %>">
+    </div>
 
-              <div class="form-group">
-                <label class="form-label" for="formBasicTo">Going to</label>
-                <input name="to" placeholder="Going to..."  type="text" id="formBasicTo" class="form-control" required value="<%= ride.to %>"> 
-              </div> 
+    <div class="form-group">
+      <label class="form-label" for="formBasicTo">Going to</label>
+      <input name="to" placeholder="Going to..." type="text" id="formBasicTo" class="form-control" required value="<%= ride.to %>">
+    </div>
 
-              <div class="form-group">
-                <label>Type</label>
-                <select name="type" id="type" >
-                          <option value="taxi" <%= ride.type==='Taxi'?'selected':''%>>Taxi</option>
-                          <option value="goods&services" <%=ride.type==='goods&services'?'selected':''%>>Goods & Service</option>
-                  </select>
-            </div>
+    <div class="form-group">
+      <label>Type</label>
+      <select name="type" id="type">
+        <option value="taxi" <%= ride.type==='Taxi'?'selected':''%>>Taxi</option>
+        <option value="goods&services" <%=ride.type==='goods&services'?'selected':''%>>Goods & Service</option>
+      </select>
+    </div>
 
-             <div class="form-group">
-                <label class="form-label" for="formBasicTo">Vehicle model</label>
-                <input name="model" placeholder="Vehicle model..."  type="text" id="formBasicTo" class="form-control" required value="<%= ride.model %>"> 
-              </div> 
+    <div class="form-group">
+      <label class="form-label" for="formBasicTo">Vehicle model</label>
+      <input name="model" placeholder="Vehicle model..." type="text" id="formBasicTo" class="form-control" required value="<%= ride.model %>">
+    </div>
 
-            <div class="form-group">
-                <label class="form-label" for="formBasicAmount">How many passenger you can take? </label>
-                <input name="passenger" placeholder="How many passenger you can take"  type="number" id="formBasicAmount" class="form-control" required value="<%= ride.passenger %>">
-              </div>
+    <div class="form-group">
+      <label class="form-label" for="formBasicAmount">How many passenger you can take? </label>
+      <input name="passenger" placeholder="How many passenger you can take" type="number" id="formBasicAmount" class="form-control" required value="<%= ride.passenger %>">
+    </div>
 
-             <div class="form-group">
-                <label class="form-label" for="formBasicAmount">Enter amount per seat</label>
-                <input name="amount" placeholder="Enter amount per seat.."  type="number" id="formBasicAmount" class="form-control" required value="<%= ride.amount %>">
-              </div>
+    <div class="form-group">
+      <label class="form-label" for="formBasicAmount">Enter amount per seat</label>
+      <input name="amount" placeholder="Enter amount per seat.." type="number" id="formBasicAmount" class="form-control" required value="<%= ride.amount %>">
+    </div>
 
-              <div class="form-group">
-                <label class="form-label" for="formBasicTime">Pickup time</label>
-                <input name="time" placeholder="Enter the Pickup time.."  type="time" id="formBasicTime" class="form-control time" value="<%= ride.time %>"  >
-              </div>
+    <div class="form-group">
+      <label class="form-label" for="formBasicTime">Pickup time</label>
+      <input name="time" placeholder="Enter the Pickup time.." type="time" id="formBasicTime" class="form-control time" value="<%= ride.time %>">
+    </div>
 
-              <div class="form-group">
-                <label>When are you going?</label><br>
-                <% var dates=new Date(ride.date);
+    <div class="form-group">
+      <label>When are you going?</label><br>
+      <% var dates=new Date(ride.date);
                   var year=dates.getFullYear();
                   var month=dates.getMonth()+1;
                   var date=dates.getDate();
                   month =month<10?'0'+month:month;
                   date =date<10?'0'+date:date;
                  %>
-                <input type="date" name="date" value="<%=year+'-'+month+'-'+date%>">
-              </div>
-              
-              <input type="submit" class="btn create_button" value="Save Ride">
-             
-        </form>
+      <input type="date" name="date" value="<%=year+'-'+month+'-'+date%>">
+    </div>
+
+    <input type="submit" class="btn create_button" value="Save Ride">
+
+    </form>
   </section>
-<% }%>
+  <% }%>

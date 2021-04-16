@@ -1,87 +1,98 @@
-.booking_container{
-	padding: 10px;
+.booking_container {
+  padding: 10px;
 }
 
-.booking_card{
-    display: flex;
-    flex-direction: column;
-    margin: 20px auto;
-    max-width: 450px;
-    border: 1px solid #e5e5e5;
-	border-radius: .25rem;
-	background-color: white;
-	padding:10px 42px;
-    box-shadow: 0 0 6px 0 rgb(0 0 0 / 12%), 0 6px 6px 0 rgb(0 0 0 / 24%);	
+.booking_card {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto;
+  max-width: 450px;
+  border: 1px solid #e5e5e5;
+  border-radius: .25rem;
+  background-color: white;
+  padding: 10px 42px;
+  box-shadow: 0 0 6px 0 rgb(0 0 0 / 12%), 0 6px 6px 0 rgb(0 0 0 / 24%);
 }
+
 .booking_card-from,
-.booking_card-to{
-	display: flex;
-	align-items: center;
-	margin: 10px 0;
+.booking_card-to {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
 }
-.circle{
-	width: 10px;
-	height: 10px;
-	background-color:var(--secondary-color);
-	border-radius: 50%;
-}
-.line{
-	position: relative;
-    top: -16px;
-    left: 4px;
-    height: 46px;
-    width: 2px;
-	background-color:var(--secondary-color);
-    margin: 0;
-    margin-bottom: -43px;
-}
-.booking_card-time{
-	text-align: center;
-}
-.booking_card-price{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 20px 15px;
-	border-top: 8px solid  rgb(237, 237, 237);
-	border-left: 0;
-	border-right: 0;
-}
-.booking_card-model{
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 20px 15px;
-	border-bottom:  8px solid  rgb(237, 237, 237);
-	border-left: 0;
-	border-right: 0;
-}
-.booking_card-owner{
-	padding: 20px 15px;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-.owner_link{
-	cursor: pointer;
-	margin-bottom: 24px;
-}
-.rider_img{
-	 height: 35px;
-}
-/*  MOBILE  */
-@media (max-width:768px)
-{
 
-h3{
-	font-size: 20px;
+.circle {
+  width: 10px;
+  height: 10px;
+  background-color: var(--secondary-color);
+  border-radius: 50%;
 }
-/*  FORM STYLES */
-.booking_card{
-	flex-wrap: wrap;
+
+.line {
+  position: relative;
+  top: -16px;
+  left: 4px;
+  height: 46px;
+  width: 2px;
+  background-color: var(--secondary-color);
+  margin: 0;
+  margin-bottom: -43px;
 }
-.vechile_detail{
-	width: 100%;
+
+.booking_card-time {
+  text-align: center;
 }
+
+.booking_card-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 15px;
+  border-top: 8px solid rgb(237, 237, 237);
+  border-left: 0;
+  border-right: 0;
+}
+
+.booking_card-model {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 15px;
+  border-bottom: 8px solid rgb(237, 237, 237);
+  border-left: 0;
+  border-right: 0;
+}
+
+.booking_card-owner {
+  padding: 20px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.owner_link {
+  cursor: pointer;
+  margin-bottom: 24px;
+}
+
+.rider_img {
+  height: 35px;
+}
+
+/*  MOBILE  */
+@media (max-width:768px) {
+
+  h3 {
+    font-size: 20px;
+  }
+
+  /*  FORM STYLES */
+  .booking_card {
+    flex-wrap: wrap;
+  }
+
+  .vechile_detail {
+    width: 100%;
+  }
 
 }

@@ -1,65 +1,76 @@
-	<div  class="search_container-result">
-	    <% if(rides.length>0) { %>
-		<p class="text-uppercase text-muted search_result-title">available rides</p>
+<div class="loading_wrapper invisible">
+  <!-- ################# LOADING ############# -->
+  <%- include('./loading.ejs');  -%>
+</div>
+<div class="search_container-result">
+  <% if(rides.length>0) { %>
+  <p class="text-uppercase text-muted search_result-title">available rides</p>
 
-			<% rides.forEach((ride,i)=>{ %>
-				<div class="search_result">
-					<div class="search_result-left">
-						<% if(ride.type==="taxi"){ %>
-						<img src="/public/img/taxi.jpg" alt="vechiles">
-						<% }else{ %>
-						<img src="/public/img/truck.svg" alt="vechiles">
-						<% } %>
-					</div>
-					
-					<div class="search_result-right">
-							<a href="/search/ride/id/<%=ride._id%>">
-						<div class="vechile_type font-weight-bold">
-							<p class="text-capitalize m-0"><%=ride.type%></p>
-						</div>
-						<div class="search_result-right-location">
-							<div class="location_from text-muted  mx-2">
-								
-								<p class="text-capitalize m-0"><i class="fas fa-circle" style="color: var(--secondary-color);" ></i><%=ride.from%></p>
-							</div>
-							<span class="line"></span>
-							<div class="location_to text-muted mx-2">
-								
-								<p class="text-capitalize m-0"><i class="fas fa-circle" style="color: var(--secondary-color);"></i><%=ride.to%><p>
-							</div>
-						</div>
-						<div class="search_result-right-detail">
+  <% rides.forEach((ride,i)=>{ %>
+  <div class="search_result">
+    <div class="search_result-left">
+      <% if(ride.type==="taxi"){ %>
+      <img src="/public/img/taxi.jpg" alt="vechiles">
+      <% }else{ %>
+      <img src="/public/img/truck.svg" alt="vechiles">
+      <% } %>
+    </div>
 
-							<div class="ride_date text-muted mx-2">
-								<p class="text-capitalize m-0"><i class="far fa-calendar-alt"></i><%=new Date(ride.date).toDateString()%></p>
-							</div>
-							<div class="ride_time text-muted mx-2">
-								<p class="text-capitalize m-0"><i class="far fa-clock"></i><%=ride.time%></p>
-							</div>
-							<% if(ride.status==="unbooked") { %>
-							<div class="ride_model text-muted mx-2">
-								<p class="text-capitalize m-0 text-danger"><%=ride.status%></p>
-							</div>
+    <div class="search_result-right">
+      <a href="/search/ride/id/<%=ride._id%>">
+        <div class="vechile_type font-weight-bold">
+          <p class="text-capitalize m-0"><%=ride.type%></p>
+        </div>
+        <div class="search_result-right-location">
+          <div class="location_from text-muted  mx-2">
 
-							<% }else{ %>
-							<div class="ride_model text-muted mx-2">
-								<p class="text-capitalize m-0 text-warning"><%=ride.status%></p>
-							</div>
-							<% } %>
-						</div>
-					</a>
-					</div>
-					
-					
-					<div class="search_result-link">
-							<a href="/search/ride/id/<%=ride._id%>">
-								<div class="search_result-arrow"></div>
-							</a>
-					</div>
-				</div>
-				<%});%>
-		<%}else { %>
-			<p class="text-muted text-capitalize text-center m-5">No ride's found</p>
-		<% } %>
+            <p class="text-capitalize m-0"><i class="fas fa-circle" style="color: var(--secondary-color);"></i><%=ride.from%></p>
+          </div>
+          <span class="line"></span>
+          <div class="location_to text-muted mx-2">
 
-	</div>
+            <p class="text-capitalize m-0"><i class="fas fa-circle" style="color: var(--secondary-color);"></i><%=ride.to%>
+            <p>
+          </div>
+        </div>
+        <div class="search_result-right-detail">
+
+          <div class="ride_date text-muted mx-2">
+            <p class="text-capitalize m-0"><i class="far fa-calendar-alt"></i><%=new Date(ride.date).toDateString()%></p>
+          </div>
+          <div class="ride_time text-muted mx-2">
+            <p class="text-capitalize m-0"><i class="far fa-clock"></i><%=ride.time%></p>
+          </div>
+          <% if(ride.status==="unbooked") { %>
+          <div class="ride_model text-muted mx-2">
+            <p class="text-capitalize m-0 text-danger"><%=ride.status%></p>
+          </div>
+
+          <% }else{ %>
+          <div class="ride_model text-muted mx-2">
+            <p class="text-capitalize m-0 text-warning"><%=ride.status%></p>
+          </div>
+          <% } %>
+        </div>
+      </a>
+    </div>
+
+
+    <div class="search_result-link">
+      <a href="/search/ride/id/<%=ride._id%>">
+        <div class="search_result-arrow"></div>
+      </a>
+    </div>
+  </div>
+  <%});%>
+  <%}else { %>
+  <p class="text-muted text-capitalize text-center m-5">No ride's found</p>
+  <% if(typeof user!="undefined"){ %>
+  <div class="alert_box">
+    <p>Get ride alert for this search
+      <input type="button" name="alert" class="alert_box-btn" value="Set Alert" id="<%= user._id %>">
+    </p>
+  </div>
+  <% }} %>
+
+</div>

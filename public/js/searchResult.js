@@ -1,50 +1,47 @@
-async function fetchRide()
-{
-	let container=document.querySelector(".search_container-result");
+async function setAlert(e) {
 
-	let res=await fetch("/search/ride/");
-	let rides =await res.json();
-	for(let i=0;i<rides.length;i++){
+  let loading_wrapper = document.querySelector(".loading_wrapper");
+  loading_wrapper.classList.toggle("invisible");
+  let popup_container = document.querySelector(".popup_container");
+  let user_id = e.target.attributes.id.value;
+  let from = document.querySelector("input[name='from']").value;
+  let to = document.querySelector("input[name='to']").value;
+  let date = document.querySelector("input[name='date']").value;
+  let type = document.querySelector("select[name='type']").value;
 
-    		container.innerHTML+='<div class="search_result">\
-		<div class="search_result-left">\
-			<img src="https://olawebcdn.com/images/v1/cabs/sl/ic_mini.png" alt="vechiles">\
-		</div>\
-		<div class="search_result-right">\
-			<div class="vechile_type font-weight-bold">\
-				<p class="text-capitalize m-0">'+rides[i].type+'</p>\
-			</div>\
-			<div class="search_result-right-location">\
-				<div class="location_from text-muted  mx-2">\
-					<p class="text-capitalize m-0">'+rides[i].from+'</p>\
-				</div>\
-				<span><-----></span>\
-				<div class="location_to text-muted  mx-2">\
-					<p class="text-capitalize m-0">'+rides[i].to+'<p>\
-				</div>\
-			</div>\
-			<div class="search_result-right-detail">\
-				<div class="ride_date text-muted mx-2">\
-					<p class="text-capitalize m-0">'+new Date(rides[i].date).toDateString()+'</p>\
-				</div>\
-				<div class="ride_time text-muted mx-2">\
-					<p class="text-capitalize m-0">'+rides[i].time+'</p>\
-				</div>\
-			</div>\
-		</div>\
-		<div class="search_result-link">\
-				<a href="/search?id='+rides[i]._id+'">\
-					<div class="search_result-arrow"></div>\
-				</a>\
-		</div>\
-	</div>'
-	}
+  if (from && to && date) {
+    let body = JSON.stringify({
+      "user_id": user_id,
+      "from": from,
+      "to": to,
+      "type": type,
+      "date": date
+    });
+    let res = await fetch("/user/set/alert", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: body
+    });
+
+    res = await res.json();
+
+    if (res.status === "Sucess") {
+      popup_container.style.display = "flex";
+      popup_container.children[0].children[0].innerText = res.msg;
+    } else {
+      popup_container.style.display = "flex";
+      popup_container.children[0].children[0].innerText = res.msg;
+    }
+  }
 }
 
-
-function main()
-{
-	fetchRide();   
+function main() {
+  alert_btn = document.querySelector(".alert_box-btn");
+  alert_btn.addEventListener("click", (e) => {
+    setAlert(e)
+  });
 }
 
 main();

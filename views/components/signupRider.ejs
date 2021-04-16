@@ -1,9 +1,9 @@
 	<section class="signup_container">
-    <% if((typeof error_msg==="undefined")) {%>
-                <div class="error_msg"><span></span></div>
-                <%}else {%>
-                <div class="error_msg"><span><%= error_msg%></span></div>
-                <%}%>
+	  <% if((typeof error_msg==="undefined")) {%>
+	  <div class="error_msg"><span></span></div>
+	  <%}else {%>
+	  <div class="error_msg"><span><%= error_msg%></span></div>
+	  <%}%>
         <form novalidate="" class="container form_container" method="post" action="/signup/rider">
               <div class="form-group">
                 <label class="form-label" for="formBasicName">Name</label>

@@ -1,14 +1,14 @@
 <div class="loading_wrapper invisible">
-	<!-- ################# LOADING ############# -->
-    <%- include('./loading.ejs');  -%>
+  <!-- ################# LOADING ############# -->
+  <%- include('./loading.ejs');  -%>
 </div>
 <section class="booking_container">
-		<div class="booking_card">
-			<div class="booking_card-seat">
-				<% if(type==="taxi"){ %> 
-				<label>No of passenger?</label>
-				<input type="number" name="" max="<%= max_passenger%>" class="booking_card-passenger">
-				<%}%>
+  <div class="booking_card">
+    <div class="booking_card-seat">
+      <% if(type==="taxi"){ %>
+      <label>No of passenger?</label>
+      <input type="number" name="" max="<%= max_passenger%>" class="booking_card-passenger">
+      <%}%>
 			</div>
 			<div class="booking_card-form">
 				 <label class="form-label" for="formBasicPhoneno">Write message to rider
@@ -17,5 +17,5 @@
 			</div>
 
 			<input type="button" name="Book" value="Send Confirmation" class="btn d-flex mx-auto mt-2 booking_btn" id=<%= id %>>
-		</div>
+    </div>
 </section>

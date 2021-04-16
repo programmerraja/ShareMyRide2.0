@@ -1,36 +1,36 @@
   <section class="signup_container">
     <% if((typeof error_msg==="undefined")) {%>
-                <div class="error_msg"><span></span></div>
-                <%}else {%>
-                <div class="error_msg"><span><%= error_msg%></span></div>
-                <%}%>
+    <div class="error_msg"><span></span></div>
+    <%}else {%>
+    <div class="error_msg"><span><%= error_msg%></span></div>
+    <%}%>
         <form novalidate="" class="container form_container" method="post" action="/user/profile/">
               <div class="form-group">
                 <label class="form-label" for="formBasicName">Name</label>
                 <input name="name"  placeholder="Enter Name" required="" type="text" id="formBasicName" class="form-control" value="<%= user.name %>">
-              </div>
+    </div>
 
-              <div class="form-group">
-                <label class="form-label" for="formBasicEmail">Email address</label>
-                <input name="email" placeholder="Enter email" required="" type="email" id="formBasicEmail" class="form-control"  value="<%= user.email %>">
-              </div>
-              
-              <div class="form-group">
-                <label class="form-label" for="formBasicPassword">Old Password</label>
-                <input  placeholder="Old Password"  type="password" id="formBasicPassword" class="form-control" name="password" required>
-              </div>
+    <div class="form-group">
+      <label class="form-label" for="formBasicEmail">Email address</label>
+      <input name="email" placeholder="Enter email" required="" type="email" id="formBasicEmail" class="form-control" value="<%= user.email %>">
+    </div>
 
-              <div class="form-group">
-                <label class="form-label" for="formBasicPassword">New Password<span class="text-muted">(optional)</span></label> 
-                <input  placeholder="New password" type="password" id="formBasicPassword" class="form-control" name="new_password">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="formBasicPhoneno">Whatsapp No</label>
-                <input name="whatsappno" placeholder="Whatsapp No" required="" type="number" id="formBasicPhoneno" class="form-control"  value="<%= user.whatsappno %>">
-              </div>
+    <div class="form-group">
+      <label class="form-label" for="formBasicPassword">Old Password</label>
+      <input placeholder="Old Password" type="password" id="formBasicPassword" class="form-control" name="password" required>
+    </div>
 
-               
-              <input type="submit" class="btn create_button" value="Update account">
-              
-        </form>
+    <div class="form-group">
+      <label class="form-label" for="formBasicPassword">New Password<span class="text-muted">(optional)</span></label>
+      <input placeholder="New password" type="password" id="formBasicPassword" class="form-control" name="new_password">
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="formBasicPhoneno">Whatsapp No</label>
+      <input name="whatsappno" placeholder="Whatsapp No" required="" type="number" id="formBasicPhoneno" class="form-control" value="<%= user.whatsappno %>">
+    </div>
+
+
+    <input type="submit" class="btn create_button" value="Update account">
+
+    </form>
   </section>

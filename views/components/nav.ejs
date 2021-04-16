@@ -2,7 +2,7 @@
 </div>
 
 <!-- ############# NAVIGATION #######################-->
-  <nav class="navbar navbar-expand-lg navbar-light ">
+<nav class="navbar navbar-expand-lg navbar-light ">
 
   <a class="navbar-brand" href="/" style="color:blue;"> <img src="/public/img/logo.svg" style="height: 25px;">ShareMyRide</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -10,77 +10,98 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto ">
-        <% if((typeof rider==="undefined" && typeof user==="undefined" )) {%>
-        <li class="nav-item active">
-            <a class="nav-link" href="/">
-               <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><g fill="none" stroke="#00AFF5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
-                <path d="M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z"/></g></svg>
-            Search a ride</a>
-          </li>
-          <li class="nav-item active mx-2">
-            <a class="nav-link" href="/rider/get/myride/form">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="kirk-icon sc-ifAKCX iIDpvI mr-m" width="24" height="24" aria-hidden="true"><g fill="none" stroke="#00AFF5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"><circle cx="12" cy="12" r="11"></circle><path d="M12 7v10M17 12H7"></path></g></svg> 
-            Offer a ride</a>
-          </li>
-          <li class="nav-item active">
-           <img src="/public/img/user.svg" class="home_img">
-            <svg width="20px" height="20px" viewBox="0 0 1024 1024" data-aut-id="icon" class="home_arrow" fill-rule="evenodd"><path class="rui-77aaa" d="M85.392 277.333h60.331l366.336 366.336 366.336-366.336h60.331v60.331l-408.981 409.003h-35.307l-409.045-409.003z"></path></svg>
-            <%- include('./homeDropDown.ejs');  -%>
-          </li>
+    <ul class="navbar-nav ml-auto ">
+      <% if((typeof rider==="undefined" && typeof user==="undefined" )) {%>
+      <li class="nav-item active">
+        <a class="nav-link" href="/">
+          <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+            <g fill="none" stroke="#00AFF5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+              <path d="M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z" />
+            </g>
+          </svg>
+          Search a ride</a>
+      </li>
+      <li class="nav-item active mx-2">
+        <a class="nav-link" href="/rider/get/myride/form">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="kirk-icon sc-ifAKCX iIDpvI mr-m" width="24" height="24" aria-hidden="true">
+            <g fill="none" stroke="#00AFF5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+              <circle cx="12" cy="12" r="11"></circle>
+              <path d="M12 7v10M17 12H7"></path>
+            </g>
+          </svg>
+          Offer a ride</a>
+      </li>
+      <li class="nav-item active">
+        <img src="/public/img/user.svg" class="home_img">
+        <svg width="20px" height="20px" viewBox="0 0 1024 1024" data-aut-id="icon" class="home_arrow" fill-rule="evenodd">
+          <path class="rui-77aaa" d="M85.392 277.333h60.331l366.336 366.336 366.336-366.336h60.331v60.331l-408.981 409.003h-35.307l-409.045-409.003z"></path>
+        </svg>
+        <%- include('./homeDropDown.ejs');  -%>
+      </li>
 
-        <%}else if(typeof rider!="undefined"){%>
-          <% if(rider.is_admin){ %>
-        <li class="nav-item active">
-            <a class="nav-link" href="/admin/dashboard">Admin</a>
-          </li>
-          <% } %>
+      <%}else if(typeof rider!="undefined"){%>
+      <% if(rider.is_admin){ %>
+      <li class="nav-item active">
+        <a class="nav-link" href="/admin/dashboard">Admin</a>
+      </li>
+      <% } %>
 
-        <li class="nav-item active">
-            <a class="nav-link" href="/">
-               <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><g fill="none" stroke="#00AFF5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
-                <path d="M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z"/></g></svg>
-            Search a ride</a>
-          </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="/rider/get/myride/form">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="kirk-icon sc-ifAKCX iIDpvI mr-m" width="24" height="24" aria-hidden="true"><g fill="none" stroke="#00AFF5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"><circle cx="12" cy="12" r="11"></circle><path d="M12 7v10M17 12H7"></path></g></svg> 
-            Post ride</a>
-          </li>
-              
-         <li class="nav-item active">
-            <img src="/public/img/rider.svg" class="user_img">
-            <svg width="20px" height="20px" viewBox="0 0 1024 1024" data-aut-id="icon" class="arrow" fill-rule="evenodd">
-              <path class="rui-77aaa" d="M85.392 277.333h60.331l366.336 366.336 366.336-366.336h60.331v60.331l-408.981 409.003h-35.307l-409.045-409.003z">
-                
-              </path>
-            </svg>
-            <%- include('./riderProfileDropDown.ejs');  -%>
+      <li class="nav-item active">
+        <a class="nav-link" href="/">
+          <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+            <g fill="none" stroke="#00AFF5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+              <path d="M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z" />
+            </g>
+          </svg>
+          Search a ride</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="/rider/get/myride/form">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="kirk-icon sc-ifAKCX iIDpvI mr-m" width="24" height="24" aria-hidden="true">
+            <g fill="none" stroke="#00AFF5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+              <circle cx="12" cy="12" r="11"></circle>
+              <path d="M12 7v10M17 12H7"></path>
+            </g>
+          </svg>
+          Post ride</a>
+      </li>
 
-          </li>
-          
-        <%} else {%>
-          
-        <li class="nav-item active">
-            <a class="nav-link" href="/">
-               <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd"><g fill="none" stroke="#00AFF5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
-                <path d="M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z"/></g></svg>
-            Search a ride</a>
-          </li>
-        
-              
-         <li class="nav-item active">
-            <img src="/public/img/user.svg" class="user_img">
-            <svg width="20px" height="20px" viewBox="0 0 1024 1024" data-aut-id="icon" class="arrow" fill-rule="evenodd">
-              <path class="rui-77aaa" d="M85.392 277.333h60.331l366.336 366.336 366.336-366.336h60.331v60.331l-408.981 409.003h-35.307l-409.045-409.003z">
-                
-              </path>
-            </svg>
-            <%- include('./userProfileDropDown.ejs');  -%>
+      <li class="nav-item active">
+        <img src="/public/img/rider.svg" class="user_img">
+        <svg width="20px" height="20px" viewBox="0 0 1024 1024" data-aut-id="icon" class="arrow" fill-rule="evenodd">
+          <path class="rui-77aaa" d="M85.392 277.333h60.331l366.336 366.336 366.336-366.336h60.331v60.331l-408.981 409.003h-35.307l-409.045-409.003z">
 
-          </li>
-        <% } %>      
-          
+          </path>
+        </svg>
+        <%- include('./riderProfileDropDown.ejs');  -%>
+
+      </li>
+
+      <%} else {%>
+
+      <li class="nav-item active">
+        <a class="nav-link" href="/">
+          <svg width="24" height="24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd">
+            <g fill="none" stroke="#00AFF5" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10">
+              <path d="M15.853 16.56c-1.683 1.517-3.911 2.44-6.353 2.44-5.243 0-9.5-4.257-9.5-9.5s4.257-9.5 9.5-9.5 9.5 4.257 9.5 9.5c0 2.442-.923 4.67-2.44 6.353l7.44 7.44-.707.707-7.44-7.44zm-6.353-15.56c4.691 0 8.5 3.809 8.5 8.5s-3.809 8.5-8.5 8.5-8.5-3.809-8.5-8.5 3.809-8.5 8.5-8.5z" />
+            </g>
+          </svg>
+          Search a ride</a>
+      </li>
+
+
+      <li class="nav-item active">
+        <img src="/public/img/user.svg" class="user_img">
+        <svg width="20px" height="20px" viewBox="0 0 1024 1024" data-aut-id="icon" class="arrow" fill-rule="evenodd">
+          <path class="rui-77aaa" d="M85.392 277.333h60.331l366.336 366.336 366.336-366.336h60.331v60.331l-408.981 409.003h-35.307l-409.045-409.003z">
+
+          </path>
+        </svg>
+        <%- include('./userProfileDropDown.ejs');  -%>
+
+      </li>
+      <% } %>
+
     </ul>
   </div>
 </nav>
