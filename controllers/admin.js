@@ -27,8 +27,8 @@ async function getRider(req, res) {
 
 
 async function removeRiderById(req, res) {
-  if (req.body.rider_id) {
-    let rider_id = req.body.rider_id;
+  if (req.body.id) {
+    let rider_id = req.body.id;
     let rider = await Rider.deleteOne({
       _id: rider_id
     });
@@ -49,8 +49,8 @@ async function removeRiderById(req, res) {
 }
 
 async function verifiyRiderById(req, res) {
-  if (req.body.rider_id) {
-    let rider_id = req.body.rider_id;
+  if (req.body.id) {
+    let rider_id = req.body.id;
     let rider = await Rider.findOneAndUpdate({
       _id: rider_id
     }, {
@@ -81,8 +81,8 @@ async function getUser(req, res) {
 
 
 async function removeUserById(req, res) {
-  if (req.body.user_id) {
-    let user_id = req.body.user_id;
+  if (req.body.id) {
+    let user_id = req.body.id;
     let user = await User.deleteOne({
       _id: user_id
     });

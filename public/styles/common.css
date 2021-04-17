@@ -487,11 +487,7 @@ select {
   .form_container-in-right {
     width: 88%;
   }
-
-  .form_container-in-bottom {
-    margin-left: 20px;
-  }
-
+  
   textarea.form-control {
     width: 85% !important;
   }

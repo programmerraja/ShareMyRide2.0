@@ -46,7 +46,8 @@
 }
 
 .remove_user,
-.verifiy_user {
+.remove_rider,
+.verifiy_rider {
   color: white;
   width: 64px !important;
   font-size: 15px !important;
@@ -55,13 +56,20 @@
   font-weight: bold;
   border-radius: 5px;
   padding: 4px;
-  background: red;
   border: 1px solid red;
   outline: none;
+  transition: top 0.5s ease-in-out;
+}
+
+.remove_user,
+.remove_rider{
+  background-color: red !important;
 }
 
 .remove_user:hover,
-.verifiy_user:hover {
+.remove_rider:hover,
+.verifiy_user:hover ,
+.verifiy_rider:hover{
   top: 0.3em;
 }
 

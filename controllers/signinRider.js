@@ -17,7 +17,6 @@ function postHandler(req, res, next) {
     if (err) {
       return next(err);
     }
-    console.log(rider)
     //allow only if he is rider
     if (info.rider) {
       if (!rider) {

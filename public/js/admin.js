@@ -3,9 +3,9 @@ var popup_container = document.querySelector(".popup_container");
 //reused for both rider and user
 async function removeRider(event, link, is_verifiy = false) {
   document.querySelector(".loading_wrapper").classList.toggle("invisible");
-  let rider_id = event.target.id;
+  let id = event.target.id;
   let body = JSON.stringify({
-    rider_id: rider_id
+    id: id
   });
   if (is_verifiy) {
 
@@ -42,26 +42,40 @@ async function removeRider(event, link, is_verifiy = false) {
 }
 
 
-function insertToTable(obj, table) {
-  let row = '<div class="tr">\
-						  	<div class="td">' + obj.ridername + '</a></div>\
-						  	<div class="td">' + obj.email + '</div>\
-						  	<div class="td">' + obj.email_verified + '</div>\
-						  	<div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
-						  	<div class="td">' + obj.licenseno + '</div>\
-						  	<div class="td">' + new Date(obj.date_of_birth).toDateString() + '</div>\
-						  	<div class="td">' + obj.phoneno + '</div>\
-						  	<div class="td">' + obj.drivingexpereince + '</div>\
-						  	<div class="td">' + obj.is_verified + '</div>\
-						  	<div class="td">\
-						  	<input type="button" class="remove_rider" value="Remove" id="' + obj.rider_id + '">\
-						  	</div>\
-						  	<div class="td">\
-						  	<input type="button" class="verifiy_rider" value="Verifiy" id="' + obj.rider_id + '">\
-						  	</div>\
-					  	</div>'
-
-  table.innerHTML += row;
+function insertToTable(obj, table,is_user=false) {
+		let row;
+ 	  if(!is_user){
+	    row = '<div class="tr">\
+							  	<div class="td">' + obj.ridername + '</a></div>\
+							  	<div class="td">' + obj.email + '</div>\
+							  	<div class="td">' + obj.email_verified + '</div>\
+							  	<div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
+							  	<div class="td">' + obj.licenseno + '</div>\
+							  	<div class="td">' + new Date(obj.date_of_birth).toDateString() + '</div>\
+							  	<div class="td">' + obj.phoneno + '</div>\
+							  	<div class="td">' + obj.drivingexpereince + '</div>\
+							  	<div class="td">' + obj.is_verified + '</div>\
+							  	<div class="td">\
+							  		<input type="button" class="remove_rider" style="border:0 !important;" value="Remove" id="' + obj.rider_id + '">\
+							  	</div>\
+							  	<div class="td">\
+								  <input type="button" class="verifiy_rider" value="Verifiy" id="' + obj.rider_id + '">\
+								 </div>\
+				</div>'
+ 
+	 } else{
+   		 row = '<div class="tr">\
+							  	<div class="td">' + obj.username + '</a></div>\
+							  	<div class="td">' + obj.email + '</div>\
+							  	<div class="td">' + obj.email_verified + '</div>\
+							  	<div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
+							  	<div class="td">' + obj.whatsappno + '</div>\
+							  	<div class="td">\
+							  	<input type="button" class="remove_user" style="border:0 !important;" value="Remove" id="' + obj.user_id + '">\
+				</div>'
+ 
+  	}
+  	table.innerHTML += row;
 }
 
 async function fetchRider() {
@@ -152,20 +166,16 @@ async function fetchUser() {
           let email = user["email"];
           let email_verified = user["is_email_verified"];
           let created_at = user["created_at"];
-          let phoneno = user["whatsappno"];
+          let whatsappno = user["whatsappno"];
           insertToTable({
               user_id,
               username,
               email,
               email_verified,
               created_at,
-              licenseno,
-              date_of_birth,
-              phoneno,
-              drivingexpereince,
-              is_verified
+              whatsappno     
             },
-            table);
+            table,true);
         });
       } else {
         info_text.style.display = "flex";
