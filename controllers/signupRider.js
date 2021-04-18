@@ -28,7 +28,7 @@ function get(req, res) {
 async function post(req, res) {
   if (!validator.isEmail(req.body.email)) {
     res.render("signupRider", {
-      error_msg: "Invalid Email"
+      msg: "Invalid Email"
     });
     return
   }
@@ -53,9 +53,9 @@ async function post(req, res) {
     });
 
     new_rider = await new_rider.save().catch((err) => {
-      let error_msg = dbErrorHandler(err);
+      let msg = dbErrorHandler(err);
       res.render("signup", {
-        error_msg: error_msg
+        msg: msg
       });
     });
     if (new_rider) {
@@ -68,13 +68,13 @@ async function post(req, res) {
         await Rider.deleteOne({
           _id: new_rider._id
         }).catch((err) => {
-          let error_msg = dbErrorHandler(err)
+          let msg = dbErrorHandler(err)
           res.render("signupRider", {
-            error_msg: error_msg
+            msg: msg
           });
         });
         res.render("signupRider", {
-          error_msg: "Sorry Something went wrong. Please try again"
+          msg: "Sorry Something went wrong. Please try again"
         });
       }
     }
@@ -82,7 +82,7 @@ async function post(req, res) {
   //if he is user
   else {
     res.render("signupRider", {
-      error_msg: "Sorry Your Email Exit in user account try different email"
+      msg: "Sorry Your Email Exit in user account try different email"
     });
 
   }

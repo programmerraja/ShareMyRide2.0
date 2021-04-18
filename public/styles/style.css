@@ -198,7 +198,17 @@ footer {
     flex-grow: 1;
     border-radius: 0px 0px 7px 6px;
   }
+/*    Section 1*/
 
+.section1_image img {
+  width: 286px;
+  height: 180px;
+}
+.section1_text{
+      width: 286px;
+      padding: 0;
+}
+/*    footer    */
   .copyright {
     font-size: 13px;
   }

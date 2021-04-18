@@ -1,8 +1,8 @@
 	<section class="signup_container">
-	  <% if((typeof error_msg==="undefined")) {%>
-	  <div class="error_msg"><span></span></div>
+	  <% if((typeof msg==="undefined")) {%>
+	  <div class="msg"><span></span></div>
 	  <%}else {%>
-	  <div class="error_msg"><span><%= error_msg%></span></div>
+	  <div class="msg"><span><%= msg%></span></div>
 	  <%}%>
         <form novalidate="" class="container form_container" method="post" action="/signup/user">
               <div class="form-group">

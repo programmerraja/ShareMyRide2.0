@@ -21,7 +21,7 @@ function postHandler(req, res, next) {
       if (!user) {
         return res.render('signin', {
           link: "user",
-          error_msg: info.message
+          msg: info.message
         });
       }
       //if user sucessfully login we need to call manually the login function
@@ -34,7 +34,7 @@ function postHandler(req, res, next) {
     } else {
       return res.render("signin", {
         link: "user",
-        error_msg: "No User Exit"
+        msg: "No User Exit"
       });
     }
   })(req, res, next);

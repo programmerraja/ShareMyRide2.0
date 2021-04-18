@@ -23,8 +23,8 @@ const {
 const router = express.Router();
 
 //route for /user
-router.get("/profile", authUserHandler, asyncHandler(userController.get));
-router.post("/profile", checkBodyUserHandler, authUserHandler, asyncHandler(userController.post));
+router.get("/profile", authUserHandler, userController.get);
+router.post("/profile",authUserHandler, checkBodyUserHandler, asyncHandler(userController.post));
 
 router.get("/book/ride/:id", authUserHandler, asyncHandler(userController.bookARide));
 router.post("/book/ride/", authUserHandler, asyncHandler(userController.postBookARide));

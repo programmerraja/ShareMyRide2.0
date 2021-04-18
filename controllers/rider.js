@@ -90,24 +90,24 @@ async function post(req, res) {
         rider.drivingexpereince = drivingexpereince;
         rider.bio = bio;
         rider = await rider.save().catch((err) => {
-          let error_msg = dbErrorHandler(err)
+          let msg = dbErrorHandler(err)
           res.render("riderProfile", {
             rider: req.user,
             name: req.user.name,
-            error_msg: error_msg
+            msg: msg
           });
         });
         if (rider) {
           res.render("riderProfile", {
             rider: rider,
-            error_msg: "Sucess fully updated"
+            msg: "Sucess fully updated"
           });
         }
 
       } else {
         res.render("riderProfile", {
           rider: req.user,
-          error_msg: "Password does not match"
+          msg: "Password does not match"
         });
       }
     }
@@ -116,13 +116,13 @@ async function post(req, res) {
   if (!req.body.password) {
     res.render("riderProfile", {
       rider: req.user,
-      error_msg: "Please provide password to update your account"
+      msg: "Please provide password to update your account"
     });
     return;
   }
   res.render("riderProfile", {
     rider: req.user,
-    error_msg: "Please provide all data"
+    msg: "Please provide all data"
   });
 
 }
@@ -183,9 +183,9 @@ async function postMyRideForm(req, res) {
     });
 
     new_ride.save().catch((err) => {
-      let error_msg = dbErrorHandler(err);
+      let msg = dbErrorHandler(err);
       res.render("myRideForm", {
-        error_msg: error_msg
+        msg: msg
       });
     });
     if (new_ride) {
@@ -228,7 +228,7 @@ async function postMyRideForm(req, res) {
     }
   } else {
     res.render("myRideForm", {
-      error_msg: "Please provide all data"
+      msg: "Please provide all data"
     });
   }
 
@@ -299,7 +299,7 @@ async function postEditMyRideForm(req, res) {
     }
   } else {
     res.render("myRideForm", {
-      error_msg: "Please provide all data"
+      msg: "Please provide all data"
     });
   }
 

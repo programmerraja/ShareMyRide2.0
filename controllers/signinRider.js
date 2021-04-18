@@ -22,7 +22,7 @@ function postHandler(req, res, next) {
       if (!rider) {
         return res.render('signin', {
           link: "rider",
-          error_msg: info.message
+          msg: info.message
         });
       }
 
@@ -36,7 +36,7 @@ function postHandler(req, res, next) {
     } else {
       return res.render("signin", {
         link: "rider",
-        error_msg: "No Rider Exit"
+        msg: "No Rider Exit"
       })
     }
   })(req, res, next);

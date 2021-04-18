@@ -13,10 +13,10 @@
     </div>
 
     <input type="submit" class="btn signin_button" value="Sign in">
-    <% if((typeof error_msg==="undefined")) {%>
-    <div class="error_msg"><span></span></div>
+    <% if((typeof msg==="undefined")) {%>
+    <div class="msg"><span></span></div>
     <%}else {%>
-    <div class="error_msg"><span><%= error_msg%></span></div>
+    <div class="msg"><span><%= msg%></span></div>
     <%}%>
           <div class="mt-2 form-group">
               <small class="text-primary"><a href="/<%= link %>/forget/password">Forget password?</a></small><br>

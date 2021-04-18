@@ -37,13 +37,13 @@ async function removeRiderById(req, res) {
     if (rider) {
       res.json({
         status: "Sucess",
-        error_msg: "sucessfully removed"
+        msg: "sucessfully removed"
       });
     }
   } else {
     res.json({
       status: "Failure",
-      error_msg: "Don't be fool!"
+      msg: "Don't be fool!"
     })
   }
 }
@@ -59,13 +59,13 @@ async function verifiyRiderById(req, res) {
     if (rider) {
       res.json({
         status: "Sucess",
-        error_msg: "sucessfully Verified"
+        msg: "sucessfully Verified"
       });
     }
   } else {
     res.json({
       status: "Failure",
-      error_msg: "Don't be fool!"
+      msg: "Don't be fool!"
     })
   }
 }
@@ -91,13 +91,13 @@ async function removeUserById(req, res) {
     if (user) {
       res.json({
         status: "Sucess",
-        error_msg: "sucessfully removed"
+        msg: "sucessfully removed"
       });
     }
   } else {
     res.json({
       status: "Failure",
-      error_msg: "Don't be fool!"
+      msg: "Don't be fool!"
     })
   }
 }

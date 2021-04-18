@@ -1,4 +1,6 @@
 async function resetPassword() {
+  document.querySelector(".loading_wrapper").classList.toggle("invisible");
+  let popup_container = document.querySelector(".popup_container");
   let reset_error = document.querySelector(".reset_error");
   let reset_password = document.querySelector(".reset_password").value;
   if (reset_password) {
@@ -14,16 +16,9 @@ async function resetPassword() {
     });
 
     res = await res.json();
-
-    if (res.status === "Sucess") {
-      reset_error.innerText = res.msg;
-      reset_error.style.color = "green";
-      reset_error.style.display = "initial";
-    } else {
-      reset_error.innerText = res.msg;
-      reset_error.style.color = "red";
-      reset_error.style.display = "initial";
-    }
+    popup_container.style.display = "flex";
+    popup_container.children[0].children[0].innerText = res.msg;
+    
   }
 }
 

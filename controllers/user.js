@@ -11,7 +11,9 @@ const User = require("../models/User");
 const {
   dbErrorHandler,
   sendBookRideMail,
-  sendUnBookRideMail
+  sendUnBookRideMail,
+  generateToken,
+  sendPasswordReset
 } = require("../util/util");
 
 //handling GET /signin
@@ -30,7 +32,6 @@ function logout(req, res) {
 async function post(req, res) {
   //if user change his mail  send the confirmation message
   if (res.locals.is_correct) {
-    console.log()
     let {
       name,
       email,
@@ -57,24 +58,24 @@ async function post(req, res) {
         user.email = email;
         user.whatsappno = whatsappno;
         user = await user.save().catch((err) => {
-          let error_msg = dbErrorHandler(err)
+          let msg = dbErrorHandler(err)
           res.render("userProfile", {
             user: req.user,
             name: req.user.name,
-            error_msg: error_msg
+            msg: msg
           });
         });
         if (user) {
           res.render("userProfile", {
             user: user,
-            error_msg: "Sucess fully updated"
+            msg: "Sucess fully updated"
           });
         }
 
       } else {
         res.render("userProfile", {
           user: req.user,
-          error_msg: "Password does not match"
+          msg: "Password does not match"
         });
       }
     }
@@ -83,13 +84,13 @@ async function post(req, res) {
   if (!req.body.password) {
     res.render("userProfile", {
       user: req.user,
-      error_msg: "Please provide password to update your account"
+      msg: "Please provide password to update your account"
     });
     return;
   }
   res.render("userProfile", {
     user: req.user,
-    error_msg: "Please provide all data"
+    msg: "Please provide all data"
   });
 
 }
@@ -227,10 +228,10 @@ async function postBookARide(req, res) {
       ride.booked_id = req.user._id;
       //1.updating ride data (status,passenger_left)
       ride = await ride.save().catch((err) => {
-        let error_msg = dbErrorHandler(err);
+        let msg = dbErrorHandler(err);
         res.json({
           status: "Failure",
-          msg: error_msg
+          msg: msg
         });
       });
       if (ride) {
@@ -262,10 +263,10 @@ async function postBookARide(req, res) {
         //adding (user_id rider_id ,passenger count) 
         //if this failed we need to rollback ride data
         booking = await booking.save().catch((err) => {
-          let error_msg = dbErrorHandler(err);
+          let msg = dbErrorHandler(err);
           res.json({
             status: "Failure",
-            msg: error_msg
+            msg: msg
           });
         });
         if (booking) {
@@ -321,10 +322,10 @@ async function unBookMyRide(req, res) {
           ride.status = passenger_left + " Passenger can ride with his."
         }
         ride = await ride.save().catch((err) => {
-          let error_msg = dbErrorHandler(err);
+          let msg = dbErrorHandler(err);
           res.json({
             status: "Failure",
-            msg: error_msg
+            msg: msg
           });
         });
         if (ride) {
@@ -433,10 +434,8 @@ async function unSetAlertOnSearch(req, res) {
     }
   }
 }
-async function forgetPassword(req, res) {
-  res.render("forgetPassword", {
-    user: req.user
-  })
+function forgetPassword(req, res) {
+  res.render("forgetPassword");
 
 }
 //handling POST /user/forget/password
@@ -487,9 +486,7 @@ async function postForgetPassword(req, res) {
 
 //handling GET /user/reset/password
 async function resetPassword(req, res) {
-  res.render("resetPassword", {
-    user: req.user
-  })
+  res.render("resetPassword");
 }
 
 //handling POST /user/reset/password

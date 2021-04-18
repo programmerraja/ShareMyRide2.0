@@ -1,11 +1,13 @@
 async function forgetPassword() {
+  document.querySelector(".loading_wrapper").classList.toggle("invisible");
+  let popup_container = document.querySelector(".popup_container");
   let forget_error = document.querySelector(".forget_error");
   let forget_email = document.querySelector(".forget_email").value;
   if (forget_email) {
     let body = JSON.stringify({
       "email": forget_email
     });
-    let res = await fetch("/forget/password", {
+    let res = await fetch("#", {
       method: "post",
       headers: {
         "Content-Type": "application/json"
@@ -14,16 +16,8 @@ async function forgetPassword() {
     });
 
     res = await res.json();
-    if (res.status === "Sucess") {
-      forget_error.innerText = res.msg;
-      forget_error.style.color = "green";
-      forget_error.style.display = "initial";
-
-    } else {
-      forget_error.innerText = res.msg;
-      forget_error.style.color = "red";
-      forget_error.style.display = "initial";
-    }
+    popup_container.style.display = "flex";
+    popup_container.children[0].children[0].innerText = res.msg;
   }
 }
 

@@ -30,13 +30,12 @@ async function removeRider(event, link, is_verifiy = false) {
   res = await res.json();
   if (res.status === "Sucess") {
     popup_container.style.display = "flex";
-    popup_container.children[0].children[0].innerText = res.error_msg;
+    popup_container.children[0].children[0].innerText = res.msg;
     fetchRider();
 
   } else {
     popup_container.style.display = "flex";
-    popup_container.children[0].children[0].innerText = res.error_msg;
-    fetchRider();
+    popup_container.children[0].children[0].innerText = res.msg;
   }
 
 }
