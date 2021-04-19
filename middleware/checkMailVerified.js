@@ -6,13 +6,13 @@ function checkMailVerified(req, res, next) {
       return
     } else {
       res.render("myRideForm", {
-        error_msg: "Please wait untill We verify your Id"
+        msg: "Please wait untill We verify your Id"
       });
       return
     }
   }
   res.render("myRideForm", {
-    error_msg: "Please verify your mail to post the ride"
+    msg: "Please verify your mail to post the ride"
   });
   return;
 

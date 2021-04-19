@@ -11,7 +11,7 @@ function errorHandler(err, req, res, next) {
     let error_msg = dbErrorHandler(err);
     res.status(err.status_code).json({
       status: "Failed",
-      error_msg: error_msg
+      msg: error_msg
     });
     return;
   } else {
