@@ -18,7 +18,7 @@ async function resetPassword() {
     res = await res.json();
     popup_container.style.display = "flex";
     popup_container.children[0].children[0].innerText = res.msg;
-    
+
   }
 }
 

@@ -4,7 +4,6 @@ const {
 
 function errorHandler(err, req, res, next) {
   //if not status code set it at internal server problem
-  console.log(err)
   if (!err.status_code) {
     err.status_code = 500;
   }

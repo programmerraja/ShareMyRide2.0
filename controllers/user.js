@@ -434,6 +434,7 @@ async function unSetAlertOnSearch(req, res) {
     }
   }
 }
+
 function forgetPassword(req, res) {
   res.render("forgetPassword");
 

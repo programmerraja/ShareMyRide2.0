@@ -54,7 +54,7 @@ async function post(req, res) {
 
     new_rider = await new_rider.save().catch((err) => {
       let msg = dbErrorHandler(err);
-      res.render("signup", {
+      res.render("signupRider", {
         msg: msg
       });
     });

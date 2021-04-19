@@ -110,7 +110,7 @@
 
 .section1_image img {
   height: 270px;
-  max-width:380px;
+  max-width: 380px;
   border-radius: 10px;
 }
 
@@ -169,6 +169,7 @@ footer {
     padding: 0;
     width: 93%;
   }
+
   .search_background-text {
     font-size: 1.5rem;
     position: initial;
@@ -198,17 +199,20 @@ footer {
     flex-grow: 1;
     border-radius: 0px 0px 7px 6px;
   }
-/*    Section 1*/
 
-.section1_image img {
-  width: 286px;
-  height: 180px;
-}
-.section1_text{
-      width: 286px;
-      padding: 0;
-}
-/*    footer    */
+  /*    Section 1*/
+
+  .section1_image img {
+    width: 286px;
+    height: 180px;
+  }
+
+  .section1_text {
+    width: 286px;
+    padding: 0;
+  }
+
+  /*    footer    */
   .copyright {
     font-size: 13px;
   }

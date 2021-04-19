@@ -41,10 +41,10 @@ async function removeRider(event, link, is_verifiy = false) {
 }
 
 
-function insertToTable(obj, table,is_user=false) {
-		let row;
- 	  if(!is_user){
-	    row = '<div class="tr">\
+function insertToTable(obj, table, is_user = false) {
+  let row;
+  if (!is_user) {
+    row = '<div class="tr">\
 							  	<div class="td">' + obj.ridername + '</a></div>\
 							  	<div class="td">' + obj.email + '</div>\
 							  	<div class="td">' + obj.email_verified + '</div>\
@@ -61,9 +61,9 @@ function insertToTable(obj, table,is_user=false) {
 								  <input type="button" class="verifiy_rider" value="Verifiy" id="' + obj.rider_id + '">\
 								 </div>\
 				</div>'
- 
-	 } else{
-   		 row = '<div class="tr">\
+
+  } else {
+    row = '<div class="tr">\
 							  	<div class="td">' + obj.username + '</a></div>\
 							  	<div class="td">' + obj.email + '</div>\
 							  	<div class="td">' + obj.email_verified + '</div>\
@@ -72,9 +72,9 @@ function insertToTable(obj, table,is_user=false) {
 							  	<div class="td">\
 							  	<input type="button" class="remove_user" style="border:0 !important;" value="Remove" id="' + obj.user_id + '">\
 				</div>'
- 
-  	}
-  	table.innerHTML += row;
+
+  }
+  table.innerHTML += row;
 }
 
 async function fetchRider() {
@@ -172,9 +172,9 @@ async function fetchUser() {
               email,
               email_verified,
               created_at,
-              whatsappno     
+              whatsappno
             },
-            table,true);
+            table, true);
         });
       } else {
         info_text.style.display = "flex";

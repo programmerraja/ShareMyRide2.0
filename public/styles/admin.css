@@ -61,14 +61,14 @@
 }
 
 .remove_user,
-.remove_rider{
+.remove_rider {
   background-color: red !important;
 }
 
 .remove_user:hover,
 .remove_rider:hover,
-.verifiy_user:hover ,
-.verifiy_rider:hover{
+.verifiy_user:hover,
+.verifiy_rider:hover {
   top: 0.3em;
 }
 

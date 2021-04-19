@@ -92,7 +92,7 @@ nav li .nav-link:hover {
 }
 
 .loading_wrapper {
-  background-color: rgba(0,0,0,0.6);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .profile_dropdown::before {
@@ -278,7 +278,7 @@ select {
 }
 
 .form_container-in-bottom {
-  margin-left: 30px;
+  margin-left: 18px;
 }
 
 .msg {
@@ -294,7 +294,8 @@ select {
 .popup_container {
   height: 100vh;
   position: fixed;
-  background-color: rgba(0,0,0,0.6);;
+  background-color: rgba(0, 0, 0, 0.6);
+  ;
   width: 100vw;
   z-index: 300;
   display: none;
@@ -316,8 +317,9 @@ select {
   align-items: center;
   flex-direction: column;
 }
-.popup_text{
-    font-size: 14px;
+
+.popup_text {
+  font-size: 14px;
 }
 
 .popup_button {
@@ -490,7 +492,11 @@ select {
   .form_container-in-right {
     width: 88%;
   }
-  
+
+  .form_container-in-bottom {
+    margin-left: 25px;
+  }
+
   textarea.form-control {
     width: 85% !important;
   }

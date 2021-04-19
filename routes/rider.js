@@ -8,7 +8,8 @@ const {
 const asyncHandler = require("../middleware/asyncHandler");
 const {
   checkBodyRiderHandler,
-  checkBodyRideHandler
+  checkBodyRideHandler,
+  checkMailVerified
 } = require("../middleware/checkBodyHandler");
 
 //util
@@ -31,20 +32,20 @@ router.post("/profile", checkBodyRiderHandler, authRiderHandler, riderController
 router.get("/get/myrides/", authRiderHandler, riderController.getMyRides);
 
 router.get("/get/myride/form", authRiderHandler, riderController.getMyRideForm);
-router.post("/post/myride/form", checkBodyRideHandler, authRiderHandler, riderController.postMyRideForm);
+router.post("/post/myride/form", checkMailVerified,authRiderHandler,checkBodyRideHandler ,riderController.postMyRideForm);
 
-router.get("/edit/myride/id/:id", authRiderHandler, riderController.editMyRideForm);
-router.post("/edit/myride/id/:id", checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
+router.get("/edit/myride/id/:id",authRiderHandler, riderController.editMyRideForm);
+router.post("/edit/myride/id/:id",checkMailVerified,checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
 //if rider remove his ride we need to inform the user
 router.post("/remove/myride/", authRiderHandler, riderController.removeMyRideForm);
 
-router.get("/verifiy/email/:id", authRiderHandler, asyncHandler(riderController.emailVerified));
+router.get("/verifiy/email/:id", asyncHandler(riderController.emailVerified));
 
-router.get("/reset/password/:id", authRiderHandler, riderController.resetPassword);
-router.post("/reset/password/:id", authRiderHandler, asyncHandler(riderController.postResetPassword));
+router.get("/reset/password/:id", riderController.resetPassword);
+router.post("/reset/password/:id",  asyncHandler(riderController.postResetPassword));
 
-router.get("/forget/password/", authRiderHandler, riderController.forgetPassword);
-router.post("/forget/password/", authRiderHandler, asyncHandler(riderController.postForgetPassword));
+router.get("/forget/password/", riderController.forgetPassword);
+router.post("/forget/password/", asyncHandler(riderController.postForgetPassword));
 
 router.get("/logout", authRiderHandler, riderController.logout);
 
