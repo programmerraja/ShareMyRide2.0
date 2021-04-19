@@ -6,10 +6,10 @@ const {
   authRiderHandler
 } = require("../middleware/authHandler");
 const asyncHandler = require("../middleware/asyncHandler");
+const checkMailVerified = require("../middleware/checkMailVerified");
 const {
   checkBodyRiderHandler,
   checkBodyRideHandler,
-  checkMailVerified
 } = require("../middleware/checkBodyHandler");
 
 //util
