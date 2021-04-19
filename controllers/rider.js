@@ -100,7 +100,7 @@ async function post(req, res) {
         if (rider) {
           res.render("riderProfile", {
             rider: rider,
-            msg: "Sucess fully updated"
+            msg: "Sucessfully updated"
           });
         }
 
@@ -143,8 +143,19 @@ async function getMyRides(req, res) {
   res.render("error");
 }
 
-function getMyRideForm(req, res) {
-  res.render("myRideForm", {
+function getMyRideFormTaxi(req, res) {
+  res.render("myRideFormTaxi", {
+    rider: req.user
+  });
+}
+
+function getMyRideFormGoods(req,res){
+   res.render("myRideFormGoods", {
+    rider: req.user
+  });
+}
+function getMyRideOptions(req, res) {
+  res.render("rideOptions", {
     rider: req.user
   });
 }
@@ -161,6 +172,7 @@ async function postMyRideForm(req, res) {
       time,
       date
     } = req.body;
+    let views=type==="taxi"?"myRideFormTaxi":"myRideFormGoods";
     //converting to lower case
     from = from.toLowerCase();
     to = to.toLowerCase();
@@ -184,7 +196,7 @@ async function postMyRideForm(req, res) {
 
     new_ride.save().catch((err) => {
       let msg = dbErrorHandler(err);
-      res.render("myRideForm", {
+      res.render(views, {
         msg: msg
       });
     });
@@ -227,7 +239,7 @@ async function postMyRideForm(req, res) {
       }
     }
   } else {
-    res.render("myRideForm", {
+    res.render(views, {
       msg: "Please provide all data"
     });
   }
@@ -243,9 +255,11 @@ async function editMyRideForm(req, res) {
       _id: id
     });
     if (ride) {
+      //depend on the type render the correspond form
+      let views=ride.type==="taxi"?"myRideFormTaxi":"myRideFormGoods";
       //converting time format so we can set that as value  
       ride.time = convertTimeToTime(ride.time);
-      res.render("myRideForm", {
+      res.render(views, {
         rider: req.user,
         ride: ride
       });
@@ -271,6 +285,8 @@ async function postEditMyRideForm(req, res) {
       time,
       date
     } = req.body;
+    //depend on the type render the correspond form
+    let views=type==="taxi"?"myRideFormTaxi":"myRideFormGoods";
     let time_array = convertTimeToString(time);
     time = time_array[0] + ":" + time_array[1] + " " + time_array[2];
 
@@ -298,12 +314,12 @@ async function postEditMyRideForm(req, res) {
       res.redirect("/rider/get/myrides/");
     }
   } else {
-    res.render("myRideForm", {
+    res.render(views, {
       msg: "Please provide all data"
     });
   }
 
-}
+} 
 async function removeMyRideForm(req, res) {
   if (req.body.id) {
     let id = req.body.id;
@@ -438,7 +454,7 @@ async function emailVerified(req, res) {
       rider.is_email_verified = true;
       new_rider = await rider.save();
       res.render("emailVerified", {
-        rider: ""
+        rider: req.user
       });
       return
     }
@@ -451,7 +467,9 @@ module.exports = {
   logout,
   getProfileById,
   post,
-  getMyRideForm,
+  getMyRideFormTaxi,
+  getMyRideFormGoods,
+  getMyRideOptions,
   editMyRideForm,
   postEditMyRideForm,
   postMyRideForm,

@@ -213,7 +213,7 @@ async function postBookARide(req, res) {
       if (ride.type === "taxi" && passenger) {
         let seats = Number(ride.passenger_left) - Number(passenger);
         if (seats) {
-          ride.status = seats + " Passenger can ride with his."
+          ride.status = seats + " Seats Left"
         }
         //if no seat 
         else {
@@ -319,7 +319,7 @@ async function unBookMyRide(req, res) {
         if (passenger_left === ride.passenger) {
           ride.status = "unbooked";
         } else {
-          ride.status = passenger_left + " Passenger can ride with his."
+          ride.status = passenger_left + " Seats Left"
         }
         ride = await ride.save().catch((err) => {
           let msg = dbErrorHandler(err);

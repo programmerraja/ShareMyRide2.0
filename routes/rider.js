@@ -31,11 +31,21 @@ router.post("/profile", checkBodyRiderHandler, authRiderHandler, riderController
 
 router.get("/get/myrides/", authRiderHandler, riderController.getMyRides);
 
-router.get("/get/myride/form", authRiderHandler, riderController.getMyRideForm);
-router.post("/post/myride/form", checkMailVerified,authRiderHandler,checkBodyRideHandler ,riderController.postMyRideForm);
+router.get("/get/ride/options", authRiderHandler, riderController.getMyRideOptions);
 
-router.get("/edit/myride/id/:id",authRiderHandler, riderController.editMyRideForm);
-router.post("/edit/myride/id/:id",checkMailVerified,checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
+router.get("/get/ride/taxi", authRiderHandler, riderController.getMyRideFormTaxi);
+router.post("/post/ride/taxi", checkMailVerified,authRiderHandler,checkBodyRideHandler ,riderController.postMyRideForm);
+
+router.get("/get/ride/goods&services", authRiderHandler, riderController.getMyRideFormGoods);
+router.post("/post/ride/goods&services", checkMailVerified,authRiderHandler,checkBodyRideHandler ,riderController.postMyRideForm);
+
+
+router.get("/edit/ride/taxi/id/:id",authRiderHandler, riderController.editMyRideForm);
+router.post("/edit/ride/taxi/id/:id",checkMailVerified,checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
+
+router.get("/edit/ride/goods&services/id/:id",authRiderHandler, riderController.editMyRideForm);
+router.post("/edit/ride/goods&services/id/:id",checkMailVerified,checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
+
 //if rider remove his ride we need to inform the user
 router.post("/remove/myride/", authRiderHandler, riderController.removeMyRideForm);
 

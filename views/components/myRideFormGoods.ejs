@@ -5,7 +5,9 @@
   <%}else {%>
   <div class="msg text-capitalize"><span><%= msg%></span></div>
   <%}%>
-  <form novalidate="" class="container form_container" method="post" action="/rider/post/myride/form">
+  <form novalidate="" class="container form_container" method="post" action="/rider/post/ride/goods&services">
+
+
               <div class="form-group">
                 <label class="form-label" for="formBasicFrom">Leaving from</label>
                 <input name="from" name="from" placeholder="Leaving from..."  type="text" id="formBasicFrom" class="form-control" required>
@@ -16,26 +18,20 @@
                 <input name="to" placeholder="Going to..."  type="text" id="formBasicTo" class="form-control" required>
               </div>
 
-              <div class="form-group">
-                <label>Type</label>
-                <select name="type" id="type">
-                         
-                          <option value="taxi">Taxi</option>
-                          <option value="goods&services">Goods & Service</option>
-                  </select>
-             </div>
-
+               <div class="form-group d-none">
+      <label>Type</label>
+      <select name="type" id="type">
+        <option value="goods&services">Goods & Service</option>
+      </select>
+    </div>
               <div class="form-group">
                 <label class="form-label" for="formBasicTo">Vehicle model</label>
                 <input name="model" placeholder="Vehicle model..."  type="text" id="formBasicTo" class="form-control" required> 
               </div> 
-             <div class="form-group">
-                <label class="form-label" for="formBasicAmount">How many passenger you can take? </label>
-                <input name="passenger" placeholder="How many passenger you can take"  type="number" id="formBasicAmount" class="form-control" required>
-              </div>
+        
 
              <div class="form-group">
-                <label class="form-label" for="formBasicAmount">Enter amount per seat </label>
+                <label class="form-label" for="formBasicAmount">Enter amount</label>
                 <input name="amount" placeholder="Enter the amount..."  type="number" id="formBasicAmount" class="form-control" required>
               </div>
 
@@ -48,10 +44,7 @@
                 <label>When are you going?</label><br>
                 <input type="date" value="" name="date">
               </div>
-              
-              
               <input type="submit" class="btn create_button" value="Post">
-              
         </form>
   </section>
 <% }else {%>
@@ -72,11 +65,10 @@
       <input name="to" placeholder="Going to..." type="text" id="formBasicTo" class="form-control" required value="<%= ride.to %>">
     </div>
 
-    <div class="form-group">
+    <div class="form-group d-none">
       <label>Type</label>
       <select name="type" id="type">
-        <option value="taxi" <%= ride.type==='Taxi'?'selected':''%>>Taxi</option>
-        <option value="goods&services" <%=ride.type==='goods&services'?'selected':''%>>Goods & Service</option>
+        <option value="goods&services">Goods & Service</option>
       </select>
     </div>
 
@@ -85,13 +77,9 @@
       <input name="model" placeholder="Vehicle model..." type="text" id="formBasicTo" class="form-control" required value="<%= ride.model %>">
     </div>
 
-    <div class="form-group">
-      <label class="form-label" for="formBasicAmount">How many passenger you can take? </label>
-      <input name="passenger" placeholder="How many passenger you can take" type="number" id="formBasicAmount" class="form-control" required value="<%= ride.passenger %>">
-    </div>
 
     <div class="form-group">
-      <label class="form-label" for="formBasicAmount">Enter amount per seat</label>
+      <label class="form-label" for="formBasicAmount">Enter amount</label>
       <input name="amount" placeholder="Enter amount per seat.." type="number" id="formBasicAmount" class="form-control" required value="<%= ride.amount %>">
     </div>
 
