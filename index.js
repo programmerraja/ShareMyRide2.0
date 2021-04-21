@@ -8,7 +8,8 @@ const bodyParser = require("body-parser");
 const session = require('express-session');
 const mongoose = require("mongoose");
 const mongoSanitize = require('express-mongo-sanitize');
-var xss = require('xss-clean');
+const xss = require('xss-clean');
+
 const MongoStore = require('connect-mongo').default;
 const passport = require("./passport/setup");
 //middleware

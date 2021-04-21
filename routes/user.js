@@ -10,6 +10,8 @@ const {
   checkBodyUserHandler,
   checkBodyRideHandler
 } = require("../middleware/checkBodyHandler");
+const sanitizeHTML = require("../middleware/sanitizeHTML");
+
 //util
 const {
   generateToken,
@@ -24,26 +26,26 @@ const router = express.Router();
 
 //route for /user
 router.get("/profile", authUserHandler, userController.get);
-router.post("/profile", authUserHandler, checkBodyUserHandler, asyncHandler(userController.post));
+router.post("/profile", sanitizeHTML, authUserHandler, checkBodyUserHandler, asyncHandler(userController.post));
 
 router.get("/book/ride/:id", authUserHandler, asyncHandler(userController.bookARide));
-router.post("/book/ride/", authUserHandler, asyncHandler(userController.postBookARide));
+router.post("/book/ride/", sanitizeHTML, authUserHandler, asyncHandler(userController.postBookARide));
 
-router.post("/unbook/ride/", authUserHandler, asyncHandler(userController.unBookMyRide));
+router.post("/unbook/ride/", sanitizeHTML, authUserHandler, asyncHandler(userController.unBookMyRide));
 router.get("/booked/rides/", authUserHandler, asyncHandler(userController.getMyBookedRides));
 
-router.post("/set/alert/", authUserHandler, asyncHandler(userController.setAlertOnSearch));
-router.post("/unset/alert/:id", authUserHandler, asyncHandler(userController.unSetAlertOnSearch));
+router.post("/set/alert/", sanitizeHTML, authUserHandler, asyncHandler(userController.setAlertOnSearch));
+router.post("/unset/alert/:id", sanitizeHTML, authUserHandler, asyncHandler(userController.unSetAlertOnSearch));
 
 
 
 router.get("/verifiy/email/:id", asyncHandler(userController.emailVerified));
 
 router.get("/reset/password/:id", userController.resetPassword);
-router.post("/reset/password/:id", asyncHandler(userController.postResetPassword));
+router.post("/reset/password/:id", sanitizeHTML, asyncHandler(userController.postResetPassword));
 
 router.get("/forget/password/", userController.forgetPassword);
-router.post("/forget/password/", asyncHandler(userController.postForgetPassword));
+router.post("/forget/password/", sanitizeHTML, asyncHandler(userController.postForgetPassword));
 
 router.get("/logout", authUserHandler, userController.logout);
 

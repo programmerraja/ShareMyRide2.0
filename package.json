@@ -23,6 +23,7 @@
     "nodemailer": "^6.5.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "sanitize-html": "^2.3.3",
     "ua-parser-js": "^0.7.22",
     "validator": "^13.5.2",
     "xss-clean": "^0.1.1"

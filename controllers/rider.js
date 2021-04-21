@@ -51,6 +51,7 @@ async function getProfileById(req, res) {
 async function post(req, res) {
   //need to check if rider realy change anything else dont update if rider change his mail 
   //send the confirmation message
+  console.log(req.body);
   if (res.locals.is_correct) {
     let {
       name,
@@ -149,17 +150,71 @@ function getMyRideFormTaxi(req, res) {
   });
 }
 
-function getMyRideFormGoods(req,res){
-   res.render("myRideFormGoods", {
+function getMyRideFormGoods(req, res) {
+  res.render("myRideFormGoods", {
     rider: req.user
   });
 }
+
 function getMyRideOptions(req, res) {
   res.render("rideOptions", {
     rider: req.user
   });
 }
 
+async function getBookedUsers(req, res) {
+  if (req.params.id) {
+    let ride_id = req.params.id;
+    //getting ride detail to get rider_id so only we can check if the req rider has acess to see
+    let rider = await Ride.findOne({
+      _id: ride_id
+    });
+    //allow only if rider has access
+    if (rider.rider_id === req.user._id); {
+      //getting booking to get the booked user id
+      let booking = await Booking.find({
+        ride_id: ride_id
+      });
+      let users_id = [];
+      let users = [];
+      booking.forEach((booking, i) => {
+        //putting user id and no of passenger  to array
+        if (booking.ride_id) {
+          users_id.push([booking.user_id, booking.passenger]);
+        }
+      });
+
+      let length = users_id.length
+      async function getUsers(index) {
+        //getting the user data
+        let user = await User.findOne({
+          _id: users_id[index][0]
+        });
+        if (user) {
+          //adding no of passenget to user obj 
+          user._doc.passenger = users_id[index][1];
+          users.push(user);
+          if (index + 1 < length) {
+            await getUsers(index + 1)
+          }
+        } else {
+          if (index + 1 < length) {
+            await getUsers(index + 1)
+          }
+        }
+      }
+      //used recursion function so only we can use async await 
+      //call only if the Users avalible
+      if (length) {
+        await getUsers(0);
+        res.render("bookedUsers", {
+          users: users
+        });
+      }
+    }
+  }
+
+}
 async function postMyRideForm(req, res) {
   if (res.locals.is_correct_ride) {
     let {
@@ -172,7 +227,7 @@ async function postMyRideForm(req, res) {
       time,
       date
     } = req.body;
-    let views=type==="taxi"?"myRideFormTaxi":"myRideFormGoods";
+    let views = type === "taxi" ? "myRideFormTaxi" : "myRideFormGoods";
     //converting to lower case
     from = from.toLowerCase();
     to = to.toLowerCase();
@@ -256,7 +311,7 @@ async function editMyRideForm(req, res) {
     });
     if (ride) {
       //depend on the type render the correspond form
-      let views=ride.type==="taxi"?"myRideFormTaxi":"myRideFormGoods";
+      let views = ride.type === "taxi" ? "myRideFormTaxi" : "myRideFormGoods";
       //converting time format so we can set that as value  
       ride.time = convertTimeToTime(ride.time);
       res.render(views, {
@@ -286,7 +341,7 @@ async function postEditMyRideForm(req, res) {
       date
     } = req.body;
     //depend on the type render the correspond form
-    let views=type==="taxi"?"myRideFormTaxi":"myRideFormGoods";
+    let views = type === "taxi" ? "myRideFormTaxi" : "myRideFormGoods";
     let time_array = convertTimeToString(time);
     time = time_array[0] + ":" + time_array[1] + " " + time_array[2];
 
@@ -319,7 +374,7 @@ async function postEditMyRideForm(req, res) {
     });
   }
 
-} 
+}
 async function removeMyRideForm(req, res) {
   if (req.body.id) {
     let id = req.body.id;
@@ -470,6 +525,7 @@ module.exports = {
   getMyRideFormTaxi,
   getMyRideFormGoods,
   getMyRideOptions,
+  getBookedUsers,
   editMyRideForm,
   postEditMyRideForm,
   postMyRideForm,

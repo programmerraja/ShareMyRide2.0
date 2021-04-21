@@ -1,0 +1,38 @@
+<div class="users_container">
+  <p class="text-uppercase text-muted text-center mt-2">booked user's</p>
+  <% if(!(typeof users==="undefined")) {%>
+  <% if(users.length>0) { %>
+  <% users.forEach((user,i)=>{ %>
+  <div class="user">
+
+    <div class="user_face">
+      <img src="/public/img/user.svg" alt="vechiles">
+    </div>
+
+    <div class="user_detail">
+      <div class="user_text font-weight-bold">
+        <p class="text-capitalize m-0"><%=user.name%></p>
+      </div>
+
+      <div class="user_text text-muted ">
+        <p class="m-0"><i class="fas fa-envelope-open-text" style="color:var(--secondary-color);"></i><%=user.email%></p>
+      </div>
+      <div class="user_text text-muted  ">
+        <p class="m-0"><i class="fab fa-whatsapp" style="color: #0bc30b;"></i><%=user.whatsappno%></p>
+      </div>
+      <% if(user._doc.passenger) { %>
+      <div class="user_text text-muted">
+        <p class="text-capitalize m-0"><i class="fas fa-users"></i><%=user._doc.passenger%></p>
+      </div>
+      <% } %>
+    </div>
+
+  </div>
+  <%});%>
+  <%}else { %>
+  <p class="text-muted text-capitalize text-center m-5">No ride's Booked so far </p>
+  <% } %>
+</div>
+<%}else { %>
+<p class="text-muted text-capitalize text-center m-5">No ride's Booked so far </p>
+<% }%>
