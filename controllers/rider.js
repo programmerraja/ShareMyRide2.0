@@ -166,17 +166,18 @@ async function getBookedUsers(req, res) {
   if (req.params.id) {
     let ride_id = req.params.id;
     //getting ride detail to get rider_id so only we can check if the req rider has acess to see
-    let rider = await Ride.findOne({
+    let ride = await Ride.findOne({
       _id: ride_id
     });
     //allow only if rider has access
-    if (rider.rider_id === req.user._id); {
+    if (ride.rider_id === req.user._id); {
       //getting booking to get the booked user id
       let booking = await Booking.find({
         ride_id: ride_id
       });
       let users_id = [];
       let users = [];
+      let booked=0
       booking.forEach((booking, i) => {
         //putting user id and no of passenger  to array
         if (booking.ride_id) {
@@ -193,6 +194,8 @@ async function getBookedUsers(req, res) {
         if (user) {
           //adding no of passenget to user obj 
           user._doc.passenger = users_id[index][1];
+          //adding to find total booked seats
+          booked+= users_id[index][1];
           users.push(user);
           if (index + 1 < length) {
             await getUsers(index + 1)
@@ -207,8 +210,13 @@ async function getBookedUsers(req, res) {
       //call only if the Users avalible
       if (length) {
         await getUsers(0);
+        let unbooked=parseInt(booked)-parseInt(ride.passenger)
         res.render("bookedUsers", {
-          users: users
+          seats:ride.passenger,
+          booked:booked,
+          unbooked:unbooked,
+          users: users,
+          user:req.user
         });
       }
     }

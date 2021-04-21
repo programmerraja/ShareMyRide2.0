@@ -1,5 +1,11 @@
 <div class="users_container">
   <p class="text-uppercase text-muted text-center mt-2">booked user's</p>
+  <div class="ride_status d-flex flex-wrap justify-content-around align-items-center">
+  <p class="text-capitalize text-center text-primary">Total seats:<%= seats %></p>
+  <p class="text-capitalize text-center text-success">booked seats:<%= booked %></p>
+  <p class="text-capitalize text-center text-danger">unbooked seats:<%= unbooked %></p>
+</div>
+
   <% if(!(typeof users==="undefined")) {%>
   <% if(users.length>0) { %>
   <% users.forEach((user,i)=>{ %>
