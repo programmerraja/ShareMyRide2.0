@@ -15,7 +15,7 @@
 .search_background-text {
   font-size: 60px;
   font-weight: bold;
-  color: var(--secondary-color);
+  color: white;
   text-transform: capitalize;
 }
 
@@ -100,14 +100,25 @@
 
 /*      Section 1  */
 
-.section1 {
+.section1,
+.section2{
   display: flex;
   margin: 20px 0;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
+.section2{
+  background-color: #f7f7f7;
+  padding-left: 20px;
+  justify-content: space-around;
+  padding-right: 20px; 
+}
 
+.section1_image,
+.section2_text{
+  width: 380px;
+}
 .section1_image img {
   height: 270px;
   max-width: 380px;
@@ -117,7 +128,10 @@
 .section1_text {
   padding: 0 20px;
 }
-
+.section2_text,
+.section1_img{
+  width: 450px; 
+}
 .section1_text-heading {
   font-size: 23px;
   font-weight: bold;
@@ -132,7 +146,35 @@
   cursor: pointer;
   height: 48px;
 }
+.section3{
+   padding-left: 20px;
+  padding-right: 20px; 
+}
+.section3_opt{
+  display: flex;
+  justify-content: space-around;
+  align-items:center;
+  flex-wrap: wrap;
+}
+.section3 img{
+  height: 60px;
+}
+.section3_sub{
+  max-width: 400px;
+  padding-left: 1rem;
+}
+.section3_sub,
+.section3_text{
+}
+.section3_text{
 
+  font-size: 0.9rem;
+}
+.section3_text-heading{
+  font-size: 19px;
+  font-weight: bold;
+  margin: 1px;
+}
 /*  footer */
 footer {
 
