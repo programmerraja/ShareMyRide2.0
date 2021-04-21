@@ -51,7 +51,6 @@ async function getProfileById(req, res) {
 async function post(req, res) {
   //need to check if rider realy change anything else dont update if rider change his mail 
   //send the confirmation message
-  console.log(req.body);
   if (res.locals.is_correct) {
     let {
       name,
@@ -210,7 +209,7 @@ async function getBookedUsers(req, res) {
       //call only if the Users avalible
       if (length) {
         await getUsers(0);
-        let unbooked=parseInt(booked)-parseInt(ride.passenger)
+        let unbooked=parseInt(ride.passenger)-parseInt(booked);
         res.render("bookedUsers", {
           seats:ride.passenger,
           booked:booked,
