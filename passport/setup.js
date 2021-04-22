@@ -28,7 +28,6 @@ passport.use(new LocalStrategy({
 }, AuthUser));
 
 async function AuthUser(email, password, done) {
-  console.log(email, password)
   try {
     //first checking he is rider
     let rider = await Rider.findOne({

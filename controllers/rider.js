@@ -215,7 +215,7 @@ async function getBookedUsers(req, res) {
           booked:booked,
           unbooked:unbooked,
           users: users,
-          user:req.user
+          rider:req.user
         });
       }
     }
@@ -382,18 +382,19 @@ async function postEditMyRideForm(req, res) {
   }
 
 }
+
 async function removeMyRideForm(req, res) {
   if (req.body.id) {
-    let id = req.body.id;
+    let ride_id = req.body.id;
     let rider = req.user;
     let rider_id = rider._id;
     let ride = await Ride.deleteOne({
-      _id: id,
-      rider_id,
-      rider_id
+      _id: ride_id,
+      rider_id:rider_id
     });
+    let booking=await Booking.deleteMany({ride_id:ride_id});
     //need to show rider if some thing bad for better use js in client side 
-    if (ride) {
+    if (ride && booking) {
       res.json({
         "status": "Sucess",
         msg: "Successfully Removed"

@@ -134,7 +134,7 @@ async function getMyBookedRides(req, res) {
   if (length) {
     await getRides(0);
   }
-  res.render("myBookedRides", {
+  res.render("BookedRides", {
     user: req.user,
     rides
   });
