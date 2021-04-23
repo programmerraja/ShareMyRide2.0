@@ -24,7 +24,7 @@
         <p class="m-0"><i class="fas fa-envelope-open-text" style="color:var(--secondary-color);"></i><%=user.email%></p>
       </div>
       <div class="user_text text-muted  ">
-        <p class="m-0"><i class="fab fa-whatsapp" style="color: #0bc30b;"></i><%=user.whatsappno%></p>
+        <p class="m-0"><i class="fab fa-whatsapp" style="color: #0bc30b;"></i><a href="https://web.whatsapp.com/send?phone='<%= user.whatsappno %>.'" ><%=user.whatsappno%></a></p>
       </div>
       <% if(user._doc.passenger) { %>
       <div class="user_text text-muted">
