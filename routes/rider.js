@@ -6,7 +6,7 @@ const {
   authRiderHandler
 } = require("../middleware/authHandler");
 const asyncHandler = require("../middleware/asyncHandler");
-const checkMailVerified = require("../middleware/checkMailVerified");
+const {checkVerified} = require("../middleware/checkMailVerified");
 const sanitizeHTML = require("../middleware/sanitizeHTML");
 
 const {
@@ -39,16 +39,16 @@ router.get("/get/booked/users/id/:id", authRiderHandler, riderController.getBook
 router.get("/get/ride/options", authRiderHandler, riderController.getMyRideOptions);
 
 router.get("/get/ride/taxi", authRiderHandler, riderController.getMyRideFormTaxi);
-router.post("/post/ride/taxi", sanitizeHTML, checkMailVerified, authRiderHandler, checkBodyRideHandler, riderController.postMyRideForm);
+router.post("/post/ride/taxi", sanitizeHTML, checkVerified, authRiderHandler, checkBodyRideHandler, riderController.postMyRideForm);
 
 router.get("/get/ride/goods&services", authRiderHandler, riderController.getMyRideFormGoods);
-router.post("/post/ride/goods&services", sanitizeHTML, checkMailVerified, authRiderHandler, checkBodyRideHandler, riderController.postMyRideForm);
+router.post("/post/ride/goods&services", sanitizeHTML, checkVerified, authRiderHandler, checkBodyRideHandler, riderController.postMyRideForm);
 
 router.get("/edit/ride/taxi/id/:id", authRiderHandler, riderController.editMyRideForm);
-router.post("/edit/ride/taxi/id/:id", sanitizeHTML, checkMailVerified, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
+router.post("/edit/ride/taxi/id/:id",  checkVerified,sanitizeHTML, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
 
 router.get("/edit/ride/goods&services/id/:id", authRiderHandler, riderController.editMyRideForm);
-router.post("/edit/ride/goods&services/id/:id", sanitizeHTML, checkMailVerified, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
+router.post("/edit/ride/goods&services/id/:id",checkVerified, sanitizeHTML, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
 
 //if rider remove his ride we need to inform the user
 router.post("/remove/myride/", authRiderHandler, riderController.removeMyRideForm);

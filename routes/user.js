@@ -10,6 +10,8 @@ const {
   checkBodyUserHandler,
   checkBodyRideHandler
 } = require("../middleware/checkBodyHandler");
+const {checkMailVerified} = require("../middleware/checkMailVerified");
+
 const sanitizeHTML = require("../middleware/sanitizeHTML");
 
 //util
@@ -29,7 +31,7 @@ router.get("/profile", authUserHandler, userController.get);
 router.post("/profile", sanitizeHTML, authUserHandler, checkBodyUserHandler, asyncHandler(userController.post));
 
 router.get("/book/ride/:id", authUserHandler, asyncHandler(userController.bookARide));
-router.post("/book/ride/", sanitizeHTML, authUserHandler, asyncHandler(userController.postBookARide));
+router.post("/book/ride/",checkMailVerified, sanitizeHTML, authUserHandler, asyncHandler(userController.postBookARide));
 
 router.post("/unbook/ride/", sanitizeHTML, authUserHandler, asyncHandler(userController.unBookMyRide));
 router.get("/booked/rides/", authUserHandler, asyncHandler(userController.getMyBookedRides));

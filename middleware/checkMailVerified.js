@@ -1,4 +1,4 @@
-function checkMailVerified(req, res, next) {
+function checkVerified(req, res, next) {
 
   //depend on the type render the correspond form
   let views = req.body.type === "taxi" ? "myRideFormTaxi" : "myRideFormGoods";
@@ -22,4 +22,17 @@ function checkMailVerified(req, res, next) {
 
 }
 
-module.exports = checkMailVerified;
+function checkMailVerified(req, res, next) {
+  if (req.user.is_email_verified) {
+    next()
+    return
+  }
+  res.json({
+        "status": "Failed",
+        msg: "Please verify your mail to book the ride."
+      });
+  return;
+
+
+}
+module.exports ={ checkVerified,checkMailVerified};
