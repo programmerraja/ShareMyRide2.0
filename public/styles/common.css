@@ -199,7 +199,7 @@ select {
 
 input[type='button'],
 input[type='submit'],
-textarea {
+textarea {  
   width: auto;
   height: calc(1.5em + .50rem + 1px) !important;
   color: white !important;
@@ -229,6 +229,7 @@ input[type='password']:focus,
 input[type='date']:focus,
 input[type='number']:focus,
 input[type='time']:focus,
+input[type='file']:focus,
 textarea:focus,
 select:focus {
   color: #495057 !important;
@@ -500,10 +501,12 @@ select {
     margin-left: 25px;
   }
 
-  textarea.form-control {
+  textarea.form-control{
     width: 85% !important;
   }
-
+  input[type='file']{
+    width: 95%;
+  }
   /*  NAV POPUP HOME*/
   .home_img {
     display: none;

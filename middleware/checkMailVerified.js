@@ -2,8 +2,8 @@ function checkVerified(req, res, next) {
 
   //depend on the type render the correspond form
   let views = req.body.type === "taxi" ? "myRideFormTaxi" : "myRideFormGoods";
-  if (!req.user.is_email_verified) {
-    if (!req.user.is_verified) {
+  if (req.user.is_email_verified) {
+    if (req.user.is_verified) {
       next()
       return
     } else {

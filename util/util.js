@@ -191,6 +191,7 @@ const path = require("path");
 
 
 // Create storage engine
+//todo if failed we need to remove the image 
 const storage = new GridFsStorage({
   url:process.env.DBURL,
   file: (req, file) => {
