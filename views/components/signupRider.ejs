@@ -4,7 +4,7 @@
 	  <%}else {%>
 	  <div class="msg"><span><%= msg%></span></div>
 	  <%}%>
-        <form novalidate="" class="container form_container" method="post" action="/signup/rider">
+        <form novalidate="" class="container form_container" method="post" action="/signup/rider" enctype="multipart/form-data">
               <div class="form-group">
                 <label class="form-label" for="formBasicName">Name</label>
                 <input name="name" name="name" placeholder="Enter Name" required="" type="text" id="formBasicName" class="form-control">
@@ -63,7 +63,10 @@
                 </label>
                <textarea placeholder="Example: &quot;I'm a student at Chennai University, and I often visit friends in tirunelveli. I love photography and rock music.&quot;" class="form-control" name="bio" maxlength="500"></textarea>
               </div>
-              
+              <div class="form-group">
+                <label class="form-label" for="formBasicPhoneno">profile</label>
+                <input type="file" name="profile">
+              </div>
               <input type="submit" class="btn create_button" value="Create account">
               
         </form>

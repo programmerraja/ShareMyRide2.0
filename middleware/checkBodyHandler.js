@@ -27,6 +27,7 @@ function checkBodyUserHandler(req, res, next) {
     password,
     whatsappno
   } = req.body;
+  console.log(req.file)
   if ((name && email && password && whatsappno)) {
     res.locals.is_correct = true;
   } else {

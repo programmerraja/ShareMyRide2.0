@@ -1,10 +1,13 @@
 //node modules
 const mongoose = require("mongoose");
+const Grid = require('gridfs-stream');
 const bcrypt = require('bcrypt');
 //models
 const Ride = require("../models/Ride");
 const Rider = require("../models/Rider");
 const Alert = require("../models/Alert");
+
+
 
 //util
 const {
@@ -17,10 +20,33 @@ const {
   convertTimeToTime
 } = require("../util/util");
 
+
+//db
+var conn = mongoose.createConnection(process.env.DBURL,{useNewUrlParser: true,useUnifiedTopology: true});
+// Initialize GridFS
+let gfs;
+conn.once('open', () => {
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection('profiles');
+});
+
+
 //handling GET /signin
 function get(req, res) {
   res.render("riderProfile", {
     rider: req.user
+  });
+}
+
+function getProfilePicture(req,res){
+  gfs.files.findOne({ filename: req.params.name }, (err, file) => {
+    if (!file || file.length === 0) return res.status(404).json({ err: 'No file exists' });
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+      const readstream = gfs.createReadStream(file.filename);
+      readstream.pipe(res);
+    } else {
+      res.status(404).json({ err: 'Not an image' });
+    }
   });
 }
 
@@ -89,6 +115,9 @@ async function post(req, res) {
         rider.licenseno = licenseno;
         rider.drivingexpereince = drivingexpereince;
         rider.bio = bio;
+        if(req.file){
+          rider.profile=req.file.filename;
+        }
         rider = await rider.save().catch((err) => {
           let msg = dbErrorHandler(err)
           res.render("riderProfile", {
@@ -527,6 +556,7 @@ async function emailVerified(req, res) {
 
 module.exports = {
   get,
+  getProfilePicture,
   logout,
   getProfileById,
   post,

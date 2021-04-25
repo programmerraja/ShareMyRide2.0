@@ -5,13 +5,16 @@ require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
+const crypto = require('crypto');
+
 const session = require('express-session');
 const mongoose = require("mongoose");
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
-
 const MongoStore = require('connect-mongo').default;
 const passport = require("./passport/setup");
+const Grid = require('gridfs-stream');
+
 //middleware
 const errorHandler = require("./middleware/errorHandler");
 //routers
@@ -27,10 +30,10 @@ const userrouter = require("./routes/user");
 const adminrouter = require("./routes/admin");
 
 
+
 const app = new express();
 const MONGO_URI = process.env.DBURL;
 
-//db connect
 mongoose
   .connect(MONGO_URI, {
     useNewUrlParser: true,
@@ -38,6 +41,19 @@ mongoose
   })
   .then(console.log(`MongoDB connected ${MONGO_URI}`))
   .catch(err => console.log(err));
+  
+var conn = mongoose.createConnection(MONGO_URI,{useNewUrlParser: true,useUnifiedTopology: true});
+
+
+// Initialize GridFS
+let gfs;
+conn.once('open', () => {
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection('profiles');
+});
+
+
+
 
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useFindAndModify', false);
@@ -61,6 +77,7 @@ app.use(session({
     mongoUrl: MONGO_URI
   })
 }));
+
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
@@ -79,7 +96,7 @@ app.use("/signin/rider", signinRiderrouter);
 app.use("/signup/rider", signupRiderrouter);
 
 app.use("/signin/user", signinUserrouter);
-app.use("/signup/user", signupUserrouter);
+app.use("/signup/user",signupUserrouter);
 
 app.use("/signin/", (req, res) => {
   res.render("signinOptions", {
@@ -94,9 +111,8 @@ app.use("/signup/", (req, res) => {
 
 app.use("/search", searchrouter);
 app.use("/rider", riderrouter);
-app.use("/user", userrouter);
+app.use("/user",userrouter);
 app.use("/admin/dashboard/", adminrouter);
-
 
 app.get("/", (req, res) => {
   //if he is rider 
@@ -122,10 +138,11 @@ app.get("/*", (req, res) => {
   res.render("error");
 })
 
-process.on("uncaughtException", () => {
-  console.log("uncaughtException")
+process.on("uncaughtException", (error) => {
+  console.log("uncaughtException",error)
 })
 
 app.listen(port, () => {
   console.log("server started")
 });
+

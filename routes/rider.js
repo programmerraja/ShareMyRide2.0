@@ -22,15 +22,40 @@ const {
   verfiyMail,
   dbErrorHandler
 } = require("../util/util");
+const mongoose = require("mongoose");
+const Grid = require('gridfs-stream');
+const {upload}=require("../util/util");
 
+var conn = mongoose.createConnection(process.env.DBURL,{useNewUrlParser: true,useUnifiedTopology: true});
+
+
+// Initialize GridFS
+let gfs;
+conn.once('open', () => {
+  gfs = Grid(conn.db, mongoose.mongo);
+  gfs.collection('profiles');
+});
 
 const router = express.Router();
+router.get("/profile/:name",(req, res) => {
 
+  gfs.files.findOne({ filename: req.params.name }, (err, file) => {
+    if (!file || file.length === 0) return res.status(404).json({ err: 'No file exists' });
+    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+      const readstream = gfs.createReadStream(file.filename);
+      readstream.pipe(res);
+    } else {
+      res.status(404).json({ err: 'Not an image' });
+    }
+  });
+});
 //route for /rider
 router.get("/profile", authRiderHandler, riderController.get);
+router.get("/profile/:name",riderController.getProfilePicture);
+
 router.get("/profile/id/:id", riderController.getProfileById);
 
-router.post("/profile", sanitizeHTML, checkBodyRiderHandler, authRiderHandler, riderController.post);
+router.post("/profile",authRiderHandler,upload.single("profile"), sanitizeHTML, checkBodyRiderHandler, riderController.post);
 
 router.get("/get/myrides/", authRiderHandler, riderController.getMyRides);
 

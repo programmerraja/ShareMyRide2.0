@@ -1,5 +1,7 @@
 var nodemailer = require('nodemailer');
 const crypto = require("crypto");
+const GridFsStorage = require('multer-gridfs-storage');
+const multer = require('multer');
 
 function generateToken() {
   const token = crypto.randomBytes(10).toString("hex");
@@ -185,6 +187,32 @@ function convertTimeToTime(time) {
   minutes = minutes < 10 ? "0" + minutes : minutes
   return hours + ":" + minutes + ":00";
 }
+const path = require("path");
+
+
+// Create storage engine
+const storage = new GridFsStorage({
+  url:process.env.DBURL,
+  file: (req, file) => {
+    return new Promise((resolve, reject) => {
+      crypto.randomBytes(16, (err, buf) => {
+        if (err) return reject(err);
+        const filename = buf.toString('hex') + path.extname(file.originalname);
+        const fileInfo = {
+        filename: filename,
+        bucketName: 'profiles'
+      };
+      console.log(fileInfo,'ss')
+      resolve(fileInfo);
+    });
+  });
+  }
+});
+
+//middleware to store file in db
+const upload = multer({ storage });
+
+
 module.exports = {
   generateToken,
   sendPasswordReset,
@@ -196,5 +224,6 @@ module.exports = {
   logError,
   dbErrorHandler,
   convertTimeToString,
-  convertTimeToTime
+  convertTimeToTime,
+  upload
 };

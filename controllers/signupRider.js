@@ -37,6 +37,7 @@ async function post(req, res) {
     email: req.body.email
   });
   if (!user) {
+    let profile=req.file.filename?req.file.filename:"/public/img/user.svg";
     let hash = bcrypt.hashSync(req.body.password, salt_rounds);
     req.body.password = hash;
     let new_rider = new Rider({
@@ -49,7 +50,8 @@ async function post(req, res) {
       whatsappno: req.body.whatsappno,
       drivingexpereince: req.body.drivingexpereince,
       licenseno: req.body.licenseno,
-      bio: req.body.bio
+      bio: req.body.bio,
+      profile:profile
     });
 
     new_rider = await new_rider.save().catch((err) => {

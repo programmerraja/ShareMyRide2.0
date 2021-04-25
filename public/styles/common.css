@@ -70,6 +70,7 @@ nav li .nav-link:hover {
 .user_img {
   height: 35px;
   position: relative;
+  border-radius: 50%;
 }
 
 .arrow,
@@ -155,10 +156,12 @@ nav li .nav-link:hover {
 
 .profile_img {
   margin-right: 33px;
+
 }
 
 .profile_img img {
   height: 68px;
+  border-radius: 50%;
 }
 
 .profile_text {}

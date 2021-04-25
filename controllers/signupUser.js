@@ -38,13 +38,15 @@ async function postHandler(req, res) {
     email: req.body.email
   });
   if (!rider) {
+    let profile=req.file.filename?req.file.filename:"/public/img/user.svg";
     let hash = bcrypt.hashSync(req.body.password, salt_rounds);
     req.body.password = hash;
     let new_user = new User({
       name: req.body.name,
       email: req.body.email,
       password: req.body.password,
-      whatsappno: req.body.whatsappno
+      whatsappno: req.body.whatsappno,
+      profile:profile
     });
 
     new_user = await new_user.save().catch((err) => {

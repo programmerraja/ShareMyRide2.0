@@ -4,8 +4,8 @@
 	  <%}else {%>
 	  <div class="msg"><span><%= msg%></span></div>
 	  <%}%>
-        <form novalidate="" class="container form_container" method="post" action="/signup/user">
-              <div class="form-group">
+        <form novalidate="" class="container form_container" method="post" action="/signup/user" enctype="multipart/form-data">
+             <div class="form-group">
                 <label class="form-label" for="formBasicName">Name</label>
                 <input name="name" name="name" placeholder="Enter Name" required="" type="text" id="formBasicName" class="form-control">
               </div>
@@ -24,8 +24,13 @@
                 <label class="form-label" for="formBasicPhoneno">Whatsapp No</label>
                 <input name="whatsappno" placeholder="Whatsapp No" required="" type="number" id="formBasicPhoneno" class="form-control">
               </div>
+              
+               <div class="form-group">
+                <label class="form-label" for="formBasicPhoneno">profile</label>
+                <input type="file" name="profile">
+              </div>
 
-               
+              
               <input type="submit" class="btn create_button" value="Create account">
               
         </form>

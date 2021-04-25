@@ -36,7 +36,6 @@ const UserSchema = new mongoose.Schema({
   },
   phoneno: {
     type: Number,
-
   },
   whatsappno: {
     type: Number
@@ -44,6 +43,9 @@ const UserSchema = new mongoose.Schema({
   drivingexpereince: {
     type: String,
     required: true
+  },
+  profile:{
+    type:String,
   },
   licenseno: {
     type: String,

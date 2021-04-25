@@ -24,6 +24,9 @@ const UserSchema = new mongoose.Schema({
       type: String,
       required: true
     },
+    profile:{
+      type:String
+    },
     created_at: {
       type: Date,
       default: new Date()

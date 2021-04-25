@@ -4,7 +4,10 @@
 	  <%}else {%>
 	  <div class="msg"><span><%= msg%></span></div>
 	  <%}%>
-	  <form novalidate="" class="container form_container-wrapper" method="post" action="/rider/profile">
+	   <div class="profile_img d-flex align-items-center  justify-content-center">
+      		<img src="/rider/profile/<%= rider.profile%>" class="user_img">        
+    	</div>
+	  <form novalidate="" class="container form_container-wrapper" method="post" action="/rider/profile" enctype="multipart/form-data">
 	    <div class="form_container-in">
 	      <div class="form_container-in-left">
 	        <div class="form-group">
@@ -83,6 +86,11 @@
 	    </label>
 	    <textarea class="form-control" name="bio" maxlength="500"><%=rider.bio %></textarea>
 	  </div>
+
+	  <div class="form-group form_container-in-bottom">
+                <label class="form-label" for="formBasicPhoneno">profile</label>
+                <input type="file" name="profile">
+      </div>
 	  <input type="submit" class="btn create_button" value="Update Account">
 
 	  </form>
