@@ -37,7 +37,7 @@ async function post(req, res) {
     email: req.body.email
   });
   if (!user) {
-    let profile=req.file.filename?req.file.filename:"/public/img/user.svg";
+    let profile=req.file.filename;
     let hash = bcrypt.hashSync(req.body.password, salt_rounds);
     req.body.password = hash;
     let new_rider = new Rider({

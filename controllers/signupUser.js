@@ -38,7 +38,7 @@ async function postHandler(req, res) {
     email: req.body.email
   });
   if (!rider) {
-    let profile=req.file.filename?req.file.filename:"/public/img/user.svg";
+    let profile=req.file.filename;
     let hash = bcrypt.hashSync(req.body.password, salt_rounds);
     req.body.password = hash;
     let new_user = new User({

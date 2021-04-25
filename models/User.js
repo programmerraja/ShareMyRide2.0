@@ -25,7 +25,8 @@ const UserSchema = new mongoose.Schema({
       required: true
     },
     profile:{
-      type:String
+      type:String,
+      default:"/public/img/user.svg"
     },
     created_at: {
       type: Date,

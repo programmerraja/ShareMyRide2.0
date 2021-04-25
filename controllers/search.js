@@ -69,7 +69,8 @@ async function getSpecificRide(req, res) {
             ride,
             owner: {
               id: owner._id,
-              name: owner.name
+              name: owner.name,
+              profile:owner.profile
             },
             rider: req.user
           })
@@ -80,7 +81,8 @@ async function getSpecificRide(req, res) {
         ride,
         owner: {
           id: owner._id,
-          name: owner.name
+          name: owner.name,
+          profile:owner.profile
         },
         user: req.user
       })
