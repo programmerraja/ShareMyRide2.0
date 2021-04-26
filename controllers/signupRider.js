@@ -32,12 +32,12 @@ async function post(req, res) {
     });
     return
   }
-  //need to check if the  new rider is not user
+  //need to check if the new rider is not user
   let user = await User.findOne({
     email: req.body.email
   });
   if (!user) {
-    let profile=req.file.filename;
+    let profile = req.file.filename;
     let hash = bcrypt.hashSync(req.body.password, salt_rounds);
     req.body.password = hash;
     let new_rider = new Rider({
@@ -51,7 +51,7 @@ async function post(req, res) {
       drivingexpereince: req.body.drivingexpereince,
       licenseno: req.body.licenseno,
       bio: req.body.bio,
-      profile:profile
+      profile: profile
     });
 
     new_rider = await new_rider.save().catch((err) => {
@@ -66,7 +66,7 @@ async function post(req, res) {
       if (msg) {
         res.redirect("/signin/rider");
       } else {
-        //need to remove rider from database  if mail not send sucessfully
+        //need to remove rider from database if mail not send sucessfully
         await Rider.deleteOne({
           _id: new_rider._id
         }).catch((err) => {

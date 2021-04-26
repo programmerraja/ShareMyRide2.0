@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // Create Schema
 
-//need to change user_id type to id 
+//need to change user_id type to id
 const UserSchema = new mongoose.Schema({
     name: {
       type: String
@@ -24,9 +24,9 @@ const UserSchema = new mongoose.Schema({
       type: String,
       required: true
     },
-    profile:{
-      type:String,
-      default:"/public/img/user.svg"
+    profile: {
+      type: String,
+      default: "/public/img/user.svg"
     },
     created_at: {
       type: Date,

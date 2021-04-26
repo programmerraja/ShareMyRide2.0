@@ -13,11 +13,11 @@
   box-shadow: 0 0 6px 0 rgb(0 0 0 / 12%), 0 6px 6px 0 rgb(0 0 0 / 24%);
 }
 
-.rider_profile-top{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.rider_profile-top {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .rider_profile-img img {
@@ -38,9 +38,11 @@
   display: flex;
   justify-content: space-between;
 }
-.rider_profile-bottom{
+
+.rider_profile-bottom {
   margin-left: 86px;
 }
+
 .rider_profile-text p {
   width: 150px;
 }

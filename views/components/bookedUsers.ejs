@@ -1,10 +1,10 @@
 <div class="users_container">
   <p class="text-uppercase text-muted text-center mt-2">booked user's</p>
   <div class="ride_status d-flex flex-wrap justify-content-around align-items-center">
-  <p class="text-capitalize text-center text-primary">Total seats:<%= seats %></p>
-  <p class="text-capitalize text-center text-success">booked seats:<%= booked %></p>
-  <p class="text-capitalize text-center text-danger">unbooked seats:<%= unbooked %></p>
-</div>
+    <p class="text-capitalize text-center text-primary">Total seats:<%= seats %></p>
+    <p class="text-capitalize text-center text-success">booked seats:<%= booked %></p>
+    <p class="text-capitalize text-center text-danger">unbooked seats:<%= unbooked %></p>
+  </div>
 
   <% if(!(typeof users==="undefined")) {%>
   <% if(users.length>0) { %>
@@ -12,7 +12,7 @@
   <div class="user">
 
     <div class="user_face">
-        <img src="/user/profile/<%= user.profile %>" >
+      <img src="/user/profile/<%= user.profile %>">
     </div>
 
     <div class="user_detail">
@@ -24,7 +24,7 @@
         <p class="m-0"><i class="fas fa-envelope-open-text" style="color:var(--secondary-color);"></i><%=user.email%></p>
       </div>
       <div class="user_text text-muted  ">
-        <p class="m-0"><i class="fab fa-whatsapp" style="color: #0bc30b;"></i><a href="https://web.whatsapp.com/send?phone='<%= user.whatsappno %>.'" ><%=user.whatsappno%></a></p>
+        <p class="m-0"><i class="fab fa-whatsapp" style="color: #0bc30b;"></i><a href="https://web.whatsapp.com/send?phone='<%= user.whatsappno %>.'"><%=user.whatsappno%></a></p>
       </div>
       <% if(user._doc.passenger) { %>
       <div class="user_text text-muted">

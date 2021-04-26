@@ -4,10 +4,17 @@ const express = require("express");
 const userController = require("../controllers/user");
 
 //middleware
-const {authUserHandler} = require("../middleware/authHandler");
+const {
+  authUserHandler
+} = require("../middleware/authHandler");
 const asyncHandler = require("../middleware/asyncHandler");
-const {checkBodyUserHandler,checkBodyRideHandler} = require("../middleware/checkBodyHandler");
-const {checkMailVerified} = require("../middleware/checkMailVerified");
+const {
+  checkBodyUserHandler,
+  checkBodyRideHandler
+} = require("../middleware/checkBodyHandler");
+const {
+  checkMailVerified
+} = require("../middleware/checkMailVerified");
 const sanitizeHTML = require("../middleware/sanitizeHTML");
 const mongoose = require("mongoose");
 const Grid = require('gridfs-stream');
@@ -24,14 +31,16 @@ const {
 
 
 const router = express.Router();
-const {upload}=require("../util/util");
+const {
+  upload
+} = require("../util/util");
 //route for /user
 router.get("/profile", authUserHandler, userController.get);
-router.get("/profile/:name",userController.getProfilePicture);
-router.post("/profile", authUserHandler,upload.single("profile"),sanitizeHTML, checkBodyUserHandler, asyncHandler(userController.post));
+router.get("/profile/:name", userController.getProfilePicture);
+router.post("/profile", authUserHandler, upload.single("profile"), sanitizeHTML, checkBodyUserHandler, asyncHandler(userController.post));
 
 router.get("/book/ride/:id", authUserHandler, asyncHandler(userController.bookARide));
-router.post("/book/ride/",checkMailVerified, sanitizeHTML, authUserHandler, asyncHandler(userController.postBookARide));
+router.post("/book/ride/", checkMailVerified, sanitizeHTML, authUserHandler, asyncHandler(userController.postBookARide));
 
 router.post("/unbook/ride/", sanitizeHTML, authUserHandler, asyncHandler(userController.unBookMyRide));
 router.get("/booked/rides/", authUserHandler, asyncHandler(userController.getMyBookedRides));

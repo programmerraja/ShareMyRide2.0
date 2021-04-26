@@ -12,7 +12,10 @@ const User = require("../models/User");
 
 
 //db
-var conn = mongoose.createConnection(process.env.DBURL,{useNewUrlParser: true,useUnifiedTopology: true});
+var conn = mongoose.createConnection(process.env.DBURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 // Initialize GridFS
 let gfs;
 conn.once('open', () => {
@@ -36,14 +39,20 @@ function get(req, res) {
   });
 }
 
-function getProfilePicture(req,res){
-  gfs.files.findOne({ filename: req.params.name }, (err, file) => {
-    if (!file || file.length === 0) return res.status(404).json({ err: 'No file exists' });
+function getProfilePicture(req, res) {
+  gfs.files.findOne({
+    filename: req.params.name
+  }, (err, file) => {
+    if (!file || file.length === 0) return res.status(404).json({
+      err: 'No file exists'
+    });
     if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
       const readstream = gfs.createReadStream(file.filename);
       readstream.pipe(res);
     } else {
-      res.status(404).json({ err: 'Not an image' });
+      res.status(404).json({
+        err: 'Not an image'
+      });
     }
   });
 }
@@ -81,8 +90,8 @@ async function post(req, res) {
         user.name = name;
         user.email = email;
         user.whatsappno = whatsappno;
-        if(req.file){
-          user.profile=req.file.filename;
+        if (req.file) {
+          user.profile = req.file.filename;
         }
         user = await user.save().catch((err) => {
           let msg = dbErrorHandler(err)

@@ -22,7 +22,10 @@ const {
 
 
 //db
-var conn = mongoose.createConnection(process.env.DBURL,{useNewUrlParser: true,useUnifiedTopology: true});
+var conn = mongoose.createConnection(process.env.DBURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 // Initialize GridFS
 let gfs;
 conn.once('open', () => {
@@ -38,14 +41,20 @@ function get(req, res) {
   });
 }
 
-function getProfilePicture(req,res){
-  gfs.files.findOne({ filename: req.params.name }, (err, file) => {
-    if (!file || file.length === 0) return res.status(404).json({ err: 'No file exists' });
+function getProfilePicture(req, res) {
+  gfs.files.findOne({
+    filename: req.params.name
+  }, (err, file) => {
+    if (!file || file.length === 0) return res.status(404).json({
+      err: 'No file exists'
+    });
     if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
       const readstream = gfs.createReadStream(file.filename);
       readstream.pipe(res);
     } else {
-      res.status(404).json({ err: 'Not an image' });
+      res.status(404).json({
+        err: 'Not an image'
+      });
     }
   });
 }
@@ -75,7 +84,7 @@ async function getProfileById(req, res) {
 }
 
 async function post(req, res) {
-  //need to check if rider realy change anything else dont update if rider change his mail 
+  //need to check if rider realy change anything else dont update if rider change his mail
   //send the confirmation message
   if (res.locals.is_correct) {
     let {
@@ -91,7 +100,7 @@ async function post(req, res) {
       drivingexpereince,
       bio
     } = req.body;
-    //don't remove this 
+    //don't remove this
     let old_password = password;
 
     let rider_id = req.user._id;
@@ -115,8 +124,8 @@ async function post(req, res) {
         rider.licenseno = licenseno;
         rider.drivingexpereince = drivingexpereince;
         rider.bio = bio;
-        if(req.file){
-          rider.profile=req.file.filename;
+        if (req.file) {
+          rider.profile = req.file.filename;
         }
         rider = await rider.save().catch((err) => {
           let msg = dbErrorHandler(err)
@@ -168,7 +177,7 @@ async function getMyRides(req, res) {
     });
     return
   }
-  //render 404 
+  //render 404
   res.render("error");
 }
 
@@ -198,16 +207,16 @@ async function getBookedUsers(req, res) {
       _id: ride_id
     });
     //allow only if rider has access
-    if (ride.rider_id === req.user._id); {
+    if (ride.rider_id === req.user._id) {
       //getting booking to get the booked user id
       let booking = await Booking.find({
         ride_id: ride_id
       });
       let users_id = [];
       let users = [];
-      let booked=0
+      let booked = 0
       booking.forEach((booking, i) => {
-        //putting user id and no of passenger  to array
+        //putting user id and no of passenger to array
         if (booking.ride_id) {
           users_id.push([booking.user_id, booking.passenger]);
         }
@@ -220,10 +229,10 @@ async function getBookedUsers(req, res) {
           _id: users_id[index][0]
         });
         if (user) {
-          //adding no of passenget to user obj 
+          //adding no of passenget to user obj
           user._doc.passenger = users_id[index][1];
           //adding to find total booked seats
-          booked+= users_id[index][1];
+          booked += users_id[index][1];
           users.push(user);
           if (index + 1 < length) {
             await getUsers(index + 1)
@@ -233,107 +242,55 @@ async function getBookedUsers(req, res) {
             await getUsers(index + 1)
           }
         }
-      }
-      //used recursion function so only we can use async await 
-      //call only if the Users avalible
-      if (length) {
-        await getUsers(0);
-        let unbooked=parseInt(ride.passenger)-parseInt(booked);
-        res.render("bookedUsers", {
-          seats:ride.passenger,
-          booked:booked,
-          unbooked:unbooked,
-          users: users,
-          rider:req.user
-        });
-      }
-    }
-  }
-
-}
-async function postMyRideForm(req, res) {
-  if (res.locals.is_correct_ride) {
-    let {
-      from,
-      to,
-      type,
-      model,
-      passenger,
-      amount,
-      time,
-      date
-    } = req.body;
-    let views = type === "taxi" ? "myRideFormTaxi" : "myRideFormGoods";
-    //converting to lower case
-    from = from.toLowerCase();
-    to = to.toLowerCase();
-
-    let time_array = convertTimeToString(time);
-    time = time_array[0] + ":" + time_array[1] + " " + time_array[2];
-    let rider = req.user;
-    let rider_id = rider._id;
-    new_ride = new Ride({
-      rider_id: rider_id,
-      from,
-      to,
-      type,
-      model,
-      passenger,
-      passenger_left: passenger,
-      amount,
-      time,
-      date
-    });
-
-    new_ride.save().catch((err) => {
+      } //used recursion function so only we can use async await //call only if the Users avalible if (length) { await getUsers(0); let unbooked=parseInt(ride.passenger)-parseInt(booked); res.render("bookedUsers", { seats:ride.passenger, booked:booked, unbooked:unbooked, users: users, rider:req.user }); } } } } async function postMyRideForm(req, res) { if (res.locals.is_correct_ride) { let { from, to, type, model, passenger, amount, time, date }=req.body; let views=type==="taxi" ? "myRideFormTaxi" : "myRideFormGoods" ; //converting to lower case from=from.toLowerCase(); to=to.toLowerCase(); let time_array=convertTimeToString(time); time=time_array[0] + ":" + time_array[1] + " " + time_array[2]; let rider=req.user; let rider_id=rider._id; new_ride=new Ride({ rider_id: rider_id, from, to, type, model, passenger, passenger_left: passenger, amount, time, date }); new_ride.save().catch((err)=> {
       let msg = dbErrorHandler(err);
       res.render(views, {
         msg: msg
       });
     });
-    if (new_ride) {
-      res.redirect("/rider/get/myrides/");
-      //after sucessfully created check if it has alert
-      type = type.toLowerCase();
-      let alert = await Alert.find({
-        from: from,
-        to: to,
-        date: {
-          "$eq": date
-        },
-        type: type
-      });
-      let length = alert.length;
-      if (length) {
-        async function sentAlert(index) {
-          //if we find alert get user id and get his email
-          let user_id = alert[index].user_id;
-          let user = await User.findOne({
-            _id: user_id
-          });
-          if (user) {
-            let email = user.email;
-            let name = user.name;
-            let link = req.protocol + "://" + req.get("host") + "/search/ride/id/" + new_ride._id;
-            let alert_link = req.protocol + "://" + req.get("host") + "/user/unset/alert/" + alert[index]._id;
-            //sending mail to user who set alert
-            let msg = await sendAlertMail(email, name, alert[index], link, alert_link);
-            //call recursively until empty
-            index = index + 1;
-            if (length > index) {
-              await sentAlert(index);
-            }
+  if (new_ride) {
+    res.redirect("/rider/get/myrides/");
+    //after sucessfully created check if it has alert
+    type = type.toLowerCase();
+    let alert = await Alert.find({
+      from: from,
+      to: to,
+      date: {
+        "$eq": date
+      },
+      type: type
+    });
+    let length = alert.length;
+    if (length) {
+      async function sentAlert(index) {
+        //if we find alert get user id and get his email
+        let user_id = alert[index].user_id;
+        let user = await User.findOne({
+          _id: user_id
+        });
+        if (user) {
+          let email = user.email;
+          let name = user.name;
+          let link = req.protocol + "://" + req.get("host") + "/search/ride/id/" + new_ride._id;
+          let alert_link = req.protocol + "://" + req.get("host") + "/user/unset/alert/" + alert[index]._id;
+          //sending mail to user who set alert
+          let msg = await sendAlertMail(email, name, alert[index], link, alert_link);
+          //call recursively until empty
+          index = index + 1;
+          if (length > index) {
+            await sentAlert(index);
           }
         }
-        //passing first
-        await sentAlert(0);
       }
+      //passing first
+      await sentAlert(0);
     }
-  } else {
-    res.render(views, {
-      msg: "Please provide all data"
-    });
   }
+} else {
+  res.render(views, {
+    msg: "Please provide all data"
+  });
+}
 
 }
 async function editMyRideForm(req, res) {
@@ -348,7 +305,7 @@ async function editMyRideForm(req, res) {
     if (ride) {
       //depend on the type render the correspond form
       let views = ride.type === "taxi" ? "myRideFormTaxi" : "myRideFormGoods";
-      //converting time format so we can set that as value  
+      //converting time format so we can set that as value
       ride.time = convertTimeToTime(ride.time);
       res.render(views, {
         rider: req.user,
@@ -357,7 +314,7 @@ async function editMyRideForm(req, res) {
       return
     }
   }
-  // render the 404 page 
+  // render the 404 page
   res.render("error");
 
 }
@@ -419,10 +376,12 @@ async function removeMyRideForm(req, res) {
     let rider_id = rider._id;
     let ride = await Ride.deleteOne({
       _id: ride_id,
-      rider_id:rider_id
+      rider_id: rider_id
     });
-    let booking=await Booking.deleteMany({ride_id:ride_id});
-    //need to show rider if some thing bad for better use js in client side 
+    let booking = await Booking.deleteMany({
+      ride_id: ride_id
+    });
+    //need to show rider if some thing bad for better use js in client side
     if (ride && booking) {
       res.json({
         "status": "Sucess",

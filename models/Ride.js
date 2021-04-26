@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 // Create Schema
 
-//need to change user_id type to id 
+//need to change user_id type to id
 const RideSchema = new mongoose.Schema({
     rider_id: {
       type: String,

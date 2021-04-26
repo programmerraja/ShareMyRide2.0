@@ -28,11 +28,14 @@ function checkMailVerified(req, res, next) {
     return
   }
   res.json({
-        "status": "Failed",
-        msg: "Please verify your mail to book the ride."
-      });
+    "status": "Failed",
+    msg: "Please verify your mail to book the ride."
+  });
   return;
 
 
 }
-module.exports ={ checkVerified,checkMailVerified};
+module.exports = {
+  checkVerified,
+  checkMailVerified
+};

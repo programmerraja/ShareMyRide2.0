@@ -33,12 +33,12 @@ async function postHandler(req, res) {
     });
     return
   }
-  //need to check if the  new user is not rider
+  //need to check if the new user is not rider
   let rider = await Rider.findOne({
     email: req.body.email
   });
   if (!rider) {
-    let profile=req.file.filename;
+    let profile = req.file.filename;
     let hash = bcrypt.hashSync(req.body.password, salt_rounds);
     req.body.password = hash;
     let new_user = new User({
@@ -46,7 +46,7 @@ async function postHandler(req, res) {
       email: req.body.email,
       password: req.body.password,
       whatsappno: req.body.whatsappno,
-      profile:profile
+      profile: profile
     });
 
     new_user = await new_user.save().catch((err) => {
@@ -61,7 +61,7 @@ async function postHandler(req, res) {
       if (msg) {
         res.redirect("/signin/user");
       } else {
-        //need to remove user from database  if mail not send sucessfully
+        //need to remove user from database if mail not send sucessfully
         await User.deleteOne({
           _id: new_user._id
         }).catch((err) => {

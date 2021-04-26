@@ -45,33 +45,33 @@ function insertToTable(obj, table, is_user = false) {
   let row;
   if (!is_user) {
     row = '<div class="tr">\
-							  	<div class="td">' + obj.ridername + '</a></div>\
-							  	<div class="td">' + obj.email + '</div>\
-							  	<div class="td">' + obj.email_verified + '</div>\
-							  	<div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
-							  	<div class="td">' + obj.licenseno + '</div>\
-							  	<div class="td">' + new Date(obj.date_of_birth).toDateString() + '</div>\
-							  	<div class="td">' + obj.phoneno + '</div>\
-							  	<div class="td">' + obj.drivingexpereince + '</div>\
-							  	<div class="td">' + obj.is_verified + '</div>\
-							  	<div class="td">\
-							  		<input type="button" class="remove_rider" style="border:0 !important;" value="Remove" id="' + obj.rider_id + '">\
-							  	</div>\
-							  	<div class="td">\
-								  <input type="button" class="verifiy_rider" value="Verifiy" id="' + obj.rider_id + '">\
-								 </div>\
-				</div>'
+  <div class="td">' + obj.ridername + '</a></div>\
+  <div class="td">' + obj.email + '</div>\
+  <div class="td">' + obj.email_verified + '</div>\
+  <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
+  <div class="td">' + obj.licenseno + '</div>\
+  <div class="td">' + new Date(obj.date_of_birth).toDateString() + '</div>\
+  <div class="td">' + obj.phoneno + '</div>\
+  <div class="td">' + obj.drivingexpereince + '</div>\
+  <div class="td">' + obj.is_verified + '</div>\
+  <div class="td">\
+    <input type="button" class="remove_rider" style="border:0 !important;" value="Remove" id="' + obj.rider_id + '">\
+  </div>\
+  <div class="td">\
+    <input type="button" class="verifiy_rider" value="Verifiy" id="' + obj.rider_id + '">\
+  </div>\
+</div>'
 
   } else {
     row = '<div class="tr">\
-							  	<div class="td">' + obj.username + '</a></div>\
-							  	<div class="td">' + obj.email + '</div>\
-							  	<div class="td">' + obj.email_verified + '</div>\
-							  	<div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
-							  	<div class="td">' + obj.whatsappno + '</div>\
-							  	<div class="td">\
-							  	<input type="button" class="remove_user" style="border:0 !important;" value="Remove" id="' + obj.user_id + '">\
-				</div>'
+  <div class="td">' + obj.username + '</a></div>\
+  <div class="td">' + obj.email + '</div>\
+  <div class="td">' + obj.email_verified + '</div>\
+  <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
+  <div class="td">' + obj.whatsappno + '</div>\
+  <div class="td">\
+    <input type="button" class="remove_user" style="border:0 !important;" value="Remove" id="' + obj.user_id + '">\
+  </div>'
 
   }
   table.innerHTML += row;
@@ -85,10 +85,8 @@ async function fetchRider() {
     let length = children.length
     for (let i = 0; i < length - 1; i++) {
       children[1].remove();
-
     }
   }
-
   let res = await fetch("/admin/dashboard/riders/");
   res = await res.json();
   if (res.status == "Sucess") {
@@ -152,7 +150,6 @@ async function fetchUser() {
       children[1].remove();
     }
   }
-
   let res = await fetch("/admin/dashboard/users/");
   res = await res.json();
   if (res.status == "Sucess") {
@@ -198,7 +195,7 @@ async function main() {
   document.querySelector(".loading_wrapper").classList.toggle("invisible");
   await fetchRider();
   await fetchUser();
-  //after completion remove loading 
+  //after completion remove loading
   document.querySelector(".loading_wrapper").classList.toggle("invisible");
 
 }

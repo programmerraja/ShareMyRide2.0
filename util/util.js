@@ -40,8 +40,8 @@ function sendMail(subject, body, to_mail) {
 async function sendPasswordReset(to_mail, user_name, link) {
   let subject = "Reset Your Password";
   let body = "<p>Hai " + user_name + ",</p>\
-	 		<p>A request has been recevied to change the password for your Share My Ride account. This link only work for 20 minutes</p>\
-	 		 <a href='" + link + "'>Reset Password </a>"
+<p>A request has been recevied to change the password for your Share My Ride account. This link only work for 20 minutes</p>\
+<a href='" + link + "'>Reset Password </a>"
   let msg = await sendMail(subject, body, to_mail);
   return msg;
 
@@ -51,8 +51,8 @@ async function verfiyMail(to_mail, user_name, link) {
 
   let subject = "Verfiy Your Mail";
   let body = "<p>Hai " + user_name + ",</p>\
-	 		<p>we're happy you signed up for Share My Ride. To start exploring the Share My Ride confirm your email address\
-	 		 <a href='" + link + "'>Verfiy Now</a>"
+<p>we're happy you signed up for Share My Ride. To start exploring the Share My Ride confirm your email address\
+  <a href='" + link + "'>Verfiy Now</a>"
 
   let msg = await sendMail(subject, body, to_mail);
   return msg;
@@ -64,18 +64,31 @@ async function sendBookRideMail(to_mail, user_name, user, link) {
   let subject = "You Ride is Booked";
   let body;
   if (user.passenger) {
-    body = "<p>Hai " + user_name + ",</p>\
-			 		<p>Your <a href='" + link + "'>ride </a>is booked by <p>\
-			 		<p>Name: " + user.name + "</p>\
-			 		<p>whatssapp number: " + user.whatsappno + "</p>\
-			 		<p>No of passenger: " + user.passenger + "</p></p></p>\
-			 		<p>He has message for you:</p><p>&quot;" + user.message + "&quot;</p>"
+    body = " <
+    p > Hai " + user_name + ", < /p>\ <
+    p > Your < a href = '" + link + "' > ride < /a>is booked by <
+    p > \
+      <
+      p > Name: " + user.name + " < /p>\ <
+    p > whatssapp number: " + user.whatsappno + " < /p>\ <
+    p > No of passenger: " + user.passenger + " < /p> < /
+      p > <
+      /p>\ <
+    p > He has message
+    for you: < /p> <
+    p > & quot;
+    " + user.message + " & quot; < /p>"
   } else {
     body = "<p>Hai " + user_name + ",</p>\
-			 		<p>Your <a href='" + link + "'>ride </a>is booked by <p>\
-			 		<p>Name: " + user.name + "</p>\
-			 		<p>whatssapp number: " + user.whatsappno + "</p>\
-			 		<p>He has message for you:</p><p>&quot;" + user.message + "&quot;</p>"
+<p>Your <a href='" + link + "'>ride </a>is booked by <
+    p > \
+      <
+      p > Name: " + user.name + " < /p>\ <
+    p > whatssapp number: " + user.whatsappno + " < /p>\ <
+    p > He has message
+    for you: < /p> <
+    p > & quot;
+    " + user.message + " & quot; < /p>"
   }
   let msg = await sendMail(subject, body, to_mail);
   return msg;
@@ -84,10 +97,15 @@ async function sendBookRideMail(to_mail, user_name, user, link) {
 async function sendUnBookRideMail(to_mail, user_name, user, link) {
   let subject = "You Ride is UnBooked";
   let body = "<p>Hai " + user_name + ",</p>\
-			 		<p>Your <a href='" + link + "'>ride </a>is unbooked by <p>\
-			 		<p>Name: " + user.name + "</p>\
-			 		<p>whatssapp number: " + user.whatsappno + "</p>\
-			 		<p>No of seats unbooked: " + user.passenger + "</p></p></p><p> For more contact him through whatsapp number"
+<p>Your <a href='" + link + "'>ride </a>is unbooked by <
+  p > \
+    <
+    p > Name: " + user.name + " < /p>\ <
+  p > whatssapp number: " + user.whatsappno + " < /p>\ <
+  p > No of seats unbooked: " + user.passenger + " < /p> < /
+    p > <
+    /p> <
+  p > For more contact him through whatsapp number "
   let msg = await sendMail(subject, body, to_mail);
   return msg;
 
@@ -95,10 +113,15 @@ async function sendUnBookRideMail(to_mail, user_name, user, link) {
 
 async function sendAlertMail(to_mail, user_name, alert, link, alert_link) {
   let subject = "You Have Alert";
-  let body = "<p>Hai " + user_name + ",</p>\
-			 		<p>You have ride alert for " + alert.from + " to " + alert.to + "\
-			 		check the ride <a href='" + link + "'>here</a></p>\
-			 		<p>To stop this alert click<a href='" + alert_link + "'>here</a> "
+  let body = " <
+  p > Hai " + user_name + ", <
+    /p>\ <
+  p > You have ride alert
+  for " + alert.from + "
+  to " + alert.to + "\
+  check the ride < a href = '" + link + "' > here < /a></p > \
+    <
+    p > To stop this alert click < a href = '" + alert_link + "' > here < /a> "
 
   let msg = await sendMail(subject, body, to_mail);
   return msg;
@@ -168,50 +191,37 @@ function convertTimeToString(time) {
 function convertTimeToTime(time) {
   var timeSplit = time.split(':'),
     hours, minutes, temp, meridian;
-  hours = parseInt(timeSplit[0]);
-  //spliting min and meridian
-  temp = timeSplit[1].split(" ");
+  hours = parseInt(timeSplit[0]); //spliting min and meridian temp=timeSplit[1].split(" ");
   minutes = parseInt(temp[0]);
   meridian = temp[1];
 
 
-  if (meridian === "PM" && hours != 12) {
+  if (meridian === " PM" && hours != 12) {
     hours += 12;
   } else if (meridian === "AM") {
     if (hours == 12) {
       hours = 0;
     }
-  }
-  //adding zero in front if it is one digit number
-  hours = hours < 10 ? "0" + hours : hours;
-  minutes = minutes < 10 ? "0" + minutes : minutes
-  return hours + ":" + minutes + ":00";
-}
-const path = require("path");
-
-
-// Create storage engine
-//todo if failed we need to remove the image 
-const storage = new GridFsStorage({
-  url:process.env.DBURL,
-  file: (req, file) => {
-    return new Promise((resolve, reject) => {
-      crypto.randomBytes(16, (err, buf) => {
-        if (err) return reject(err);
-        const filename = buf.toString('hex') + path.extname(file.originalname);
-        const fileInfo = {
+  } //adding zero in front if it is one digit number hours=hours < 10 ? "0" + hours : hours; minutes=minutes < 10 ? "0" + minutes : minutes return hours + ":" + minutes + ":00" ; } const path=require("path"); // Create storage engine //todo if failed we need to remove the image const storage=new GridFsStorage({ url:process.env.DBURL, file: (req, file)=> {
+  return new Promise((resolve, reject) => {
+    crypto.randomBytes(16, (err, buf) => {
+      if (err) return reject(err);
+      const filename = buf.toString('hex') + path.extname(file.originalname);
+      const fileInfo = {
         filename: filename,
         bucketName: 'profiles'
       };
-      console.log(fileInfo,'ss')
+      console.log(fileInfo, 'ss')
       resolve(fileInfo);
     });
   });
-  }
+}
 });
 
 //middleware to store file in db
-const upload = multer({ storage });
+const upload = multer({
+  storage
+});
 
 
 module.exports = {

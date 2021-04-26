@@ -5,14 +5,16 @@ const {
 } = require("../middleware/checkBodyHandler");
 const sanitizeHTML = require("../middleware/sanitizeHTML");
 
-const {upload}=require("../util/util");
+const {
+  upload
+} = require("../util/util");
 
 const router = express.Router();
 
 // /signup/rider
 router.get("/", signupController.get);
 
-router.post("/",  upload.single("profile"),sanitizeHTML, checkBodyRiderHandler, signupController.post);
+router.post("/", upload.single("profile"), sanitizeHTML, checkBodyRiderHandler, signupController.post);
 
 
 

@@ -1,5 +1,5 @@
-//Todo 
-//add no of rides 
+//Todo
+//add no of rides
 const mongoose = require("mongoose");
 // Create Schema
 const UserSchema = new mongoose.Schema({
@@ -44,9 +44,9 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  profile:{
-    type:String,
-    default:"/public/img/user.svg"
+  profile: {
+    type: String,
+    default: "/public/img/user.svg"
   },
   licenseno: {
     type: String,

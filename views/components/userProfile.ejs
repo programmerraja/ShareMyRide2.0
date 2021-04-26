@@ -5,41 +5,41 @@
     <div class="msg"><span><%= msg%></span></div>
     <%}%>
       <div class="profile_img d-flex align-items-center  justify-content-center">
-      <img src="/user/profile/<%= user.profile%>" class="user_img">        
+      <img src="/user/profile/<%= user.profile%>" class="user_img">
     </div>
-        <form novalidate="" class="container form_container" method="post" action="/user/profile/" enctype="multipart/form-data">
-              <div class="form-group">
-                <label class="form-label" for="formBasicName">Name</label>
-                <input name="name"  placeholder="Enter Name" required="" type="text" id="formBasicName" class="form-control" value="<%= user.name %>">
-    </div>
+    <form novalidate="" class="container form_container" method="post" action="/user/profile/" enctype="multipart/form-data">
+      <div class="form-group">
+        <label class="form-label" for="formBasicName">Name</label>
+        <input name="name" placeholder="Enter Name" required="" type="text" id="formBasicName" class="form-control" value="<%= user.name %>">
+      </div>
 
-    <div class="form-group">
-      <label class="form-label" for="formBasicEmail">Email address</label>
-      <input name="email" placeholder="Enter email" required="" type="email" id="formBasicEmail" class="form-control" value="<%= user.email %>">
-    </div>
+      <div class="form-group">
+        <label class="form-label" for="formBasicEmail">Email address</label>
+        <input name="email" placeholder="Enter email" required="" type="email" id="formBasicEmail" class="form-control" value="<%= user.email %>">
+      </div>
 
-    <div class="form-group">
-      <label class="form-label" for="formBasicPassword">Old Password</label>
-      <input placeholder="Old Password" type="password" id="formBasicPassword" class="form-control" name="password" required>
-    </div>
+      <div class="form-group">
+        <label class="form-label" for="formBasicPassword">Old Password</label>
+        <input placeholder="Old Password" type="password" id="formBasicPassword" class="form-control" name="password" required>
+      </div>
 
-    <div class="form-group">
-      <label class="form-label" for="formBasicPassword">New Password<span class="text-muted">(optional)</span></label>
-      <input placeholder="New password" type="password" id="formBasicPassword" class="form-control" name="new_password">
-    </div>
-    <div class="form-group">
-      <label class="form-label" for="formBasicPhoneno">Whatsapp No</label>
-      <input name="whatsappno" placeholder="Whatsapp No" required="" type="number" id="formBasicPhoneno" class="form-control" value="<%= user.whatsappno %>">
-    </div>
-    
-    <div class="form-group">
-                <label class="form-label" for="formBasicPhoneno">profile</label>
-                <input type="file" name="profile">
-    </div>
-    
+      <div class="form-group">
+        <label class="form-label" for="formBasicPassword">New Password<span class="text-muted">(optional)</span></label>
+        <input placeholder="New password" type="password" id="formBasicPassword" class="form-control" name="new_password">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="formBasicPhoneno">Whatsapp No</label>
+        <input name="whatsappno" placeholder="Whatsapp No" required="" type="number" id="formBasicPhoneno" class="form-control" value="<%= user.whatsappno %>">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="formBasicPhoneno">profile</label>
+        <input type="file" name="profile">
+      </div>
 
 
-    <input type="submit" class="btn create_button" value="Update account">
+
+      <input type="submit" class="btn create_button" value="Update account">
 
     </form>
   </section>

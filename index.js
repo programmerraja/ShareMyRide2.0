@@ -41,8 +41,11 @@ mongoose
   })
   .then(console.log(`MongoDB connected ${MONGO_URI}`))
   .catch(err => console.log(err));
-  
-var conn = mongoose.createConnection(MONGO_URI,{useNewUrlParser: true,useUnifiedTopology: true});
+
+var conn = mongoose.createConnection(MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 
 // Initialize GridFS
@@ -96,7 +99,7 @@ app.use("/signin/rider", signinRiderrouter);
 app.use("/signup/rider", signupRiderrouter);
 
 app.use("/signin/user", signinUserrouter);
-app.use("/signup/user",signupUserrouter);
+app.use("/signup/user", signupUserrouter);
 
 app.use("/signin/", (req, res) => {
   res.render("signinOptions", {
@@ -111,11 +114,11 @@ app.use("/signup/", (req, res) => {
 
 app.use("/search", searchrouter);
 app.use("/rider", riderrouter);
-app.use("/user",userrouter);
+app.use("/user", userrouter);
 app.use("/admin/dashboard/", adminrouter);
 
 app.get("/", (req, res) => {
-  //if he is rider 
+  //if he is rider
   if (req.user) {
     if (req.user.licenseno) {
       res.render("index", {
@@ -133,16 +136,15 @@ app.get("/", (req, res) => {
 //error handler
 app.use(errorHandler);
 
-//404 page 
+//404 page
 app.get("/*", (req, res) => {
   res.render("error");
 })
 
 process.on("uncaughtException", (error) => {
-  console.log("uncaughtException",error)
+  console.log("uncaughtException", error)
 })
 
 app.listen(port, () => {
   console.log("server started")
 });
-

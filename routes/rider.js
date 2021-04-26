@@ -6,7 +6,9 @@ const {
   authRiderHandler
 } = require("../middleware/authHandler");
 const asyncHandler = require("../middleware/asyncHandler");
-const {checkVerified} = require("../middleware/checkMailVerified");
+const {
+  checkVerified
+} = require("../middleware/checkMailVerified");
 const sanitizeHTML = require("../middleware/sanitizeHTML");
 
 const {
@@ -24,9 +26,14 @@ const {
 } = require("../util/util");
 const mongoose = require("mongoose");
 const Grid = require('gridfs-stream');
-const {upload}=require("../util/util");
+const {
+  upload
+} = require("../util/util");
 
-var conn = mongoose.createConnection(process.env.DBURL,{useNewUrlParser: true,useUnifiedTopology: true});
+var conn = mongoose.createConnection(process.env.DBURL, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+});
 
 
 // Initialize GridFS
@@ -37,25 +44,15 @@ conn.once('open', () => {
 });
 
 const router = express.Router();
-router.get("/profile/:name",(req, res) => {
+router.get("/profile/:name", riderController.getProfilePicture)
 
-  gfs.files.findOne({ filename: req.params.name }, (err, file) => {
-    if (!file || file.length === 0) return res.status(404).json({ err: 'No file exists' });
-    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
-      const readstream = gfs.createReadStream(file.filename);
-      readstream.pipe(res);
-    } else {
-      res.status(404).json({ err: 'Not an image' });
-    }
-  });
-});
 //route for /rider
 router.get("/profile", authRiderHandler, riderController.get);
-router.get("/profile/:name",riderController.getProfilePicture);
+router.get("/profile/:name", riderController.getProfilePicture);
 
 router.get("/profile/id/:id", riderController.getProfileById);
 
-router.post("/profile",authRiderHandler,upload.single("profile"), sanitizeHTML, checkBodyRiderHandler, riderController.post);
+router.post("/profile", authRiderHandler, upload.single("profile"), sanitizeHTML, checkBodyRiderHandler, riderController.post);
 
 router.get("/get/myrides/", authRiderHandler, riderController.getMyRides);
 
@@ -70,10 +67,10 @@ router.get("/get/ride/goods&services", authRiderHandler, riderController.getMyRi
 router.post("/post/ride/goods&services", sanitizeHTML, checkVerified, authRiderHandler, checkBodyRideHandler, riderController.postMyRideForm);
 
 router.get("/edit/ride/taxi/id/:id", authRiderHandler, riderController.editMyRideForm);
-router.post("/edit/ride/taxi/id/:id",  checkVerified,sanitizeHTML, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
+router.post("/edit/ride/taxi/id/:id", checkVerified, sanitizeHTML, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
 
 router.get("/edit/ride/goods&services/id/:id", authRiderHandler, riderController.editMyRideForm);
-router.post("/edit/ride/goods&services/id/:id",checkVerified, sanitizeHTML, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
+router.post("/edit/ride/goods&services/id/:id", checkVerified, sanitizeHTML, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
 
 //if rider remove his ride we need to inform the user
 router.post("/remove/myride/", authRiderHandler, riderController.removeMyRideForm);

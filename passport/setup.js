@@ -9,7 +9,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
   Rider.findById(id, (err, rider) => {
-    //if he is rider 
+    //if he is rider
     if (rider) {
       done(err, rider);
     }
@@ -40,7 +40,7 @@ async function AuthUser(email, password, done) {
           rider: true
         });
       } else {
-        //passing rider as true so only we can stop user try to login as rider 
+        //passing rider as true so only we can stop user try to login as rider
         return done(null, false, {
           message: "Password does not match",
           rider: true

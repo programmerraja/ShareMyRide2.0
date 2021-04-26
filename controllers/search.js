@@ -21,7 +21,7 @@ async function post(req, res) {
       type: type
     });
     if (req.user) {
-      //if he is rider pass rider option 
+      //if he is rider pass rider option
       if (req.user.licenseno) {
         res.render("searchResult", {
           rides,
@@ -63,14 +63,14 @@ async function getSpecificRide(req, res) {
         _id: ride.rider_id
       });
       if (req.user) {
-        //if he is rider pass rider option 
+        //if he is rider pass rider option
         if (req.user.licenseno) {
           res.render("vehicleDetail", {
             ride,
             owner: {
               id: owner._id,
               name: owner.name,
-              profile:owner.profile
+              profile: owner.profile
             },
             rider: req.user
           })
@@ -82,7 +82,7 @@ async function getSpecificRide(req, res) {
         owner: {
           id: owner._id,
           name: owner.name,
-          profile:owner.profile
+          profile: owner.profile
         },
         user: req.user
       })
