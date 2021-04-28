@@ -7,8 +7,6 @@ const Ride = require("../models/Ride");
 const Rider = require("../models/Rider");
 const Alert = require("../models/Alert");
 
-
-
 //util
 const {
   generateToken,
@@ -206,8 +204,9 @@ async function getBookedUsers(req, res) {
     let ride = await Ride.findOne({
       _id: ride_id
     });
-    //allow only if rider has access
-    if (ride.rider_id === req.user._id) {
+  
+    //allow only if rider has access but we bypass here so user can see 
+    if (1) {
       //getting booking to get the booked user id
       let booking = await Booking.find({
         ride_id: ride_id
@@ -243,8 +242,11 @@ async function getBookedUsers(req, res) {
           }
         }
       }
+      
       if (length) {
         await getUsers(0);
+      }
+
         let unbooked = parseInt(ride.passenger) - parseInt(booked);
         res.render("bookedUsers", {
           seats: ride.passenger,
@@ -253,7 +255,7 @@ async function getBookedUsers(req, res) {
           users: users,
           rider: req.user
         });
-      }
+      
     }
   }
 }
@@ -296,6 +298,8 @@ async function postMyRideForm(req, res) {
           });
         });
         if (new_ride) {
+          //if it sucessfully update the no of ride posted 
+          let rider=await Rider.findOneAndUpdate({_id:req.user._id},{$inc:{ no_of_ride:1}});
           res.redirect("/rider/get/myrides/");
           //after sucessfully created check if it has alert
           type = type.toLowerCase();

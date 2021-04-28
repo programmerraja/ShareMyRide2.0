@@ -38,11 +38,14 @@
         <p><%= owner.name %></p>
       </div>
       <div class="owner_link">
-        <a href="/rider/profile/id/<%=owner.id%>">
+         <a href="/rider/profile/id/<%=owner.id%>">
           <img src="/rider/profile/<%= owner.profile%>" class="rider_img">
-
         </a>
       </div>
+      <a href="/rider/profile/id/<%=owner.id%>">
+      <div class="search_result-arrow"></div>
+        </a>
+
     </div>
     <% if(ride.status==="unbooked") { %>
     <div class="ride_model text-muted mx-2 text-center p-2">
@@ -50,6 +53,15 @@
     </div>
 
     <% }else{ %>
+    <div class="vehicle_card-owner">
+      <div class="owner_name text-capitalize">
+        <p>co-travellers</p>
+      </div>
+    
+      <a href="/search/get/booked/users/id/<%=ride._id%>">
+      <div class="search_result-arrow"></div>
+        </a>
+    </div>
     <div class="ride_model text-muted mx-2 text-center p-2">
       <p class="text-capitalize m-0 text-success font-weight-bold"><%=ride.status%></p>
     </div>

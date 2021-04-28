@@ -45,7 +45,8 @@ function insertToTable(obj, table, is_user = false) {
   let row;
   if (!is_user) {
     row = '<div class="tr">\
-  <div class="td">' + obj.ridername + '</a></div>\
+  <div class="td"><img src="/rider/profile/'+obj.profile+'" class="rider_img"></div>\
+  <div class="td">' + obj.ridername + '</div>\
   <div class="td">' + obj.email + '</div>\
   <div class="td">' + obj.email_verified + '</div>\
   <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
@@ -64,6 +65,7 @@ function insertToTable(obj, table, is_user = false) {
 
   } else {
     row = '<div class="tr">\
+  <div class="td"><img src="/rider/profile/'+obj.profile+'" class="user_img"></div>\
   <div class="td">' + obj.username + '</a></div>\
   <div class="td">' + obj.email + '</div>\
   <div class="td">' + obj.email_verified + '</div>\
@@ -94,6 +96,7 @@ async function fetchRider() {
       if (res["riders"].length > 0) {
         table.style.display = "flex";
         res["riders"].forEach((rider) => {
+          let profile=rider["profile"];
           let rider_id = rider["_id"];
           let ridername = rider["name"];
           let email = rider["email"];
@@ -106,6 +109,7 @@ async function fetchRider() {
           let date_of_birth = rider["date_of_birth"];
 
           insertToTable({
+              profile,
               rider_id,
               ridername,
               email,
