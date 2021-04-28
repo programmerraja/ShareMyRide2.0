@@ -1,0 +1,9 @@
+
+
+
+1.remove the user photo from db once user change his profile picture 
+
+2. if user unbook ask for the reason //done
+
+3.allow user only travel with if rider accept the user.
+there is chance to spam the rider by booking all the seats 

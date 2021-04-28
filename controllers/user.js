@@ -334,7 +334,7 @@ async function postBookARide(req, res) {
   //if user not provide data simply ignore it 
 }
 async function unBookMyRide(req, res) {
-  if (req.body.id) {
+  if (req.body.id && req.body.reason) {
     let ride_id = req.body.id;
     let user = req.user;
     let user_id = user._id;
@@ -380,7 +380,8 @@ async function unBookMyRide(req, res) {
               let user_data = {
                 name: req.user.name,
                 whatsappno: req.user.whatsappno,
-                passenger: passenger
+                passenger: passenger,
+                reason:req.body.reason
               };
               //link for the ride 
               let link = req.protocol + "://" + req.get("host") + "/search/ride/id/" + ride._id;

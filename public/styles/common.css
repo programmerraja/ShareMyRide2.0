@@ -295,11 +295,11 @@ select {
 /*  MOBILE  */
 
 /*  POPUP */
-.popup_container {
+.popup_container ,
+.form_wrapper{
   height: 100vh;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.6);
-  ;
   width: 100vw;
   z-index: 300;
   display: none;
@@ -308,9 +308,10 @@ select {
 
 }
 
-.popup_card {
+.popup_card,
+.form_card {
   min-height: 200px;
-  padding: 10px;
+  padding: 1rem;
   width: 75%;
   max-width: 310px;
   border-radius: 10px;
@@ -337,7 +338,9 @@ select {
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
-
+.form_button{
+  margin-top: 15px
+}
 .popup_button:hover {
   background-color: var(--secondary-color-less);
 }

@@ -42,20 +42,6 @@ mongoose
   .then(console.log(`MongoDB connected ${MONGO_URI}`))
   .catch(err => console.log(err));
 
-var conn = mongoose.createConnection(MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
-
-
-// Initialize GridFS
-let gfs;
-conn.once('open', () => {
-  gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection('profiles');
-});
-
-
 
 
 mongoose.set('useNewUrlParser', true);

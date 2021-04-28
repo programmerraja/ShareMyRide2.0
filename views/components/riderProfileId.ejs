@@ -40,10 +40,12 @@
         <p class=" text-capitalize"> Verified</p>
       </div>
        <div class="rider_profile-text">
-        <p class="text-capitalize ">Ride posted</p>
+        <p class="text-capitalize ">Number of Ride posted:</p>
         <p class=" text-capitalize"><%= rider_profile.no_of_ride %></p>
-
-
+      </div>
+      <div class="rider_profile-text">
+        <p class="text-capitalize ">Member since:</p>
+        <p class=" text-capitalize"><%= new Date(rider_profile.created_at).toDateString() %></p>
       </div>
 
 
