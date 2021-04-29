@@ -26,8 +26,7 @@ const UserSchema = new mongoose.Schema({
       required: true
     },
     profile: {
-      type: String,
-      default: "/public/img/user.svg"
+      type: String
     },
     rides_booked:{
       type:Number,
