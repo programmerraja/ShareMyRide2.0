@@ -47,13 +47,7 @@ function insertToTable(obj, table, is_user = false) {
     row = '<div class="tr">\
   <div class="td"><img src="/rider/profile/'+obj.profile+'" class="rider_img"></div>\
   <div class="td"><a href="/admin/dashboard/rider/id/'+obj.rider_id+'"> ' + obj.ridername + '</a></div>\
-  <div class="td">' + obj.email + '</div>\
-  <div class="td">' + obj.email_verified + '</div>\
   <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
-  <div class="td">' + obj.licenseno + '</div>\
-  <div class="td">' + new Date(obj.date_of_birth).toDateString() + '</div>\
-  <div class="td">' + obj.phoneno + '</div>\
-  <div class="td">' + obj.drivingexpereince + '</div>\
   <div class="td">' + obj.is_verified + '</div>\
   <div class="td">\
     <input type="button" class="remove_rider" style="border:0 !important;" value="Remove" id="' + obj.rider_id + '">\
@@ -65,12 +59,10 @@ function insertToTable(obj, table, is_user = false) {
 
   } else {
     row = '<div class="tr">\
-  <div class="td"><img src="/rider/profile/'+obj.profile+'" class="user_img"></div>\
+  <div class="td"><img src="/user/profile/'+obj.profile+'" class="user_img"></div>\
   <div class="td"><a href="/admin/dashboard/user/id/'+obj.user_id+'"> ' + obj.username + '</a></div>\
-  <div class="td">' + obj.email + '</div>\
   <div class="td">' + obj.email_verified + '</div>\
   <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
-  <div class="td">' + obj.whatsappno + '</div>\
   <div class="td">\
     <input type="button" class="remove_user" style="border:0 !important;" value="Remove" id="' + obj.user_id + '">\
   </div>'
@@ -162,12 +154,14 @@ async function fetchUser() {
         table.style.display = "flex";
         res["users"].forEach((user) => {
           let user_id = user["_id"];
+          let profile=user["profile"];
           let username = user["name"];
           let email = user["email"];
           let email_verified = user["is_email_verified"];
           let created_at = user["created_at"];
           let whatsappno = user["whatsappno"];
           insertToTable({
+              profile,
               user_id,
               username,
               email,

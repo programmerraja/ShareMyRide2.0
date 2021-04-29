@@ -3,19 +3,53 @@
   <%- include('./loading.ejs');  -%>
 </div>
 
-<div class="form_wrapper ">
-   <div class="form_card">
-    <p >What is the reason to cancel the ride?</p>
-    <textarea class="form_text" name="reason" maxlength="500"></textarea>
-    <input type="button" name="form_button" class="form_button" value="Cancel Ride" >
-  </div>
-</div>
+
 <div class="myrides_wrapper  invisible">
 </div>
+<section>
+  <div class="rider_profile">
+    <!-- rider profile top -->
+    <div class="rider_profile-top">
+      <div class="rider_profile-img">
+        <img src="/rider/profile/<%= user_profile.profile%>" class="rider_img">
+      </div>
+      <div class="rider_profile-name">
+        <p><%= user_profile.name %></p>
+      </div>
+    </div>
 
+    <!-- rider profile bottom -->
+    <div class="rider_profile-bottom">
+     
+      <div class="rider_profile-text">
+
+        <p class="text-capitalize "><i class="fab fa-whatsapp" style="color: #0bc30b;"></i>WhatsApp no:</p>
+        <p class=" text-capitalize"><a href="https://api.whatsapp.com/send?phone=<%= user_profile.whatsappno %>"><%= user_profile.whatsappno %></a></p>
+
+
+      </div>
+      
+      <div class="rider_profile-text">
+        <p class="text-capitalize "><i class="fas fa-envelope-open-text" style="color:var(--secondary-color);"></i>Email:</p>
+        <p class=" text-capitalize"> Verified</p>
+      </div>
+       <div class="rider_profile-text">
+        <p class="text-capitalize ">Ride's Booked:</p>
+        <p class=" text-capitalize"><%= user_profile.no_of_booked %></p>
+      </div>
+      <div class="rider_profile-text">
+        <p class="text-capitalize ">Member since:</p>
+        <p class=" text-capitalize"><%= new Date(user_profile.created_at).toDateString() %></p>
+      </div>
+
+
+    </div>
+
+  </div>
+</section>
 <div class="myrides_container">
 
-  <p class="text-uppercase text-primary text-center mt-2">your booked ride's</p>
+  <p class="text-uppercase text-primary text-center mt-2">booked ride's </p>
 
   <% if(!(typeof rides==="undefined")) {%>
   <% if(rides.length>0) { %>
@@ -80,20 +114,7 @@
         </div>
       </a>
     </div>
-    <div class="myrides-link">
-
-      <div class="myrides-dot" index=<%= i %>>
-        <div class="small_dot" index=<%= i %>></div>
-        <div class="small_dot" index=<%= i %>></div>
-        <div class="small_dot" index=<%= i %>></div>
-
-      </div>
-      <div class="myrides_dropdown index<%= i %>  invisible">
-        <p class="myrides_dropdown-option1 text-capitalize" id="<%= ride._id%>">Cancel Ride</p>
-      </div>
-
-    </div>
-
+   
   </div>
   <%});%>
   <%}else { %>

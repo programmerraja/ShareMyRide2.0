@@ -31,21 +31,48 @@ async function getRider(req, res) {
     let rides = await Ride.find({
       rider_id: rider_id
     });
-    console.log(rides,"ss")
-    if (rides) {
-      res.render("myRides", {
+    let rider=await Rider.findOne({_id:rider_id});
+    if (rides && rider) {
+      res.render("adminRider", {
         rider: req.user,
+        rider_profile:rider,
         rides,
-        admin:true
       });
-      return
+    
+    }
+    return;
     }
     //render 404
-    res.render("error");
-}
+    res.render("error"); 
 
 }
 
+  async function removeRide(req, res) {
+      if (req.body.id) {
+        let ride_id = req.body.id;
+        let ride = await Ride.deleteOne({
+          _id: ride_id,
+        });
+        let booking = await Booking.deleteMany({
+          ride_id: ride_id
+        });
+        //need to show rider if some thing bad for better use js in client side
+        if (ride && booking) {
+          res.json({
+            "status": "Sucess",
+            msg: "Successfully Removed"
+          });
+        } else {
+          res.json({
+            "status": "Failure",
+            msg: "Sorry Something went wrong!"
+          });
+        }
+        return;
+      }
+      res.render("error");
+
+    }
 
 async function removeRiderById(req, res) {
   if (req.body.id) {
@@ -107,6 +134,7 @@ async function getUser(req, res) {
       let booking = await Booking.find({
         user_id: user_id
       });
+      let user_profile=await User.findOne({_id:user_id});
       //to store all [rides id and passenger count] 
       let rides_id = []
       let rides = []
@@ -140,8 +168,9 @@ async function getUser(req, res) {
       if (length) {
         await getRides(0);
       }
-      res.render("BookedRides", {
+      res.render("adminUser", {
         rider: req.user,
+        user_profile:user_profile,
         rides
       });
   return
@@ -176,6 +205,7 @@ module.exports = {
   get,
   getRiders,
   getRider,
+  removeRide,
   removeRiderById,
   verifiyRiderById,
   getUsers,
