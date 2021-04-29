@@ -23,15 +23,15 @@
      
       <div class="rider_profile-text">
 
-        <p class="text-capitalize "><i class="fab fa-whatsapp" style="color: #0bc30b;"></i>WhatsApp no:</p>
-        <p class=" text-capitalize"><a href="https://api.whatsapp.com/send?phone=<%= user_profile.whatsappno %>"><%= user_profile.whatsappno %></a></p>
+        <p class="text-capitalize "><i class="fab fa-whatsapp" style="color: #0bc30b;"></i><a href="https://api.whatsapp.com/send?phone=<%= user_profile.whatsappno %>"><%= user_profile.whatsappno %></a></p>
+        
 
 
       </div>
       
      <div class="rider_profile-text">
-        <p class="text-capitalize "><i class="fas fa-envelope-open-text" style="color:var(--secondary-color);"></i>Email:</p>
-        <p> <%= user_profile.email %><br>
+        <p class="d-flex "><i class="fas fa-envelope-open-text" style="color:var(--secondary-color);"></i><%= user_profile.email %>
+        
           <% if(user_profile.is_email_verified){ %>
           <span class="text-success">(verified)</span>
           <%}else{%>
@@ -39,10 +39,9 @@
           <%}%>
         </p>
       </div>
-
        <div class="rider_profile-text">
         <p class="text-capitalize ">Ride's Booked:</p>
-        <p class=" text-capitalize"><%= user_profile.no_of_booked %></p>
+        <p class=" text-capitalize"><%= user_profile.rides_booked %></p>
       </div>
       <div class="rider_profile-text">
         <p class="text-capitalize ">Member since:</p>

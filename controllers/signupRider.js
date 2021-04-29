@@ -49,7 +49,7 @@ async function post(req, res) {
     email: req.body.email
   });
   if (!user) {
-    let profile="profile/abaee7de02f3af19f65d6548a67b27f3.png";
+    let profile="abaee7de02f3af19f65d6548a67b27f3.png";
     //if user upload profile picture 
     if(req.file){
        profile = req.file.filename;

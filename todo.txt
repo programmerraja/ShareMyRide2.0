@@ -7,3 +7,6 @@
 
 3.allow user only travel with if rider accept the user.
 there is chance to spam the rider by booking all the seats 
+
+
+4.ride alert to stop not working 

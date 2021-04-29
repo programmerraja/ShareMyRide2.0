@@ -233,7 +233,6 @@ async function postBookARide(req, res) {
       _id: ride.rider_id
     });
     if (rider) {
-      let user=await User.findOneAndUpdate({_id:req.user._id},{$inc:{rides_booked:1}});
       let to_mail = rider.email;
       //user data
       let user_data = {
@@ -290,11 +289,14 @@ async function postBookARide(req, res) {
         }
         //if user book the first time 
         else {
+          //increament the count
+          let user=await User.findOneAndUpdate({_id:req.user._id},{$inc:{rides_booked:1}});
           booking = new Booking({
             user_id: req.user._id,
             ride_id: ride._id,
             passenger: passenger
           });
+
         }
         //adding (user_id rider_id ,passenger count) 
         //if this failed we need to rollback ride data
@@ -311,7 +313,7 @@ async function postBookARide(req, res) {
           if (msg) {
             res.json({
               status: "Sucess",
-              msg: "Successfully Unbooked"
+              msg: "Successfully booked"
             });
             return
           }
