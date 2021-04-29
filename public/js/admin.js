@@ -46,7 +46,7 @@ function insertToTable(obj, table, is_user = false) {
   if (!is_user) {
     row = '<div class="tr">\
   <div class="td"><img src="/rider/profile/'+obj.profile+'" class="rider_img"></div>\
-  <div class="td">' + obj.ridername + '</div>\
+  <div class="td"><a href="/admin/dashboard/rider/id/'+obj.rider_id+'"> ' + obj.ridername + '</a></div>\
   <div class="td">' + obj.email + '</div>\
   <div class="td">' + obj.email_verified + '</div>\
   <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
@@ -66,7 +66,7 @@ function insertToTable(obj, table, is_user = false) {
   } else {
     row = '<div class="tr">\
   <div class="td"><img src="/rider/profile/'+obj.profile+'" class="user_img"></div>\
-  <div class="td">' + obj.username + '</a></div>\
+  <div class="td"><a href="/admin/dashboard/user/id/'+obj.user_id+'"> ' + obj.username + '</a></div>\
   <div class="td">' + obj.email + '</div>\
   <div class="td">' + obj.email_verified + '</div>\
   <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\

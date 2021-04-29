@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+ 
 // Create Schema
 
 //need to change user_id type to id
