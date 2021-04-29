@@ -48,6 +48,7 @@ function insertToTable(obj, table, is_user = false) {
   <div class="td"><img src="/rider/profile/'+obj.profile+'" class="rider_img"></div>\
   <div class="td"><a href="/admin/dashboard/rider/id/'+obj.rider_id+'"> ' + obj.ridername + '</a></div>\
   <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
+  <div class="td">' + obj.licenseno + '</div>\
   <div class="td">' + obj.is_verified + '</div>\
   <div class="td">\
     <input type="button" class="remove_rider" style="border:0 !important;" value="Remove" id="' + obj.rider_id + '">\
@@ -92,25 +93,17 @@ async function fetchRider() {
           let rider_id = rider["_id"];
           let ridername = rider["name"];
           let email = rider["email"];
-          let email_verified = rider["is_email_verified"];
           let created_at = rider["created_at"];
           let licenseno = rider["licenseno"];
-          let phoneno = rider["phoneno"];
-          let drivingexpereince = rider["drivingexpereince"];
           let is_verified = rider["is_verified"];
-          let date_of_birth = rider["date_of_birth"];
 
           insertToTable({
               profile,
+              licenseno,
               rider_id,
               ridername,
-              email,
-              email_verified,
               created_at,
               licenseno,
-              date_of_birth,
-              phoneno,
-              drivingexpereince,
               is_verified
             },
             table);

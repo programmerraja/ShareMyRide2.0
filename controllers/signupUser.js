@@ -33,12 +33,23 @@ async function postHandler(req, res) {
     });
     return
   }
+   if (String(req.body.whatsappno).length!=10) {
+    res.render("signupUser", {
+      msg: "Invalid Whatsapp Number"
+    });
+    return
+  }
   //need to check if the new user is not rider
   let rider = await Rider.findOne({
     email: req.body.email
   });
   if (!rider) {
-    let profile = req.file.filename;
+    //default profile picture
+    let profile="profile/9feafa83ac2f70a0e120fe9ab5d6f14b.png";
+    //if user upload profile picture 
+    if(req.file){
+       profile = req.file.filename;
+    }
     let hash = bcrypt.hashSync(req.body.password, salt_rounds);
     req.body.password = hash;
     let new_user = new User({

@@ -41,7 +41,7 @@
           <div class="ride_time text-muted mx-2">
             <p class="text-capitalize m-0"><i class="far fa-clock"></i><%=ride.time%></p>
           </div>
-          <% if(ride.status==="unbooked") { %>
+          <% if(ride.status!="available") { %>
           <div class="ride_model text-muted mx-2">
             <p class="text-capitalize m-0 text-danger font-weight-bold"><%=ride.status%></p>
           </div>

@@ -29,6 +29,10 @@ const UserSchema = new mongoose.Schema({
       type: String,
       default: "/public/img/user.svg"
     },
+    rides_booked:{
+      type:Number,
+      default:0
+    },
     created_at: {
       type: Date,
       default: new Date()

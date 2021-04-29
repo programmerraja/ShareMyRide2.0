@@ -46,11 +46,22 @@
       </div>
       <div class="rider_profile-text">
         <p class="text-capitalize "><i class="fas fa-envelope-open-text" style="color:var(--secondary-color);"></i>Email:</p>
-        <p class=" text-capitalize"> Verified</p>
+        <p> <%= rider_profile.email %><br>
+          <% if(rider_profile.is_email_verified){ %>
+          <span class="text-success">(verified)</span>
+          <%}else{%>
+          <span class="text-danger">(not verified)</span>
+          <%}%>
+        </p>
       </div>
+
        <div class="rider_profile-text">
         <p class="text-capitalize ">Ride's posted:</p>
         <p class=" text-capitalize"><%= rider_profile.no_of_ride %></p>
+      </div>
+       <div class="rider_profile-text">
+        <p class="text-capitalize ">Date of birth</p>
+        <p class=" text-capitalize"><%= new Date(rider_profile.date_of_birth).toDateString()%></p>
       </div>
       <div class="rider_profile-text">
         <p class="text-capitalize ">Member since:</p>

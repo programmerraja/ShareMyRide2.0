@@ -46,7 +46,7 @@ const UserSchema = new mongoose.Schema({
   },
   profile: {
     type: String,
-    default: "/public/img/user.svg"
+    default: "/public/img/rider.svg"
   },
   licenseno: {
     type: String,

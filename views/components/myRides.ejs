@@ -64,14 +64,14 @@
           <p class="text-capitalize m-0"> <i class="fas fa-car-side"></i><%=ride.model%></p>
         </div>
         <% } %>
-        <% if(ride.status==="unbooked") { %>
+        <% if(ride.status==="available") { %>
         <div class="ride_model text-muted mx-2">
-          <p class="text-capitalize m-0 text-danger font-weight-bold"><%=ride.status%></p>
+          <p class="text-capitalize m-0  text-success font-weight-bold"><%=ride.status%></p>
         </div>
 
         <% }else{ %>
         <div class="ride_model text-muted mx-2">
-          <p class="text-capitalize m-0 text-success font-weight-bold"><%=ride.status%></p>
+          <p class="text-capitalize m-0  text-danger font-weight-bold"><%=ride.status%></p>
         </div>
         <% } %>
       </div>

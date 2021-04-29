@@ -47,9 +47,9 @@
         </a>
 
     </div>
-    <% if(ride.status==="unbooked") { %>
+    <% if(ride.status==="available") { %>
     <div class="ride_model text-muted mx-2 text-center p-2">
-      <p class="text-capitalize m-0 text-danger font-weight-bold"><%=ride.status%></p>
+      <p class="text-capitalize m-0 text-success font-weight-bold"><%=ride.status%></p>
     </div>
 
     <% }else{ %>
@@ -63,7 +63,7 @@
         </a>
     </div>
     <div class="ride_model text-muted mx-2 text-center p-2">
-      <p class="text-capitalize m-0 text-success font-weight-bold"><%=ride.status%></p>
+      <p class="text-capitalize m-0  text-danger font-weight-bold"><%=ride.status%></p>
     </div>
     <% } %>
   </div>

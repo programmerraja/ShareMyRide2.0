@@ -29,10 +29,17 @@
 
       </div>
       
-      <div class="rider_profile-text">
+     <div class="rider_profile-text">
         <p class="text-capitalize "><i class="fas fa-envelope-open-text" style="color:var(--secondary-color);"></i>Email:</p>
-        <p class=" text-capitalize"> Verified</p>
+        <p> <%= user_profile.email %><br>
+          <% if(user_profile.is_email_verified){ %>
+          <span class="text-success">(verified)</span>
+          <%}else{%>
+          <span class="text-danger">(not verified)</span>
+          <%}%>
+        </p>
       </div>
+
        <div class="rider_profile-text">
         <p class="text-capitalize ">Ride's Booked:</p>
         <p class=" text-capitalize"><%= user_profile.no_of_booked %></p>

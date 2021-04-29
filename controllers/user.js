@@ -9,8 +9,6 @@ const Booking = require("../models/Booking");
 const Alert = require("../models/Alert");
 const User = require("../models/User");
 
-
-
 //db
 var conn = mongoose.createConnection(process.env.DBURL, {
   useNewUrlParser: true,
@@ -170,7 +168,7 @@ async function getMyBookedRides(req, res) {
   if (length) {
     await getRides(0);
   }
-  res.render("BookedRides", {
+  res.render("unavailableRides", {
     user: req.user,
     rides
   });
@@ -210,8 +208,9 @@ async function postBookARide(req, res) {
     let ride = await Ride.findOne({
       _id: id
     });
+
     //if the ride is full simply return booked
-    if (ride.status === "Booked") {
+    if (ride.status === "unavailable") {
       res.json({
         status: "Failure",
         msg: "seats all are booked"
@@ -234,6 +233,7 @@ async function postBookARide(req, res) {
       _id: ride.rider_id
     });
     if (rider) {
+      let user=await User.findOneAndUpdate({_id:req.user._id},{$inc:{rides_booked:1}});
       let to_mail = rider.email;
       //user data
       let user_data = {
@@ -253,13 +253,13 @@ async function postBookARide(req, res) {
         }
         //if no seat 
         else {
-          ride.status = "Booked";
+          ride.status = "unavailable";
         }
         ride.passenger_left = seats;
       }
       //if user book truck simply update staus as booked
       else {
-        ride.status = "Booked";
+        ride.status = "unavailable";
       }
       ride.booked_id = req.user._id;
       //1.updating ride data (status,passenger_left)
@@ -311,7 +311,7 @@ async function postBookARide(req, res) {
           if (msg) {
             res.json({
               status: "Sucess",
-              msg: "Successfully Booked"
+              msg: "Successfully Unbooked"
             });
             return
           }
@@ -327,7 +327,7 @@ async function postBookARide(req, res) {
     else {
       res.json({
         status: "Failure",
-        msg: "Sorry Rider is not avalible"
+        msg: "Sorry Rider is not available"
       })
     }
   }
@@ -351,9 +351,9 @@ async function unBookMyRide(req, res) {
         //adding back the booked passenger to ride and setting status 
         let passenger_left = Number(ride.passenger_left) + Number(passenger);
         ride.passenger_left = passenger_left;
-        //need to check if the passenger left == passenger then we need to put unbooked
+        //need to check if the passenger left == passenger then we need to put available
         if (passenger_left === ride.passenger) {
-          ride.status = "unbooked";
+          ride.status = "available";
         } else {
           ride.status = passenger_left + " Seats Left"
         }

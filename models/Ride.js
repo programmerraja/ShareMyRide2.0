@@ -39,8 +39,6 @@ const RideSchema = new mongoose.Schema({
     passenger_left: {
       type: Number,
       default: 0
-
-
     },
     amount: {
       type: Number,
@@ -48,7 +46,7 @@ const RideSchema = new mongoose.Schema({
     },
     status: {
       type: String,
-      default: "unbooked"
+      default: "available"
     }
   },
 

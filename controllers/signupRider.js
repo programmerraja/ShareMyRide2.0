@@ -32,12 +32,28 @@ async function post(req, res) {
     });
     return
   }
+  if (String(req.body.phoneno).length!=10 ) {
+    res.render("signupRider", {
+      msg: "Invalid Phone Number"
+    });
+    return
+  }
+  if (String(req.body.whatsappno).length!=10 ) {
+    res.render("signupRider", {
+      msg: "Invalid Whatsapp Number"
+    });
+    return
+  }
   //need to check if the new rider is not user
   let user = await User.findOne({
     email: req.body.email
   });
   if (!user) {
-    let profile = req.file.filename;
+    let profile="profile/abaee7de02f3af19f65d6548a67b27f3.png";
+    //if user upload profile picture 
+    if(req.file){
+       profile = req.file.filename;
+    }
     let hash = bcrypt.hashSync(req.body.password, salt_rounds);
     req.body.password = hash;
     let new_rider = new Rider({
@@ -51,7 +67,6 @@ async function post(req, res) {
       drivingexpereince: req.body.drivingexpereince,
       licenseno: req.body.licenseno,
       bio: req.body.bio,
-      profile: profile
     });
 
     new_rider = await new_rider.save().catch((err) => {

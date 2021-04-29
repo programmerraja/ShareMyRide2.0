@@ -68,14 +68,14 @@ async function sendBookRideMail(to_mail, user_name, user, link) {
     body = "<p>Hai " + user_name + ",</p>\
 			 		<p>Your <a href='" + link + "'>ride </a>is booked. <p>\
 			 		<p>"+ user.name + " just booked to travel with you.</p>\
-			 		<p>whatsappno" + user.whatsappno + "</p>\
+			 		<p>whatsappno: " + user.whatsappno + "</p>\
 			 		<p>No of passenger going to join with you " + user.passenger + "</p></p></p>\
 			 		<p>"+user.name +" sent you a message</p><p>&quot;" + user.message + "&quot;</p>"
   } else {
     body = "<p>Hai " + user_name + ",</p>\
 			 		<p>Your <a href='" + link + "'>ride </a>is booked</p>\
 			 		<p>"+ user.name + " just booked to travel with you</p>\
-			 		<p>whatsappno:" + user.whatsappno + "</p>\
+			 		<p>whatsappno: " + user.whatsappno + "</p>\
 			 		<p>"+user.name +" sent you a message</p><p>&quot;" + user.message + "&quot;</p>"
   }
   let msg = await sendMail(subject, body, to_mail);
