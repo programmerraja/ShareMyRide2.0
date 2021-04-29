@@ -168,7 +168,7 @@ async function getMyBookedRides(req, res) {
   if (length) {
     await getRides(0);
   }
-  res.render("unavailableRides", {
+  res.render("bookedRides", {
     user: req.user,
     rides
   });
