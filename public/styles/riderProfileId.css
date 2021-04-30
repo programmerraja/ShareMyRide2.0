@@ -38,22 +38,24 @@
   display: flex;
   justify-content: space-between;
 }
-.rider_profile-review{
-   display: flex;
+
+.rider_profile-review {
+  display: flex;
 }
 
 .rider_profile-text p {
   width: 150px;
 }
-.search_result-arrow{
-    align-self: center;
-    cursor: pointer;
-    height: 10px;
-    width: 10px;
-    transform: rotate( 45deg);
-    -webkit-transform: rotate(45deg);
-    border-right: 1.5px solid black;
-    border-top: 1.5px solid black;
-    margin-top: 8px;
-    margin-left: 15px;
+
+.search_result-arrow {
+  align-self: center;
+  cursor: pointer;
+  height: 10px;
+  width: 10px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  border-right: 1.5px solid black;
+  border-top: 1.5px solid black;
+  margin-top: 8px;
+  margin-left: 15px;
 }

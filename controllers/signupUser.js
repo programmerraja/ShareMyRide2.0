@@ -33,7 +33,7 @@ async function postHandler(req, res) {
     });
     return
   }
-   if (String(req.body.whatsappno).length!=10) {
+  if (String(req.body.whatsappno).length != 10) {
     res.render("signupUser", {
       msg: "Invalid Whatsapp Number"
     });
@@ -45,10 +45,10 @@ async function postHandler(req, res) {
   });
   if (!rider) {
     //default profile picture
-    let profile="f4fd9222c7d1ec475b7dc0e543c1fdc4.png";
+    let profile = "f4fd9222c7d1ec475b7dc0e543c1fdc4.png";
     //if user upload profile picture 
-    if(req.file){
-       profile = req.file.filename;
+    if (req.file) {
+      profile = req.file.filename;
     }
     let hash = bcrypt.hashSync(req.body.password, salt_rounds);
     req.body.password = hash;

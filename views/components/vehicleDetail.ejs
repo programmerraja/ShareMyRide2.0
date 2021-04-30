@@ -38,13 +38,13 @@
         <p><%= owner.name %></p>
       </div>
       <div class="owner_link">
-        
-          <img src="/rider/profile/<%= owner.profile%>" class="rider_img" alt="profile">
-          <a href="/rider/profile/id/<%=owner.id%>">
-           <div class="search_result-arrow" style="position: relative;left: 51px;top: -19px;"></div>
+
+        <img src="/rider/profile/<%= owner.profile%>" class="rider_img" alt="profile">
+        <a href="/rider/profile/id/<%=owner.id%>">
+          <div class="search_result-arrow" style="position: relative;left: 51px;top: -19px;"></div>
         </a>
       </div>
-      
+
 
     </div>
     <% if(ride.status==="available") { %>
@@ -57,10 +57,10 @@
       <div class="owner_name text-capitalize">
         <p>co-travellers</p>
       </div>
-    
+
       <a href="/search/get/booked/users/id/<%=ride._id%>">
-      <div class="search_result-arrow"></div>
-        </a>
+        <div class="search_result-arrow"></div>
+      </a>
     </div>
     <div class="ride_model text-muted mx-2 text-center p-2">
       <p class="text-capitalize m-0  text-danger font-weight-bold"><%=ride.status%></p>

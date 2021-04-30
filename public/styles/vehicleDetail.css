@@ -78,17 +78,19 @@
   height: 35px;
   border-radius: 50%;
 }
-.search_result-arrow{
-    align-self: center;
-    cursor: pointer;
-    height: 7px;
-    width: 7px;
-    transform: rotate( 45deg);
-    -webkit-transform: rotate(45deg);
-    border-right: 1.5px solid black;
-    border-top: 1.5px solid black;
-    margin-bottom: 21px;
+
+.search_result-arrow {
+  align-self: center;
+  cursor: pointer;
+  height: 7px;
+  width: 7px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  border-right: 1.5px solid black;
+  border-top: 1.5px solid black;
+  margin-bottom: 21px;
 }
+
 /*  MOBILE  */
 @media (max-width:768px) {
 

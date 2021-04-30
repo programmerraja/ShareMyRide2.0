@@ -8,7 +8,7 @@ const Rider = require("../models/Rider");
 const Booking = require("../models/Booking");
 const Alert = require("../models/Alert");
 const User = require("../models/User");
-const Review=require("../models/Review");
+const Review = require("../models/Review");
 
 //db
 var conn = mongoose.createConnection(process.env.DBURL, {
@@ -179,38 +179,63 @@ async function getMyBookedRides(req, res) {
 }
 
 
-async function postReview(req,res){
+async function postReview(req, res) {
   //if recevied order change it cause problem
-  let {ratings,review,rider_id}=req.body;
-  if(ratings && review &&rider_id){
-     ratings=parseInt(ratings);
-     let old_review=await Review.findOne({"user_id":req.user._id,"rider_id":rider_id});
-     //if he already not post the review
-     if(!old_review){
-         
-         let new_review= new Review({"user_id":req.user._id,"rider_id":rider_id,"rating":ratings,"review":review});
-         
-         let rider=await Rider.findOne({_id:rider_id});
-         
-         let current_rating=rider.rating*rider.total_rating;
-         ratings=(current_rating+ratings)/(rider.total_rating+1)
-         ratings=ratings.toFixed(1);
-         total_rating=  rider.total_rating+1;
+  let {
+    ratings,
+    review,
+    rider_id
+  } = req.body;
+  if (ratings && review && rider_id) {
+    ratings = parseInt(ratings);
+    let old_review = await Review.findOne({
+      "user_id": req.user._id,
+      "rider_id": rider_id
+    });
+    //if he already not post the review
+    if (!old_review) {
 
-         rider=await Rider.findOneAndUpdate({_id:rider_id},{total_rating:total_rating,rating:ratings})
-         
-         new_review = await new_review.save().catch((err) => {
-            let msg = dbErrorHandler(err);
-            res.json({
-              status: "Failure",
-              msg: msg
-            });
-          });
-         res.json({status:"Sucess",msg:"Successfully Added"})
-      }else{
-         res.json({status:"Failure",msg:"Already Reviewed"})
+      let new_review = new Review({
+        "user_id": req.user._id,
+        "rider_id": rider_id,
+        "rating": ratings,
+        "review": review
+      });
 
-      }
+      let rider = await Rider.findOne({
+        _id: rider_id
+      });
+
+      let current_rating = rider.rating * rider.total_rating;
+      ratings = (current_rating + ratings) / (rider.total_rating + 1)
+      ratings = ratings.toFixed(1);
+      total_rating = rider.total_rating + 1;
+
+      rider = await Rider.findOneAndUpdate({
+        _id: rider_id
+      }, {
+        total_rating: total_rating,
+        rating: ratings
+      })
+
+      new_review = await new_review.save().catch((err) => {
+        let msg = dbErrorHandler(err);
+        res.json({
+          status: "Failure",
+          msg: msg
+        });
+      });
+      res.json({
+        status: "Sucess",
+        msg: "Successfully Added"
+      })
+    } else {
+      res.json({
+        status: "Failure",
+        msg: "Already Reviewed"
+      })
+
+    }
 
   }
 }
@@ -328,7 +353,13 @@ async function postBookARide(req, res) {
         //if user book the first time 
         else {
           //increament the count
-          let user=await User.findOneAndUpdate({_id:req.user._id},{$inc:{rides_booked:1}});
+          let user = await User.findOneAndUpdate({
+            _id: req.user._id
+          }, {
+            $inc: {
+              rides_booked: 1
+            }
+          });
           booking = new Booking({
             user_id: req.user._id,
             ride_id: ride._id,
@@ -421,7 +452,7 @@ async function unBookMyRide(req, res) {
                 name: req.user.name,
                 whatsappno: req.user.whatsappno,
                 passenger: passenger,
-                reason:req.body.reason
+                reason: req.body.reason
               };
               //link for the ride 
               let link = req.protocol + "://" + req.get("host") + "/search/ride/id/" + ride._id;

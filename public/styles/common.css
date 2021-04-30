@@ -295,8 +295,8 @@ select {
 /*  MOBILE  */
 
 /*  POPUP */
-.popup_container ,
-.form_wrapper{
+.popup_container,
+.form_wrapper {
   height: 100vh;
   position: fixed;
   background-color: rgba(0, 0, 0, 0.6);
@@ -338,9 +338,11 @@ select {
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
 }
-.form_button{
+
+.form_button {
   margin-top: 15px
 }
+
 .popup_button:hover {
   background-color: var(--secondary-color-less);
 }

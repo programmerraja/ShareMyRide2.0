@@ -2,7 +2,7 @@ var nodemailer = require('nodemailer');
 const crypto = require("crypto");
 const GridFsStorage = require('multer-gridfs-storage');
 const multer = require('multer');
-const path=require("path");
+const path = require("path");
 
 function generateToken() {
   const token = crypto.randomBytes(10).toString("hex");
@@ -67,16 +67,16 @@ async function sendBookRideMail(to_mail, user_name, user, link) {
   if (user.passenger) {
     body = "<p>Hai " + user_name + ",</p>\
 			 		<p>Your <a href='" + link + "'>ride </a>is booked. <p>\
-			 		<p>"+ user.name + " just booked to travel with you.</p>\
+			 		<p>" + user.name + " just booked to travel with you.</p>\
 			 		<p>whatsappno: " + user.whatsappno + "</p>\
 			 		<p>No of passenger going to join with you " + user.passenger + "</p></p></p>\
-			 		<p>"+user.name +" sent you a message</p><p>&quot;" + user.message + "&quot;</p>"
+			 		<p>" + user.name + " sent you a message</p><p>&quot;" + user.message + "&quot;</p>"
   } else {
     body = "<p>Hai " + user_name + ",</p>\
 			 		<p>Your <a href='" + link + "'>ride </a>is booked</p>\
-			 		<p>"+ user.name + " just booked to travel with you</p>\
+			 		<p>" + user.name + " just booked to travel with you</p>\
 			 		<p>whatsappno: " + user.whatsappno + "</p>\
-			 		<p>"+user.name +" sent you a message</p><p>&quot;" + user.message + "&quot;</p>"
+			 		<p>" + user.name + " sent you a message</p><p>&quot;" + user.message + "&quot;</p>"
   }
   let msg = await sendMail(subject, body, to_mail);
   return msg;
@@ -85,11 +85,11 @@ async function sendBookRideMail(to_mail, user_name, user, link) {
 async function sendUnBookRideMail(to_mail, user_name, user, link) {
   let subject = "You Ride is UnBooked";
   let body = "<p>Hai " + user_name + ",</p>\
-			 		<p>Your <a href='" + link + "'>ride </a>is unbooked by "+ user.name +" <p>\
+			 		<p>Your <a href='" + link + "'>ride </a>is unbooked by " + user.name + " <p>\
 			 		<p>whatssapp number: " + user.whatsappno + "</p>\
 			 		<p>No of seats unbooked: " + user.passenger + "</p></p></p>\
           <p> For more contact him through whatsapp number\
-          <p>"+user.name +" sent you a reason to unbook</p><p>&quot;" + user.reason + "&quot;</p>"
+          <p>" + user.name + " sent you a reason to unbook</p><p>&quot;" + user.reason + "&quot;</p>"
 
   let msg = await sendMail(subject, body, to_mail);
   return msg;

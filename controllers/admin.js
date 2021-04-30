@@ -26,53 +26,55 @@ async function getRiders(req, res) {
 }
 
 async function getRider(req, res) {
-  if(req.params.id){
+  if (req.params.id) {
     let rider_id = req.params.id;
     let rides = await Ride.find({
       rider_id: rider_id
     });
-    let rider=await Rider.findOne({_id:rider_id});
+    let rider = await Rider.findOne({
+      _id: rider_id
+    });
     if (rides && rider) {
       res.render("adminRider", {
         rider: req.user,
-        rider_profile:rider,
+        rider_profile: rider,
         rides,
       });
-    
+
     }
     return;
-    }
-    //render 404
-    res.render("error"); 
+  }
+  //render 404
+  res.render("error");
 
 }
 
-  async function removeRide(req, res) {
-      if (req.body.id) {
-        let ride_id = req.body.id;
-        let ride = await Ride.deleteOne({
-          _id: ride_id,
-        });
-        let booking = await Booking.deleteMany({
-          ride_id: ride_id
-        });
-        //need to show rider if some thing bad for better use js in client side
-        if (ride && booking) {
-          res.json({
-            "status": "Sucess",
-            msg: "Successfully Removed"
-          });
-        } else {
-          res.json({
-            "status": "Failure",
-            msg: "Sorry Something went wrong!"
-          });
-        }
-        return;
-      }
-      res.render("error");
-
+async function removeRide(req, res) {
+  if (req.body.id) {
+    let ride_id = req.body.id;
+    let ride = await Ride.deleteOne({
+      _id: ride_id,
+    });
+    let booking = await Booking.deleteMany({
+      ride_id: ride_id
+    });
+    //need to show rider if some thing bad for better use js in client side
+    if (ride && booking) {
+      res.json({
+        "status": "Sucess",
+        msg: "Successfully Removed"
+      });
+    } else {
+      res.json({
+        "status": "Failure",
+        msg: "Sorry Something went wrong!"
+      });
     }
+    return;
+  }
+  res.render("error");
+
+}
 
 async function removeRiderById(req, res) {
   if (req.body.id) {
@@ -81,7 +83,9 @@ async function removeRiderById(req, res) {
       _id: rider_id
     });
     //remove ride also
-    let ride=await Ride.deleteMany({ rider_id: rider_id});
+    let ride = await Ride.deleteMany({
+      rider_id: rider_id
+    });
     if (rider) {
       res.json({
         status: "Sucess",
@@ -128,52 +132,54 @@ async function getUsers(req, res) {
 }
 
 async function getUser(req, res) {
-  if(req.params.id){
-      let user_id = req.params.id;
-      //getting all booking done by user
-      let booking = await Booking.find({
-        user_id: user_id
+  if (req.params.id) {
+    let user_id = req.params.id;
+    //getting all booking done by user
+    let booking = await Booking.find({
+      user_id: user_id
+    });
+    let user_profile = await User.findOne({
+      _id: user_id
+    });
+    //to store all [rides id and passenger count] 
+    let rides_id = []
+    let rides = []
+    booking.forEach((booking, i) => {
+      //putting id and passenger in array
+      if (booking.ride_id) {
+        rides_id.push([booking.ride_id, booking.passenger])
+      }
+    });
+    let length = rides_id.length
+    async function getRides(index) {
+      //getting the ride id 
+      let ride = await Ride.findOne({
+        _id: rides_id[index][0]
       });
-      let user_profile=await User.findOne({_id:user_id});
-      //to store all [rides id and passenger count] 
-      let rides_id = []
-      let rides = []
-      booking.forEach((booking, i) => {
-        //putting id and passenger in array
-        if (booking.ride_id) {
-          rides_id.push([booking.ride_id, booking.passenger])
+      if (ride) {
+        //over writing no of passenger to no of passenger he booked if it is car
+        ride.passenger = rides_id[index][1];
+        rides.push(ride);
+        if (index + 1 < length) {
+          await getRides(index + 1)
         }
-      });
-      let length = rides_id.length
-      async function getRides(index) {
-        //getting the ride id 
-        let ride = await Ride.findOne({
-          _id: rides_id[index][0]
-        });
-        if (ride) {
-          //over writing no of passenger to no of passenger he booked if it is car
-          ride.passenger = rides_id[index][1];
-          rides.push(ride);
-          if (index + 1 < length) {
-            await getRides(index + 1)
-          }
-        } else {
-          if (index + 1 < length) {
-            await getRides(index + 1)
-          }
+      } else {
+        if (index + 1 < length) {
+          await getRides(index + 1)
         }
       }
-      //used recursion function so only we can use async await 
-      //call only if the booking avalible
-      if (length) {
-        await getRides(0);
-      }
-      res.render("adminUser", {
-        rider: req.user,
-        user_profile:user_profile,
-        rides
-      });
-  return
+    }
+    //used recursion function so only we can use async await 
+    //call only if the booking avalible
+    if (length) {
+      await getRides(0);
+    }
+    res.render("adminUser", {
+      rider: req.user,
+      user_profile: user_profile,
+      rides
+    });
+    return
   }
   res.render("error");
 

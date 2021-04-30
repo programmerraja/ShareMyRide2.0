@@ -1,7 +1,7 @@
 const Ride = require("../models/Ride");
 const Rider = require("../models/Rider");
-const Booking=require("../models/Booking");
-const User=require("../models/User");
+const Booking = require("../models/Booking");
+const User = require("../models/User");
 
 async function post(req, res) {
   if (req.body) {
@@ -99,7 +99,7 @@ async function getBookedUsers(req, res) {
     let ride = await Ride.findOne({
       _id: ride_id
     });
-  
+
     //allow only if rider has access but we bypass here so user can see 
     if (1) {
       //getting booking to get the booked user id
@@ -137,21 +137,21 @@ async function getBookedUsers(req, res) {
           }
         }
       }
-      
+
       if (length) {
         await getUsers(0);
       }
 
-        let unbooked = parseInt(ride.passenger) - parseInt(booked);
-        res.render("bookedUsers", {
-          seats: ride.passenger,
-          booked: booked,
-          unbooked: unbooked,
-          users: users,
-          rider: req.user,
-          search_page:true
-        });
-      
+      let unbooked = parseInt(ride.passenger) - parseInt(booked);
+      res.render("bookedUsers", {
+        seats: ride.passenger,
+        booked: booked,
+        unbooked: unbooked,
+        users: users,
+        rider: req.user,
+        search_page: true
+      });
+
     }
   }
 }

@@ -58,17 +58,17 @@ const UserSchema = new mongoose.Schema({
     type: Date,
     default: new Date()
   },
-  no_of_ride:{
-    type:Number,
-    default:0
+  no_of_ride: {
+    type: Number,
+    default: 0
   },
-  rating:{
-    type:Number,
-    default:0
+  rating: {
+    type: Number,
+    default: 0
   },
-  total_rating:{
-    type:Number,
-    default:0
+  total_rating: {
+    type: Number,
+    default: 0
   },
   password_reset_token: {
     type: String

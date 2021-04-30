@@ -45,8 +45,8 @@ function insertToTable(obj, table, is_user = false) {
   let row;
   if (!is_user) {
     row = '<div class="tr">\
-  <div class="td"><img src="/rider/profile/'+obj.profile+'" class="rider_img"></div>\
-  <div class="td"><a href="/admin/dashboard/rider/id/'+obj.rider_id+'"> ' + obj.ridername + '</a></div>\
+  <div class="td"><img src="/rider/profile/' + obj.profile + '" class="rider_img"></div>\
+  <div class="td"><a href="/admin/dashboard/rider/id/' + obj.rider_id + '"> ' + obj.ridername + '</a></div>\
   <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
   <div class="td">' + obj.licenseno + '</div>\
   <div class="td">' + obj.is_verified + '</div>\
@@ -60,8 +60,8 @@ function insertToTable(obj, table, is_user = false) {
 
   } else {
     row = '<div class="tr">\
-  <div class="td"><img src="/user/profile/'+obj.profile+'" class="user_img"></div>\
-  <div class="td"><a href="/admin/dashboard/user/id/'+obj.user_id+'"> ' + obj.username + '</a></div>\
+  <div class="td"><img src="/user/profile/' + obj.profile + '" class="user_img"></div>\
+  <div class="td"><a href="/admin/dashboard/user/id/' + obj.user_id + '"> ' + obj.username + '</a></div>\
   <div class="td">' + obj.email_verified + '</div>\
   <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
   <div class="td">\
@@ -89,7 +89,7 @@ async function fetchRider() {
       if (res["riders"].length > 0) {
         table.style.display = "flex";
         res["riders"].forEach((rider) => {
-          let profile=rider["profile"];
+          let profile = rider["profile"];
           let rider_id = rider["_id"];
           let ridername = rider["name"];
           let email = rider["email"];
@@ -147,7 +147,7 @@ async function fetchUser() {
         table.style.display = "flex";
         res["users"].forEach((user) => {
           let user_id = user["_id"];
-          let profile=user["profile"];
+          let profile = user["profile"];
           let username = user["name"];
           let email = user["email"];
           let email_verified = user["is_email_verified"];

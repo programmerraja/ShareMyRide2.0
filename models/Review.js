@@ -14,8 +14,8 @@ const BookingSchema = new mongoose.Schema({
     review: {
       type: String
     },
-    rating:{
-      type:Number
+    rating: {
+      type: Number
     }
   },
 

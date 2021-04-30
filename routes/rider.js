@@ -73,7 +73,7 @@ router.post("/edit/ride/taxi/id/:id", checkVerified, sanitizeHTML, checkBodyRide
 router.get("/edit/ride/goods&services/id/:id", authRiderHandler, riderController.editMyRideForm);
 router.post("/edit/ride/goods&services/id/:id", checkVerified, sanitizeHTML, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
 
-router.get("/show/reviews/id/:id",sanitizeHTML,asyncHandler(riderController.getReviews));
+router.get("/show/reviews/id/:id", sanitizeHTML, asyncHandler(riderController.getReviews));
 //if rider remove his ride we need to inform the user
 router.post("/remove/myride/", authRiderHandler, riderController.removeMyRideForm);
 

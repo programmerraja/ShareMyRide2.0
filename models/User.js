@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
- 
+
 // Create Schema
 
 //need to change user_id type to id
@@ -28,9 +28,9 @@ const UserSchema = new mongoose.Schema({
     profile: {
       type: String
     },
-    rides_booked:{
-      type:Number,
-      default:0
+    rides_booked: {
+      type: Number,
+      default: 0
     },
     created_at: {
       type: Date,

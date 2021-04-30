@@ -17,12 +17,14 @@
   border: 1px solid black;
 
 }
+
 .table .rider_img,
-.table .user_img{
-height: 35px;
-width: 35px;
-border-radius: 50%;
+.table .user_img {
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
 }
+
 .tr {
   border: 1px solid #8080808f;
   display: flex;

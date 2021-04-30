@@ -40,12 +40,12 @@ router.get("/profile/:name", userController.getProfilePicture);
 router.post("/profile", authUserHandler, upload.single("profile"), sanitizeHTML, checkBodyUserHandler, asyncHandler(userController.post));
 
 router.get("/book/ride/:id", authUserHandler, asyncHandler(userController.bookARide));
-router.post("/book/ride/", authUserHandler,checkMailVerified, sanitizeHTML, asyncHandler(userController.postBookARide));
+router.post("/book/ride/", authUserHandler, checkMailVerified, sanitizeHTML, asyncHandler(userController.postBookARide));
 
-router.post("/unbook/ride/", authUserHandler,sanitizeHTML, asyncHandler(userController.unBookMyRide));
+router.post("/unbook/ride/", authUserHandler, sanitizeHTML, asyncHandler(userController.unBookMyRide));
 router.get("/booked/rides/", authUserHandler, asyncHandler(userController.getMyBookedRides));
 
-router.post("/post/review/",authUserHandler,checkMailVerified,sanitizeHTML ,asyncHandler(userController.postReview));
+router.post("/post/review/", authUserHandler, checkMailVerified, sanitizeHTML, asyncHandler(userController.postReview));
 
 router.post("/set/alert/", sanitizeHTML, authUserHandler, asyncHandler(userController.setAlertOnSearch));
 router.post("/unset/alert/:id", sanitizeHTML, authUserHandler, asyncHandler(userController.unSetAlertOnSearch));
