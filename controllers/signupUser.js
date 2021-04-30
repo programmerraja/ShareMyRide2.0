@@ -45,7 +45,7 @@ async function postHandler(req, res) {
   });
   if (!rider) {
     //default profile picture
-    let profile="9feafa83ac2f70a0e120fe9ab5d6f14b.png";
+    let profile="f4fd9222c7d1ec475b7dc0e543c1fdc4.png";
     //if user upload profile picture 
     if(req.file){
        profile = req.file.filename;
