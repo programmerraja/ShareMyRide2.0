@@ -8,6 +8,7 @@ const Rider = require("../models/Rider");
 const Booking = require("../models/Booking");
 const Alert = require("../models/Alert");
 const User = require("../models/User");
+const Review=require("../models/Review");
 
 //db
 var conn = mongoose.createConnection(process.env.DBURL, {
@@ -175,6 +176,43 @@ async function getMyBookedRides(req, res) {
   return
 
 
+}
+
+
+async function postReview(req,res){
+  //if recevied order change it cause problem
+  let {ratings,review,rider_id}=req.body;
+  if(ratings && review &&rider_id){
+     ratings=parseInt(ratings);
+     let old_review=await Review.findOne({"user_id":req.user._id,"rider_id":rider_id});
+     //if he already not post the review
+     if(!old_review){
+         
+         let new_review= new Review({"user_id":req.user._id,"rider_id":rider_id,"rating":ratings,"review":review});
+         
+         let rider=await Rider.findOne({_id:rider_id});
+         
+         let current_rating=rider.rating*rider.total_rating;
+         ratings=(current_rating+ratings)/(rider.total_rating+1)
+         ratings=ratings.toFixed(1);
+         total_rating=  rider.total_rating+1;
+
+         rider=await Rider.findOneAndUpdate({_id:rider_id},{total_rating:total_rating,rating:ratings})
+         
+         new_review = await new_review.save().catch((err) => {
+            let msg = dbErrorHandler(err);
+            res.json({
+              status: "Failure",
+              msg: msg
+            });
+          });
+         res.json({status:"Sucess",msg:"Successfully Added"})
+      }else{
+         res.json({status:"Failure",msg:"Already Reviewed"})
+
+      }
+
+  }
 }
 
 async function bookARide(req, res) {
@@ -589,6 +627,7 @@ module.exports = {
   logout,
   post,
   bookARide,
+  postReview,
   postBookARide,
   getMyBookedRides,
   unBookMyRide,

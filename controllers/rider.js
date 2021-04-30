@@ -6,7 +6,9 @@ const bcrypt = require('bcrypt');
 const Ride = require("../models/Ride");
 const Rider = require("../models/Rider");
 const Alert = require("../models/Alert");
-
+const Booking=require("../models/Booking");
+const User=require("../models/User");
+const Review =require("../models/Review");
 //util
 const {
   generateToken,
@@ -421,6 +423,43 @@ async function postMyRideForm(req, res) {
 
     }
 
+    async function getReviews(req,res){
+      if(req.user && req.params.id){
+          let reviews=await Review.find({rider_id:req.params.id});
+          console.log(reviews)
+          let length=reviews.length;
+          let rider=await Rider.findOne({_id:req.params.id});
+          let rating=rider.rating;
+          let total_rating=rider.total_rating;
+          let ratings={rating,total_rating};
+          async function getUsers(index) {
+            let user=await User.findOne({_id:reviews[index].user_id});
+            // console.log(user)
+            if(user){
+              reviews[index]._doc.user_name=user.name;
+              reviews[index]._doc.profile="/user/profile/"+user.profile;
+            }
+            index+=1;
+            if(index<length){
+              getUsers(index);
+            }
+          }      
+          if(length>0){
+            await getUsers(0);
+          }
+          // console.log(reviews,"ss")
+        if(req.user.licenseno){
+          let profile="/rider/profile/"+req.user.profile;
+          
+          res.render("reviewRating",{rider:req.user,profile:profile,rider_id:req.params.id,reviews:reviews,ratings:ratings})
+        } else{
+          let profile="/user/profile/"+req.user.profile;
+          res.render("reviewRating",{user:req.user,profile:profile,rider_id:req.params.id,reviews:reviews,ratings:{rating,total_rating}})
+
+        }
+    }
+    }
+
     async function removeMyRideForm(req, res) {
       if (req.body.id) {
         let ride_id = req.body.id;
@@ -580,6 +619,7 @@ async function postMyRideForm(req, res) {
       postMyRideForm,
       removeMyRideForm,
       getMyRides,
+      getReviews,
       forgetPassword,
       postForgetPassword,
       resetPassword,

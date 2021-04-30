@@ -47,9 +47,18 @@
         <p class="text-capitalize ">Member since:</p>
         <p class=" text-capitalize"><%= new Date(rider_profile.created_at).toDateString() %></p>
       </div>
+      <div class="rider_profile-review">
+      <p class="text-capitalize"><i class="fas fa-star"></i><%= rider_profile.rating.toFixed(2)%>/5- <%= rider_profile.total_rating %> rating</p>
+    
+           <a href="/rider/show/reviews/id/<%= rider_profile._id %>">
+                <div class="search_result-arrow"></div>
+          </a>
+     
+    </div>
 
 
     </div>
-
+    
   </div>
 </section>
+

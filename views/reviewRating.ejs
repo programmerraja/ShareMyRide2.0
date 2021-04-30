@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+  <title>Riview & Rating</title>
+  <!-- ############# HEADER #######################-->
+  <%- include('components/header.ejs');  -%>
+  <link rel="stylesheet" type="text/css" href="/public/styles/reviewRating.css">
+</head>
+
+<body>
+  <!-- ############# NAVIGATION #######################-->
+  <%- include('components/nav.ejs') -%>
+    <!-- ############# POPUP #######################-->
+  <%- include('components/popup.ejs');  -%>
+  <!-- ############# REVIEW RATING #######################-->
+  <%- include('components/reviewRating.ejs') -%>
+
+</body>
+<!-- #############  FOOTER #######################-->
+	<%- include('components/footer.ejs');  -%>
+<script src="/public/js/reviewRating.js"></script>
+
+<script src="/public/js/popup.js"></script>
+
+
+</html>

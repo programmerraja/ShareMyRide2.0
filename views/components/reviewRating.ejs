@@ -1,0 +1,48 @@
+<div class="loading_wrapper invisible">
+  <!-- ################# LOADING ############# -->
+  <%- include('./loading.ejs');  -%>
+</div>
+
+<section class="review_rating">
+	
+	<div class="rating_container">
+		<div class="ratings_top">
+			<div class="rating_head">
+				<p class="text-capitalize">rating</p>
+			</div>
+			<div class="rating_value">
+				<h3><%= ratings.rating.toFixed(1) %>/5</h3>
+				<small class="text-muted"><%= ratings.total_rating %> ratings</small>
+			</div>
+		</div>
+		<div class="star">
+                <label for="ratings">How much star would you give?</label>
+                <select name="ratings" class="ratings" style="width: 97% !important;">
+                        <option value="5.Excellent">5.Excellent</option>
+                        <option value="4.Good">4.Good</option>
+                        <option value="3.Okay">3.Okay</option>
+                        <option value="2.Disappointing">2.Disappointing</option>
+                        <option value="1.Very Disappointing">1.Very Disappointing</option>
+                </select>
+		</div>
+		<div class="rating_text">
+			<label for="review">Tell us more about him</label>
+               <textarea placeholder="Example: &quot;Very good experience.Nice driving.&quot;" class="review" name="review" maxlength="500"></textarea>
+		</div>
+		<div class="ratings_button" id="<%= rider_id %>">
+			<input type="button" name="post_review" class="post_review" value="Post My Review">
+		</div>
+	</div>
+	 <% if(reviews.length>0) { %>
+	  <% reviews.forEach((review,i)=>{ %>
+	<div class="review_container">
+		<div class="review_top">
+			<div class="review_name"><%= review._doc.user_name%><br><small><i class="fas fa-star"></i><%= review.rating%></small></div>
+			<div class="review_img"><img src="<%= review._doc.profile %>" ></div>
+		</div>
+		<div class="review_comment">
+			<p class="text-muted"><%= review.review %></p>
+		</div>
+	</div>
+	<% });}%>
+</section>

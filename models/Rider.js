@@ -62,6 +62,14 @@ const UserSchema = new mongoose.Schema({
     type:Number,
     default:0
   },
+  rating:{
+    type:Number,
+    default:0
+  },
+  total_rating:{
+    type:Number,
+    default:0
+  },
   password_reset_token: {
     type: String
   },

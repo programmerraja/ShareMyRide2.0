@@ -45,10 +45,10 @@ router.post("/book/ride/", checkMailVerified, sanitizeHTML, authUserHandler, asy
 router.post("/unbook/ride/", sanitizeHTML, authUserHandler, asyncHandler(userController.unBookMyRide));
 router.get("/booked/rides/", authUserHandler, asyncHandler(userController.getMyBookedRides));
 
+router.post("/post/review/",sanitizeHTML,asyncHandler(userController.postReview));
+
 router.post("/set/alert/", sanitizeHTML, authUserHandler, asyncHandler(userController.setAlertOnSearch));
 router.post("/unset/alert/:id", sanitizeHTML, authUserHandler, asyncHandler(userController.unSetAlertOnSearch));
-
-
 
 router.get("/verifiy/email/:id", asyncHandler(userController.emailVerified));
 

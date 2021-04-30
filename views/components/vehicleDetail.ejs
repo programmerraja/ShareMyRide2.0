@@ -38,13 +38,13 @@
         <p><%= owner.name %></p>
       </div>
       <div class="owner_link">
-         <a href="/rider/profile/id/<%=owner.id%>">
+        
           <img src="/rider/profile/<%= owner.profile%>" class="rider_img">
+          <a href="/rider/profile/id/<%=owner.id%>">
+           <div class="search_result-arrow" style="position: relative;left: 51px;top: -19px;"></div>
         </a>
       </div>
-      <a href="/rider/profile/id/<%=owner.id%>">
-      <div class="search_result-arrow"></div>
-        </a>
+      
 
     </div>
     <% if(ride.status==="available") { %>
@@ -53,7 +53,7 @@
     </div>
 
     <% }else{ %>
-    <div class="vehicle_card-owner">
+    <div class="vehicle_card-owner" style="border-bottom: 8px solid rgb(237, 237, 237);">
       <div class="owner_name text-capitalize">
         <p>co-travellers</p>
       </div>
