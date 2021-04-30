@@ -40,7 +40,7 @@
 	<div class="review_container">
 		<div class="review_top">
 			<div class="review_name"><%= review._doc.user_name%><br><small><i class="fas fa-star"></i><%= review.rating%></small></div>
-			<div class="review_img"><img src="<%= review._doc.profile %>" ></div>
+			<div class="review_img"><img src="<%= review._doc.profile %>"  alt="profile"></div>
 		</div>
 		<div class="review_comment">
 			<p class="text-muted"><%= review.review %></p>
