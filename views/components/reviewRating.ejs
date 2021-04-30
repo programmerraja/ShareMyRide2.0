@@ -15,6 +15,7 @@
 				<small class="text-muted"><%= ratings.total_rating %> ratings</small>
 			</div>
 		</div>
+		 <% if(typeof user!="undefined" ) {%>
 		<div class="star">
                 <label for="ratings">How much star would you give?</label>
                 <select name="ratings" class="ratings" style="width: 97% !important;">
@@ -32,6 +33,7 @@
 		<div class="ratings_button" id="<%= rider_id %>">
 			<input type="button" name="post_review" class="post_review" value="Post My Review">
 		</div>
+		<%}%>
 	</div>
 	 <% if(reviews.length>0) { %>
 	  <% reviews.forEach((review,i)=>{ %>

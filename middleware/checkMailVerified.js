@@ -29,7 +29,7 @@ function checkMailVerified(req, res, next) {
   }
   res.json({
     "status": "Failed",
-    msg: "Please verify your mail to book the ride."
+    msg: "Please verify your mail."
   });
   return;
 

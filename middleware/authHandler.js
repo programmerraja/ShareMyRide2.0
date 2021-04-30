@@ -12,6 +12,7 @@ function authUserHandler(req, res, next) {
 }
 
 function authRiderHandler(req, res, next) {
+  console.log(req.user,"ssssss")
   if (req.user) {
     if (req.user.licenseno) {
       next()

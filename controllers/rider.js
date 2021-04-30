@@ -424,9 +424,8 @@ async function postMyRideForm(req, res) {
     }
 
     async function getReviews(req,res){
-      if(req.user && req.params.id){
+      if(req.params.id){
           let reviews=await Review.find({rider_id:req.params.id});
-          console.log(reviews)
           let length=reviews.length;
           let rider=await Rider.findOne({_id:req.params.id});
           let rating=rider.rating;
@@ -447,17 +446,19 @@ async function postMyRideForm(req, res) {
           if(length>0){
             await getUsers(0);
           }
-          // console.log(reviews,"ss")
+        if(req.user){
         if(req.user.licenseno){
-          let profile="/rider/profile/"+req.user.profile;
-          
-          res.render("reviewRating",{rider:req.user,profile:profile,rider_id:req.params.id,reviews:reviews,ratings:ratings})
+      
+          res.render("reviewRating",{rider:req.user,rider_id:req.params.id,reviews:reviews,ratings:ratings})
         } else{
-          let profile="/user/profile/"+req.user.profile;
-          res.render("reviewRating",{user:req.user,profile:profile,rider_id:req.params.id,reviews:reviews,ratings:{rating,total_rating}})
+          res.render("reviewRating",{user:req.user,rider_id:req.params.id,reviews:reviews,ratings:{rating,total_rating}})
+        }}else{
+          res.render("reviewRating",{rider_id:req.params.id,reviews:reviews,ratings:{rating,total_rating}})
 
         }
-    }
+        return;
+      }
+      res.render("error");
     }
 
     async function removeMyRideForm(req, res) {
