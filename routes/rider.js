@@ -1,6 +1,10 @@
 const express = require("express");
+const mongoose = require("mongoose");
+const Grid = require('gridfs-stream');
+
 //conroller
 const riderController = require("../controllers/rider");
+
 //middleware
 const {
   authRiderHandler
@@ -10,7 +14,6 @@ const {
   checkVerified
 } = require("../middleware/checkMailVerified");
 const sanitizeHTML = require("../middleware/sanitizeHTML");
-
 const {
   checkBodyRiderHandler,
   checkBodyRideHandler,
@@ -22,14 +25,10 @@ const {
   forgetPassword,
   AppError,
   verfiyMail,
-  dbErrorHandler
-} = require("../util/util");
-
-const mongoose = require("mongoose");
-const Grid = require('gridfs-stream');
-const {
+  dbErrorHandler,
   upload
 } = require("../util/util");
+
 
 var conn = mongoose.createConnection(process.env.DBURL, {
   useNewUrlParser: true,

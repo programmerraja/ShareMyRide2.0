@@ -1,11 +1,14 @@
 const express = require("express");
+//controller
 const signupUserController = require("../controllers/signupUser");
+//middleware
 const sanitizeHTML = require("../middleware/sanitizeHTML");
-
-const router = express.Router();
+//utill
 const {
   upload
 } = require("../util/util");
+
+const router = express.Router();
 
 
 // signin/user

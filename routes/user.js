@@ -1,4 +1,7 @@
+
 const express = require("express");
+const mongoose = require("mongoose");
+const Grid = require('gridfs-stream');
 
 //conroller
 const userController = require("../controllers/user");
@@ -16,24 +19,18 @@ const {
   checkMailVerified
 } = require("../middleware/checkMailVerified");
 const sanitizeHTML = require("../middleware/sanitizeHTML");
-const mongoose = require("mongoose");
-const Grid = require('gridfs-stream');
 
-//util
+//utill
 const {
   generateToken,
   forgetPassword,
   AppError,
   verfiyMail,
-  dbErrorHandler
+  dbErrorHandler,upload
 } = require("../util/util");
-
-
 
 const router = express.Router();
-const {
-  upload
-} = require("../util/util");
+
 //route for /user
 router.get("/profile", authUserHandler, userController.get);
 router.get("/profile/:name", userController.getProfilePicture);
