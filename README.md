@@ -1,5 +1,6 @@
 # ShareMyRide2.0
-This is just new version of share my ride 
+
+This is the updated version of the sharemyride
 
 
 <details open="open">
@@ -22,49 +23,47 @@ This is just new version of share my ride
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
+    <li><a href="#liveDemo">Live Demo</a></li>
   </ol>
 </details>
 
 
 ## About The Project
-
+The website for car pooling and goods&service pooling.
 
 ### Built With
 
-This section should list any major frameworks that you built your project using. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
-* [Laravel](https://laravel.com)
-
+* HTML
+* css
+* js
+* Bootstrap
+* Express Js
+* MOngoDB
 
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+
+1. Clone the repo
    ```sh
    git clone https://github.com/your_username_/Project-Name.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your Db detail in `.env file`
+3. Enter your Db detail in `.env file`
    ```JS
     DBURL=Db url 
     NODE_ENV=DEVELPMENT
     EMAIL=EMail
     PASSWORD=password for your email
    ```
-
-## Usage
-
+4. Run the program by 
+```sh
+  node index.js
+```
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -84,28 +83,13 @@ Contributions are what make the open source community such an amazing place to b
 Distributed under the MIT License. See `LICENSE` for more information.
 
 
-
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@your_twitter](https://twitter.com/your_username) - email@example.com
-
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
-
+linkedin: [https://www.linkedin.com/in/k-boopathi-5b475a169/](https://www.linkedin.com/in/k-boopathi-5b475a169/)
+Project Link: [https://github.com/programmerraja/ShareMyRide2.0](https://github.com/programmerraja/ShareMyRide2.0)
 
 
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Img Shields](https://shields.io)
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Pages](https://pages.github.com)
-* [Animate.css](https://daneden.github.io/animate.css)
-* [Loaders.css](https://connoratherton.com/loaders)
-* [Slick Carousel](https://kenwheeler.github.io/slick)
-* [Smooth Scroll](https://github.com/cferdinandi/smooth-scroll)
-* [Sticky Kit](http://leafo.net/sticky-kit)
-* [JVectorMap](http://jvectormap.com)
-* [Font Awesome](https://fontawesome.com)
+## liveDemo
 
-
+https://sharemyride2.herokuapp.com/
