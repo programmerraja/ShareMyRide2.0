@@ -49,7 +49,7 @@
 .send_link,
 .change_password {
   background-color: var(--secondary-color);
-  color: white;
+  color: var(--font-color);
   height: 35px;
   width: 130px;
   margin: 10px;

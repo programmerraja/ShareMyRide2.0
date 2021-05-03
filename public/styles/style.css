@@ -78,7 +78,6 @@
 
 .search_input input:focus,
 .search_input select:focus {
-  color: #495057 !important;
   background-color: #fff !important;
   outline: 0 !important;
   box-shadow: none !important;
@@ -87,7 +86,6 @@
 .search_button {
   height: 50px !important;
   width: 113px !important;
-  color: white;
   font-weight: bold;
   border-radius: 0 7px 6px 0;
   border: 0;
@@ -204,7 +202,7 @@ footer {
   width: 100%;
   background-color: var(--third-color);
   text-align: center;
-  color: white;
+  color: var(--font-color);
   padding: 10px;
 
 }

@@ -1,10 +1,11 @@
 :root {
   /*//#ff6a00*/
   --primary-color: white;
-  --secondary-color: #00e7ff;
+  --secondary-color: yellow;
   /*;*/
-  --third-color: #4a5ec9;
-  --secondary-color-less: #00e7ffa6;
+  --third-color: yellow;
+  --secondary-color-less:#ffff00d9;
+  --font-color:black;
   /*#0028fffa;*/
 
 }
@@ -26,9 +27,11 @@ nav li a {
 
 nav li .nav-link:hover {
   background-color: var(--secondary-color);
-  color: white !important;
+  color:var(--font-color) !important;
 }
-
+.btn:focus{
+  box-shadow: none !important;
+}
 .navbar-nav {
   align-items: center;
 }
@@ -195,6 +198,7 @@ select {
   border: 1px solid var(--secondary-color) !important;
   outline: none;
   font-size: 1.2rem;
+  color: var(--font-color)! important;
 }
 
 input[type='button'],
@@ -202,7 +206,7 @@ input[type='submit'],
 textarea {
   width: auto;
   height: calc(1.5em + .50rem + 1px) !important;
-  color: white !important;
+  color: var(--font-color) !important;
   font-weight: bold;
   background-color: var(--secondary-color);
 
@@ -232,7 +236,7 @@ input[type='time']:focus,
 input[type='file']:focus,
 textarea:focus,
 select:focus {
-  color: #495057 !important;
+ 
   background-color: #fff !important;
   outline: 0 !important;
   box-shadow: 0 0 0 0.1rem var(--secondary-color) !important;
@@ -329,7 +333,7 @@ select {
 
 .popup_button {
   background-color: var(--secondary-color);
-  color: white;
+  color: var(--font-color);
   height: 30px;
   width: 60px;
   outline: none;

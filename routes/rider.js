@@ -69,10 +69,10 @@ router.get("/get/ride/goods&services", authRiderHandler, riderController.getMyRi
 router.post("/post/ride/goods&services", sanitizeHTML, checkVerified, authRiderHandler, checkBodyRideHandler, riderController.postMyRideForm);
 
 router.get("/edit/ride/taxi/id/:id", authRiderHandler, riderController.editMyRideForm);
-router.post("/edit/ride/taxi/id/:id", checkVerified, sanitizeHTML, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
-
 router.get("/edit/ride/goods&services/id/:id", authRiderHandler, riderController.editMyRideForm);
-router.post("/edit/ride/goods&services/id/:id", checkVerified, sanitizeHTML, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
+
+router.post("/edit/ride/id/:id", checkVerified, sanitizeHTML, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
+
 
 router.get("/show/reviews/id/:id", sanitizeHTML, asyncHandler(riderController.getReviews));
 //if rider remove his ride we need to inform the user

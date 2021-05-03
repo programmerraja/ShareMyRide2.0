@@ -54,7 +54,7 @@
     <%}else {%>
     <div class="msg"><span><%= msg%></span></div>
     <%}%>
-  <form novalidate="" class="container form_container" method="post" action="/rider/edit/myride/id/<%= ride._id%>">
+  <form novalidate="" class="container form_container" method="post" action="/rider/edit/ride/id/<%= ride._id%>">
     <div class="form-group">
       <label class="form-label" for="formBasicFrom">Leaving from</label>
       <input name="from" name="from" placeholder="Leaving from..." type="text" id="formBasicFrom" class="form-control" required value="<%= ride.from %>">

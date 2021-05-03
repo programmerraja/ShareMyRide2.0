@@ -191,11 +191,11 @@
 .myrides_dropdown-option1:hover,
 .myrides_dropdown-option2:hover {
   background-color: var(--secondary-color);
-  color: white;
+  color: var(--font-color);
 }
 
 .myrides_dropdown-option1 a:hover {
-  color: white;
+  color: var(--font-color);
 }
 
 /*  MOBILE  */
