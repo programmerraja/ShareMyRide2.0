@@ -47,3 +47,18 @@
   margin-top: 20px;
   padding-left: 6px;
 }
+.rating_value{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+
+/*  MOBILE  */
+@media (max-width:768px) {
+
+.review_rating {
+  margin: 20px 7px;
+  }
+}

@@ -45,7 +45,7 @@ router.get("/booked/rides/", authUserHandler, asyncHandler(userController.getMyB
 router.post("/post/review/", authUserHandler, checkMailVerified, sanitizeHTML, asyncHandler(userController.postReview));
 
 router.post("/set/alert/", sanitizeHTML, authUserHandler, asyncHandler(userController.setAlertOnSearch));
-router.post("/unset/alert/:id", sanitizeHTML, authUserHandler, asyncHandler(userController.unSetAlertOnSearch));
+router.get("/unset/alert/:id",authUserHandler, asyncHandler(userController.unSetAlertOnSearch));
 
 router.get("/verifiy/email/:id", asyncHandler(userController.emailVerified));
 

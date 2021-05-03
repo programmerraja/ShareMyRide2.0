@@ -44,6 +44,8 @@ conn.once('open', () => {
 });
 
 const router = express.Router();
+
+
 router.get("/profile/:name", riderController.getProfilePicture)
 
 //route for /rider

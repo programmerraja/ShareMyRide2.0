@@ -55,6 +55,7 @@ function getProfilePicture(req, res) {
     }
   });
 }
+
 //handling GET /user/logout
 function logout(req, res) {
   req.session.destroy();
@@ -62,7 +63,7 @@ function logout(req, res) {
 }
 
 async function post(req, res) {
-  //if user change his mail  send the confirmation message
+
   if (res.locals.is_correct) {
     let {
       name,
@@ -146,6 +147,7 @@ async function getMyBookedRides(req, res) {
     }
   });
   let length = rides_id.length
+  //to get the ride detail
   async function getRides(index) {
     //getting the ride id 
     let ride = await Ride.findOne({
@@ -177,7 +179,6 @@ async function getMyBookedRides(req, res) {
 
 
 }
-
 
 async function postReview(req, res) {
   //if recevied order change it cause problem

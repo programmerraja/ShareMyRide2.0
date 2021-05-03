@@ -59,3 +59,12 @@
   margin-top: 8px;
   margin-left: 15px;
 }
+
+
+/*  MOBILE  */
+@media (max-width:768px) {
+
+.rider_profile {
+  margin: 20px 7px;
+  }
+}

@@ -1,5 +1,7 @@
 const express = require("express");
+
 const searchController = require("../controllers/search");
+
 //middleware
 const asyncHandler = require("../middleware/asyncHandler");
 const sanitizeHTML = require("../middleware/sanitizeHTML");
