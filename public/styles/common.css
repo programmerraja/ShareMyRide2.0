@@ -149,7 +149,7 @@ nav li .nav-link:hover {
 
 .home_option-text p:hover {
   background-color: var(--secondary-color);
-  color: white;
+  color: var(--font-color);
 }
 
 .profile {
