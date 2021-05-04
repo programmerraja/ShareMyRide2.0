@@ -50,10 +50,7 @@
   width: 100%;
   text-align: center;
 }
-.remove_rider,
-.verifiy_rider {
-  color: white !important;
-}
+
 .verifiy_rider {
   background-color: green !important;
   color: white !important;
@@ -80,6 +77,10 @@
   background-color: red !important;
 }
 
+.remove_rider,
+.verifiy_rider {
+  color: white !important;
+}
 .remove_user:hover,
 .remove_rider:hover,
 .verifiy_user:hover,

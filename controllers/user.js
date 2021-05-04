@@ -441,6 +441,7 @@ async function getMyBookedRides(req, res) {
   //to store all [rides id and passenger count] 
   let rides_id = []
   let rides = []
+    console.log(booking,user_id)
   booking.forEach((booking, i) => {
     //putting id and passenger in array
     if (booking.ride_id) {

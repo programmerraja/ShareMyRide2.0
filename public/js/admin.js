@@ -45,27 +45,27 @@ function insertToTable(obj, table, is_user = false) {
   let row;
   if (!is_user) {
     row = '<div class="tr">\
-  <div class="td"><img src="/rider/profile/' + obj.profile + '" class="rider_img"></div>\
+  <div class="td"><img src="/rider/profile/' + obj.profile + '" class="rider_img" alt="profile"></div>\
   <div class="td"><a href="/admin/dashboard/rider/id/' + obj.rider_id + '"> ' + obj.ridername + '</a></div>\
   <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
   <div class="td">' + obj.licenseno + '</div>\
   <div class="td">' + obj.is_verified + '</div>\
   <div class="td">\
-    <input type="button" class="remove_rider" style="border:0 !important;" value="Remove" id="' + obj.rider_id + '">\
+    <input type="button" class="remove_rider" style="border:0 !important;color: white !important;" value="Remove" id="' + obj.rider_id + '">\
   </div>\
   <div class="td">\
-    <input type="button" class="verifiy_rider" value="Verifiy" id="' + obj.rider_id + '">\
+    <input type="button" class="verifiy_rider"style="border:0 !important;color: white !important;" value="Verifiy" id="' + obj.rider_id + '">\
   </div>\
 </div>'
 
   } else {
     row = '<div class="tr">\
-  <div class="td"><img src="/user/profile/' + obj.profile + '" class="user_img"></div>\
+  <div class="td"><img src="/user/profile/' + obj.profile + '" class="user_img" alt="profile"></div>\
   <div class="td"><a href="/admin/dashboard/user/id/' + obj.user_id + '"> ' + obj.username + '</a></div>\
   <div class="td">' + obj.email_verified + '</div>\
   <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
   <div class="td">\
-    <input type="button" class="remove_user" style="border:0 !important;" value="Remove" id="' + obj.user_id + '">\
+    <input type="button" class="remove_user" style="border:0 !important;color: white !important;" value="Remove" id="' + obj.user_id + '">\
   </div>'
 
   }

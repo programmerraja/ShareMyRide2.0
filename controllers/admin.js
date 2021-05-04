@@ -7,6 +7,8 @@ const {
 //models
 const Rider = require("../models/Rider");
 const User = require("../models/User");
+const Ride = require("../models/Ride");
+const Booking = require("../models/Booking");
 
 /* 
   DOING:
@@ -202,6 +204,7 @@ async function getUser(req, res) {
     //to store all [rides id and passenger count] 
     let rides_id = []
     let rides = []
+  
     booking.forEach((booking, i) => {
       //putting id and passenger in array
       if (booking.ride_id) {
