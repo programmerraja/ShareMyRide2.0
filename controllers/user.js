@@ -34,8 +34,6 @@ const {
 
 
 /* 
-    No of DB Read:0
-
     doing :
       render user profile picture
 */
@@ -116,7 +114,7 @@ async function post(req, res) {
         if (user) {
           res.render("userProfile", {
             user: user,
-            msg: "Sucess fully updated"
+            msg: "success fully updated"
           });
         }
 
@@ -145,7 +143,6 @@ async function post(req, res) {
 
 /* 
     No of DB Read:1
-    NO of DB Write:
   render a book a ride page 
 */
 async function bookARide(req, res) {
@@ -301,8 +298,8 @@ async function postBookARide(req, res) {
           //todo if email fail we need to rollback
           if (msg) {
             res.json({
-              status: "Sucess",
-              msg: "Successfully booked"
+              status: "success",
+              msg: "successfully booked"
             });
             return
           }
@@ -396,8 +393,8 @@ async function unBookMyRide(req, res) {
               let msg = await sendUnBookRideMail(to_mail, rider.name, user_data, link);
               if (msg) {
                 res.json({
-                  "status": "Sucess",
-                  msg: "Successfully Unbooked"
+                  "status": "success",
+                  msg: "successfully Unbooked"
                 });
                 return;
               }
@@ -542,8 +539,8 @@ async function postReview(req, res) {
         });
       });
       res.json({
-        status: "Sucess",
-        msg: "Successfully Added"
+        status: "success",
+        msg: "successfully Added"
       })
     } else {
       res.json({
@@ -587,8 +584,8 @@ async function setAlertOnSearch(req, res) {
     new_alert = await new_alert.save()
     if (new_alert) {
       res.json({
-        "status": "Sucess",
-        "msg": "Alert Created Successfully"
+        "status": "success",
+        "msg": "Alert Created successfully"
       });
     } else {
       res.json({
@@ -620,7 +617,7 @@ async function unSetAlertOnSearch(req, res) {
     });
     if (alert) {
       res.json({
-        status: "Successfully Unalerted"
+        status: "successfully Unalerted"
       });
     } else {
       res.json({
@@ -698,7 +695,7 @@ async function postResetPassword(req, res) {
         password: hash
       });
       res.json({
-        status: "Sucess",
+        status: "success",
         msg: "Password Updated"
       });
     } else {
@@ -725,7 +722,7 @@ function forgetPassword(req, res) {
   DOING:
   1.post user email
   2.if email find generate the token store that in user doc and send to the user mail
-  3.if mail send sucess else failed 
+  3.if mail send success else failed 
 
   No of DB Read:1
   NO of DB Write:1
@@ -755,7 +752,7 @@ async function postForgetPassword(req, res) {
       let msg = await sendPasswordReset(user.email, user.name, link);
       if (msg) {
         res.json({
-          status: "Sucess",
+          status: "success",
           msg: "Check your mail to reset the password"
         });
       } else {

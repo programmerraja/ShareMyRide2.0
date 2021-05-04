@@ -25,7 +25,7 @@ async function bookARide(e) {
 
     res = await res.json();
     console.log(res);
-    if (res.status === "Sucess") {
+    if (res.status === "success") {
       popup_container.style.display = "flex";
       popup_container.children[0].children[0].innerText = res.msg;
     } else {

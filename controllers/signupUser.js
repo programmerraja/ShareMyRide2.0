@@ -45,7 +45,7 @@ async function postHandler(req, res) {
   });
   if (!rider) {
     //default profile picture
-    let profile = "f4fd9222c7d1ec475b7dc0e543c1fdc4.png";
+    let profile = "ee308e7b085f9eb21908e7461e51fab0.png";
     //if user upload profile picture 
     if (req.file) {
       profile = req.file.filename;
@@ -72,7 +72,7 @@ async function postHandler(req, res) {
       if (msg) {
         res.redirect("/signin/user");
       } else {
-        //need to remove user from database if mail not send sucessfully
+        //need to remove user from database if mail not send successfully
         await User.deleteOne({
           _id: new_user._id
         }).catch((err) => {

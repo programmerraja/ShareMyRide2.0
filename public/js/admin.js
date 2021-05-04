@@ -28,7 +28,7 @@ async function removeRider(event, link, is_verifiy = false) {
 
   }
   res = await res.json();
-  if (res.status === "Sucess") {
+  if (res.status === "success") {
     popup_container.style.display = "flex";
     popup_container.children[0].children[0].innerText = res.msg;
     fetchRider();
@@ -84,7 +84,7 @@ async function fetchRider() {
   }
   let res = await fetch("/admin/dashboard/riders/");
   res = await res.json();
-  if (res.status == "Sucess") {
+  if (res.status == "success") {
     if (res["riders"]) {
       if (res["riders"].length > 0) {
         table.style.display = "flex";
@@ -141,7 +141,7 @@ async function fetchUser() {
   }
   let res = await fetch("/admin/dashboard/users/");
   res = await res.json();
-  if (res.status == "Sucess") {
+  if (res.status == "success") {
     if (res["users"]) {
       if (res["users"].length > 0) {
         table.style.display = "flex";

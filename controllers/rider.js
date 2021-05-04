@@ -161,7 +161,7 @@ async function post(req, res) {
         if (rider) {
           res.render("riderProfile", {
             rider: rider,
-            msg: "Sucessfully updated"
+            msg: "successfully updated"
           });
         }
 
@@ -371,7 +371,7 @@ async function postMyRideForm(req, res) {
       });
     });
     if (new_ride) {
-      //if it sucessfully update the no of ride posted 
+      //if it successfully update the no of ride posted 
       let rider = await Rider.findOneAndUpdate({
         _id: req.user._id
       }, {
@@ -380,7 +380,7 @@ async function postMyRideForm(req, res) {
         }
       });
       res.redirect("/rider/get/myrides/");
-      //after sucessfully created check if it has alert
+      //after successfully created check if it has alert
       type = type.toLowerCase();
       let alert = await Alert.find({
         from: from,
@@ -619,7 +619,7 @@ async function removeMyRideForm(req, res) {
     //need to show rider if some thing bad for better use js in client side
     if (ride && booking) {
       res.json({
-        "status": "Sucess",
+        "status": "success",
         msg: "Successfully Removed"
       });
     } else {
@@ -647,7 +647,7 @@ async function forgetPassword(req, res) {
   DOING:
   1.post rider email
   2.if email find generate the token store that in rider doc and send to the rider mail
-  3.if mail send sucess else failed 
+  3.if mail send success else failed 
 
   
   No of DB Read:1
@@ -677,7 +677,7 @@ async function postForgetPassword(req, res) {
       let msg = await sendPasswordReset(rider.email, rider.name, link);
       if (msg) {
         res.json({
-          status: "Sucess",
+          status: "success",
           msg: "Check your mail to reset the password"
         });
       } else {
@@ -737,7 +737,7 @@ async function postResetPassword(req, res) {
         password: hash
       });
       res.json({
-        status: "Sucess",
+        status: "success",
         msg: "Password Updated"
       });
     } else {

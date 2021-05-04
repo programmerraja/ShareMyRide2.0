@@ -49,7 +49,7 @@ async function post(req, res) {
     email: req.body.email
   });
   if (!user) {
-    let profile = "abaee7de02f3af19f65d6548a67b27f3.png";
+    let profile = "25d3ef0daf299154ce180935d4cb6564.png";
     //if user upload profile picture 
     if (req.file) {
       profile = req.file.filename;
@@ -81,7 +81,7 @@ async function post(req, res) {
       if (msg) {
         res.redirect("/signin/rider");
       } else {
-        //need to remove rider from database if mail not send sucessfully
+        //need to remove rider from database if mail not send successfully
         await Rider.deleteOne({
           _id: new_rider._id
         }).catch((err) => {

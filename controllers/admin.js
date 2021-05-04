@@ -28,7 +28,7 @@ function get(req, res) {
 async function getRiders(req, res) {
   let riders = await Rider.find({});
   res.json({
-    status: "Sucess",
+    status: "success",
     riders: riders
   });
 }
@@ -83,7 +83,7 @@ async function removeRide(req, res) {
     //need to show rider if some thing bad for better use js in client side
     if (ride && booking) {
       res.json({
-        "status": "Sucess",
+        "status": "success",
         msg: "Successfully Removed"
       });
     } else {
@@ -119,8 +119,8 @@ async function removeRiderById(req, res) {
     });
     if (rider) {
       res.json({
-        status: "Sucess",
-        msg: "sucessfully removed"
+        status: "success",
+        msg: "successfully removed"
       });
     }
   } else {
@@ -147,8 +147,8 @@ async function verifiyRiderById(req, res) {
     });
     if (rider) {
       res.json({
-        status: "Sucess",
-        msg: "sucessfully Verified"
+        status: "success",
+        msg: "successfully Verified"
       });
     }
   } else {
@@ -169,7 +169,7 @@ async function verifiyRiderById(req, res) {
 async function getUsers(req, res) {
   let users = await User.find({});
   res.json({
-    status: "Sucess",
+    status: "success",
     users: users
   });
 }
@@ -261,8 +261,8 @@ async function removeUserById(req, res) {
     let booking=await Booking.deleteMany({ user_id: user_id});
     if (user ) {
       res.json({
-        status: "Sucess",
-        msg: "sucessfully removed"
+        status: "success",
+        msg: "successfully removed"
       });
     }
   } else {
