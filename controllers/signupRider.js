@@ -67,6 +67,7 @@ async function post(req, res) {
       drivingexpereince: req.body.drivingexpereince,
       licenseno: req.body.licenseno,
       bio: req.body.bio,
+      profile: profile
     });
 
     new_rider = await new_rider.save().catch((err) => {
