@@ -768,10 +768,8 @@ async function emailVerified(req, res) {
     let rider_id = req.params.id;
     var rider = await Rider.findOneAndUpdate({
       _id: rider_id
-    });
+    },{is_email_verified : true});
     if (rider) {
-      rider.is_email_verified = true;
-      new_rider = await rider.save();
       res.render("emailVerified", {
         rider: req.user
       });
