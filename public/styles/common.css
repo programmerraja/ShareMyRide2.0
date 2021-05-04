@@ -5,7 +5,7 @@
   /*;*/
   --third-color: yellow;
   --secondary-color-less:#ffff00d9;
-  --font-color:black;
+  --font-color:green;
   /*#0028fffa;*/
 
 }
@@ -198,11 +198,11 @@ select {
   border: 1px solid var(--secondary-color) !important;
   outline: none;
   font-size: 1.2rem;
-  color: var(--font-color)! important;
 }
 
 input[type='button'],
 input[type='submit'],
+button,
 textarea {
   width: auto;
   height: calc(1.5em + .50rem + 1px) !important;

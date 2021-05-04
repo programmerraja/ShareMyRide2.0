@@ -1,6 +1,9 @@
 const passport = require("passport");
 
-//handling GET /signin/user
+/* 
+  DOING:
+  1. simply rendering
+*/
 function getHandler(req, res) {
   if (!req.user) {
     res.render("signin", {
@@ -11,6 +14,11 @@ function getHandler(req, res) {
   }
 }
 
+/* 
+  DOING:
+  1. passing info.user if he is user else not
+  
+*/
 function postHandler(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) {

@@ -8,15 +8,23 @@ const {
 const Rider = require("../models/Rider");
 const User = require("../models/User");
 
-
-//handling GET /signin
+/* 
+  DOING:
+  1. simply rendering
+  
+*/
 function get(req, res) {
   res.render("admin", {
     rider: req.user
   });
-
 }
 
+/* 
+  DOING:
+  1.return all rider as json
+  
+  No of DB Read:1
+*/
 async function getRiders(req, res) {
   let riders = await Rider.find({});
   res.json({
@@ -25,6 +33,12 @@ async function getRiders(req, res) {
   });
 }
 
+/* 
+  DOING:
+  1.get rider id and render rider doc and his ride doc
+
+  No of DB Read:2
+*/
 async function getRider(req, res) {
   if (req.params.id) {
     let rider_id = req.params.id;
@@ -44,11 +58,19 @@ async function getRider(req, res) {
     }
     return;
   }
-  //render 404
   res.render("error");
-
 }
 
+/* 
+  DOING:
+  1. get rider id and remove the ride based on ride id
+  2.also remove the booking doc related to the ride 
+
+ TODO:
+    1. inform the rider about we removed the  ride and reason
+
+  NO of DB Delete:2
+*/
 async function removeRide(req, res) {
   if (req.body.id) {
     let ride_id = req.body.id;
@@ -73,9 +95,18 @@ async function removeRide(req, res) {
     return;
   }
   res.render("error");
-
 }
 
+/* 
+  DOING:
+  1.get rider id and delete the rider doc 
+  2.based on rider id remove his posted ride also
+
+  TODO:
+    1. inform the user about we removed the rider and reason
+
+  NO of DB Delete:1 and more depend on no of ride posted
+*/
 async function removeRiderById(req, res) {
   if (req.body.id) {
     let rider_id = req.body.id;
@@ -100,6 +131,12 @@ async function removeRiderById(req, res) {
   }
 }
 
+/* 
+  DOING:
+  1.get rider id and update his verified as true
+
+  NO of DB Write:1
+*/
 async function verifiyRiderById(req, res) {
   if (req.body.id) {
     let rider_id = req.body.id;
@@ -121,8 +158,14 @@ async function verifiyRiderById(req, res) {
     })
   }
 }
-// for user
 
+/* 
+  DOING:
+  1.return all user as json
+ 
+  No of DB Read:1
+ 
+*/
 async function getUsers(req, res) {
   let users = await User.find({});
   res.json({
@@ -131,6 +174,21 @@ async function getUsers(req, res) {
   });
 }
 
+/* 
+  DOING:
+  1.get user id 
+  2.find all booking that made by the user 
+  3.get the user 
+  4. iterate through all the booking and put rider id and no of passenger booked in array
+  5. based on ride id array fetch all the ride detail that user booked
+  6.overwritng no of passenger in ride by no of passenger user is booked 
+  7.render the user doc and rides he booked doc
+
+  TODO:
+    1.
+  
+  No of DB Read:2 and more based on no of ride he booked 
+*/
 async function getUser(req, res) {
   if (req.params.id) {
     let user_id = req.params.id;
@@ -182,9 +240,17 @@ async function getUser(req, res) {
     return
   }
   res.render("error");
-
-
 }
+
+/* 
+  DOING:
+  1.get user id and remove the user doc and he booked doc
+
+  TODO:
+    1. inform the rider about we removed the  user 
+  
+  NO of DB Delete:1
+*/
 async function removeUserById(req, res) {
   if (req.body.id) {
     let user_id = req.body.id;
@@ -192,8 +258,8 @@ async function removeUserById(req, res) {
       _id: user_id
     });
     //remove ride also
-    // let ride=await deleteMany({ user_id: user_id,});
-    if (user) {
+    let booking=await Booking.deleteMany({ user_id: user_id});
+    if (user ) {
       res.json({
         status: "Sucess",
         msg: "sucessfully removed"

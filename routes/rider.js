@@ -45,15 +45,11 @@ conn.once('open', () => {
 
 const router = express.Router();
 
-
-router.get("/profile/:name", riderController.getProfilePicture)
-
+``
 //route for /rider
 router.get("/profile", authRiderHandler, riderController.get);
 router.get("/profile/:name", riderController.getProfilePicture);
-
 router.get("/profile/id/:id", riderController.getProfileById);
-
 router.post("/profile", authRiderHandler, upload.single("profile"), sanitizeHTML, checkBodyRiderHandler, riderController.post);
 
 router.get("/get/myrides/", authRiderHandler, riderController.getMyRides);
@@ -70,11 +66,10 @@ router.post("/post/ride/goods&services", sanitizeHTML, checkVerified, authRiderH
 
 router.get("/edit/ride/taxi/id/:id", authRiderHandler, riderController.editMyRideForm);
 router.get("/edit/ride/goods&services/id/:id", authRiderHandler, riderController.editMyRideForm);
-
 router.post("/edit/ride/id/:id", checkVerified, sanitizeHTML, checkBodyRideHandler, authRiderHandler, riderController.postEditMyRideForm);
 
-
 router.get("/show/reviews/id/:id", sanitizeHTML, asyncHandler(riderController.getReviews));
+
 //if rider remove his ride we need to inform the user
 router.post("/remove/myride/", authRiderHandler, riderController.removeMyRideForm);
 

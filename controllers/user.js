@@ -1,3 +1,4 @@
+
 //node modules
 const mongoose = require("mongoose");
 const bcrypt = require('bcrypt');
@@ -31,13 +32,24 @@ const {
   sendPasswordReset
 } = require("../util/util");
 
-//handling GET /signin
+
+/* 
+    No of DB Read:0
+
+    doing :
+      render user profile picture
+*/
 function get(req, res) {
   res.render("userProfile", {
     user: req.user
   });
 }
 
+/* 
+    No of DB Read: 1
+    doing:
+      send user profile img as stream
+*/
 function getProfilePicture(req, res) {
   gfs.files.findOne({
     filename: req.params.name
@@ -56,12 +68,12 @@ function getProfilePicture(req, res) {
   });
 }
 
-//handling GET /user/logout
-function logout(req, res) {
-  req.session.destroy();
-  res.redirect("/");
-}
-
+/* 
+    No of DB Read:1
+    NO of DB Write:1
+    doing:
+      update the user profile data 
+*/
 async function post(req, res) {
 
   if (res.locals.is_correct) {
@@ -88,7 +100,7 @@ async function post(req, res) {
           user.password = new_password;
         }
         user.name = name;
-        user.email = email;
+        // user.email = email;
         user.whatsappno = whatsappno;
         if (req.file) {
           user.profile = req.file.filename;
@@ -131,121 +143,16 @@ async function post(req, res) {
 
 }
 
-async function getMyBookedRides(req, res) {
-  let user_id = req.user._id;
-  //getting all booking done by user
-  let booking = await Booking.find({
-    user_id: user_id
-  });
-  //to store all [rides id and passenger count] 
-  let rides_id = []
-  let rides = []
-  booking.forEach((booking, i) => {
-    //putting id and passenger in array
-    if (booking.ride_id) {
-      rides_id.push([booking.ride_id, booking.passenger])
-    }
-  });
-  let length = rides_id.length
-  //to get the ride detail
-  async function getRides(index) {
-    //getting the ride id 
-    let ride = await Ride.findOne({
-      _id: rides_id[index][0]
-    });
-    if (ride) {
-      //over writing no of passenger to no of passenger he booked if it is car
-      ride.passenger = rides_id[index][1];
-      rides.push(ride);
-      if (index + 1 < length) {
-        await getRides(index + 1)
-      }
-    } else {
-      if (index + 1 < length) {
-        await getRides(index + 1)
-      }
-    }
-  }
-  //used recursion function so only we can use async await 
-  //call only if the booking avalible
-  if (length) {
-    await getRides(0);
-  }
-  res.render("bookedRides", {
-    user: req.user,
-    rides
-  });
-  return
-
-
-}
-
-async function postReview(req, res) {
-  //if recevied order change it cause problem
-  let {
-    ratings,
-    review,
-    rider_id
-  } = req.body;
-  if (ratings && review && rider_id) {
-    ratings = parseInt(ratings);
-    let old_review = await Review.findOne({
-      "user_id": req.user._id,
-      "rider_id": rider_id
-    });
-    //if he already not post the review
-    if (!old_review) {
-
-      let new_review = new Review({
-        "user_id": req.user._id,
-        "rider_id": rider_id,
-        "rating": ratings,
-        "review": review
-      });
-
-      let rider = await Rider.findOne({
-        _id: rider_id
-      });
-
-      let current_rating = rider.rating * rider.total_rating;
-      ratings = (current_rating + ratings) / (rider.total_rating + 1)
-      ratings = ratings.toFixed(1);
-      total_rating = rider.total_rating + 1;
-
-      rider = await Rider.findOneAndUpdate({
-        _id: rider_id
-      }, {
-        total_rating: total_rating,
-        rating: ratings
-      })
-
-      new_review = await new_review.save().catch((err) => {
-        let msg = dbErrorHandler(err);
-        res.json({
-          status: "Failure",
-          msg: msg
-        });
-      });
-      res.json({
-        status: "Sucess",
-        msg: "Successfully Added"
-      })
-    } else {
-      res.json({
-        status: "Failure",
-        msg: "Already Reviewed"
-      })
-
-    }
-
-  }
-}
-
+/* 
+    No of DB Read:1
+    NO of DB Write:
+  render a book a ride page 
+*/
 async function bookARide(req, res) {
   if (req.params.id) {
     let ride_id = req.params.id;
     let ride = await Ride.findOne({
-      _id: ride_id
+      _id: rides_id
     });
     if (ride) {
       res.render("bookARide", {
@@ -261,6 +168,18 @@ async function bookARide(req, res) {
   res.render("error");
 }
 
+/* 
+  doing:
+    1.post data id ,no of passenger,message and store data to booking collections 
+    2.next send the mail to rider about booking 
+
+  todo:
+    1.rollback if anyone failed
+
+  No of DB Read:4
+  NO of DB Write:2
+
+*/
 async function postBookARide(req, res) {
   let {
     id,
@@ -388,12 +307,12 @@ async function postBookARide(req, res) {
             return
           }
           // else{
-          // 	res.json({status:"Failure",msg:"Sorry For We Unable To Send Mail To Rider"});
+          //  res.json({status:"Failure",msg:"Sorry For We Unable To Send Mail To Rider"});
 
           // }
         }
       }
-      //if  ride failed we need to rollback 	
+      //if  ride failed we need to rollback   
     }
     //if no rider
     else {
@@ -405,6 +324,23 @@ async function postBookARide(req, res) {
   }
   //if user not provide data simply ignore it 
 }
+
+/* 
+  DOING:
+  1.post ride id and reason for ubook
+  2.change the status of ride
+  3.Delete the booking doc from the collections
+  4.get rider detail and send the mail to him
+
+  TODO:
+    1.rollback if one failed
+
+  No of DB Read:3
+  NO of DB Write:1
+  NO of DB Delete:1
+
+*/
+
 async function unBookMyRide(req, res) {
   if (req.body.id && req.body.reason) {
     let ride_id = req.body.id;
@@ -468,9 +404,9 @@ async function unBookMyRide(req, res) {
               //this send the response and also the errorhandler also 
               //send res it cause error
               // else{
-              // 	//if failed we need to rollback
-              //    						res.json({status:"Failure",msg:"Sorry For We Unable To Send Mail To Rider"});
-              //      			}
+              //  //if failed we need to rollback
+              //                res.json({status:"Failure",msg:"Sorry For We Unable To Send Mail To Rider"});
+              //            }
             }
           }
         }
@@ -487,6 +423,150 @@ async function unBookMyRide(req, res) {
 
 }
 
+/* 
+  DOING:
+  1.getting all booked rides for user
+  2.find all booking doc belong to the user
+  3.iterate through each booking and store the ride id and no of passenger user booked
+  4.iterate through ride id that stored in array and get the ride detail and store it on the rides array 
+  5.while iterating over the passenger with user booked passenger
+  6.render the booked rides
+
+   No of DB Read: 1 and more depend on le
+*/
+
+async function getMyBookedRides(req, res) {
+  let user_id = req.user._id;
+  //getting all booking done by user
+  let booking = await Booking.find({
+    user_id: user_id
+  });
+  //to store all [rides id and passenger count] 
+  let rides_id = []
+  let rides = []
+  booking.forEach((booking, i) => {
+    //putting id and passenger in array
+    if (booking.ride_id) {
+      rides_id.push([booking.ride_id, booking.passenger])
+    }
+  });
+  let length = rides_id.length
+  //to get the ride detail
+  async function getRides(index) {
+    //getting the ride id 
+    let ride = await Ride.findOne({
+      _id: rides_id[index][0]
+    });
+    if (ride) {
+      //over writing no of passenger to no of passenger he booked if it is car
+      ride.passenger = rides_id[index][1];
+      rides.push(ride);
+      if (index + 1 < length) {
+        await getRides(index + 1)
+      }
+    } else {
+      if (index + 1 < length) {
+        await getRides(index + 1)
+      }
+    }
+  }
+  //used recursion function so only we can use async await 
+  //call only if the booking avalible
+  if (length) {
+    await getRides(0);
+  }
+  res.render("bookedRides", {
+    user: req.user,
+    rides
+  });
+  return
+
+
+}
+
+/* 
+  DOING:
+  1.post rating review rider id 
+  2.first check if user is not already rate the rider
+  3.if not create new doc on review collection 
+  4.get rider detail and update his rating and total rating
+
+  No of DB Read:3
+  NO of DB Write:1
+
+*/
+async function postReview(req, res) {
+  //if recevied order change it cause problem
+  let {
+    ratings,
+    review,
+    rider_id
+  } = req.body;
+  if (ratings && review && rider_id) {
+    ratings = parseInt(ratings);
+    let old_review = await Review.findOne({
+      "user_id": req.user._id,
+      "rider_id": rider_id
+    });
+    //if he already not post the review
+    if (!old_review) {
+
+      let new_review = new Review({
+        "user_id": req.user._id,
+        "rider_id": rider_id,
+        "rating": ratings,
+        "review": review
+      });
+
+      let rider = await Rider.findOne({
+        _id: rider_id
+      });
+
+      let current_rating = rider.rating * rider.total_rating;
+      ratings = (current_rating + ratings) / (rider.total_rating + 1)
+      ratings = ratings.toFixed(1);
+      total_rating = rider.total_rating + 1;
+
+      rider = await Rider.findOneAndUpdate({
+        _id: rider_id
+      }, {
+        total_rating: total_rating,
+        rating: ratings
+      })
+
+      new_review = await new_review.save().catch((err) => {
+        let msg = dbErrorHandler(err);
+        res.json({
+          status: "Failure",
+          msg: msg
+        });
+      });
+      res.json({
+        status: "Sucess",
+        msg: "Successfully Added"
+      })
+    } else {
+      res.json({
+        status: "Failure",
+        msg: "Already Reviewed"
+      })
+
+    }
+
+  }
+}
+
+/* 
+  DOING:
+  1.post from ,to ,date ,user id ,vechile type
+  2.create new doc on ride collection with given detail
+
+  TODO:
+    1.if some detail missing while posting inform the user
+  No of DB Read:
+  NO of DB Write:1
+
+*/
 async function setAlertOnSearch(req, res) {
   if (req.body.from && req.body.to && req.body.date && req.body.user_id && req.body.type) {
     //creating new alert
@@ -525,10 +605,17 @@ async function setAlertOnSearch(req, res) {
   }
 }
 
+/* 
+  DOING:
+  1.based on alert id we delete the alert document
+
+  No of DB Delte:1
+
+*/
 async function unSetAlertOnSearch(req, res) {
   if (req.params.id) {
     let id = req.params.id;
-    let alert = await deleteOne({
+    let alert = await Alert.deleteOne({
       _id: id
     });
     if (alert) {
@@ -541,14 +628,109 @@ async function unSetAlertOnSearch(req, res) {
       });
 
     }
+    return;
   }
+  res.render("error");
 }
 
+/* 
+  DOING:
+  1.getting user id and find the user detail 
+  2.update the email verified as true 
+
+  No of DB Read:1
+  NO of DB Write:1
+
+*/
+async function emailVerified(req, res) {
+  if (req.params) {
+    let user_id = req.params.id;
+    var user = await User.findOne({
+      _id: user_id
+    });
+    if (user) {
+      user.is_email_verified = true;
+      new_user = await user.save();
+      res.render("emailVerified", {
+        user: ""
+      });
+      return
+    }
+  }
+  res.render("error");
+
+}
+
+/* 
+  DOING:
+  1.simply renderinng the page
+*/
+function resetPassword(req, res) {
+  res.render("resetPassword");
+}
+
+/* 
+  DOING:
+  1.post new password
+  2.find the user based on password_reset_token and check if link expires
+  3.create hash for the new password and update it 
+  No of DB Read:2
+
+*/
+async function postResetPassword(req, res) {
+
+  if (req.params && req.body.password) {
+
+    let password_reset_token = req.params.id;
+    let new_password = req.body.password;
+    //finding the user
+    var user = await User.findOne({
+      password_reset_token: password_reset_token,
+      password_reset_expires: {
+        $gt: Date.now()
+      }
+    });
+    if (user) {
+      let hash = bcrypt.hashSync(new_password, 2);
+      let new_user = await User.findOneAndUpdate({
+        _id: user._id
+      }, {
+        password: hash
+      });
+      res.json({
+        status: "Sucess",
+        msg: "Password Updated"
+      });
+    } else {
+      res.json({
+        status: "Failure",
+        msg: "Link Expires"
+      });
+    }
+    return
+  }
+  res.render("error");
+}
+
+/* 
+  DOING:
+  1.simply rendering the page
+
+*/
 function forgetPassword(req, res) {
   res.render("forgetPassword");
-
 }
-//handling POST /user/forget/password
+
+/* 
+  DOING:
+  1.post user email
+  2.if email find generate the token store that in user doc and send to the user mail
+  3.if mail send sucess else failed 
+
+  No of DB Read:1
+  NO of DB Write:1
+
+*/
 async function postForgetPassword(req, res) {
   if (req.body.email) {
     let email = req.body.email;
@@ -587,76 +769,26 @@ async function postForgetPassword(req, res) {
     res.json({
       status: "Failure",
       msg: "No user exit with given gmail"
-    })
-    return
-  }
-  res.render("error");
-
-}
-
-//handling GET /user/reset/password
-async function resetPassword(req, res) {
-  res.render("resetPassword");
-}
-
-//handling POST /user/reset/password
-async function postResetPassword(req, res) {
-
-  if (req.params && req.body.password) {
-
-    let password_reset_token = req.params.id;
-    let new_password = req.body.password;
-    //finding the user
-    var user = await User.findOne({
-      password_reset_token: password_reset_token,
-      password_reset_expires: {
-        $gt: Date.now()
-      }
     });
-    if (user) {
-      let hash = bcrypt.hashSync(new_password, 2);
-      let new_user = await User.findOneAndUpdate({
-        _id: user._id
-      }, {
-        password: hash
-      });
-      res.json({
-        status: "Sucess",
-        msg: "Password Updated"
-      });
-    } else {
-      res.json({
-        status: "Failure",
-        msg: "Link Expires"
-      });
-    }
     return
   }
   res.render("error");
 }
 
-async function emailVerified(req, res) {
-  if (req.params) {
-    let user_id = req.params.id;
-    var user = await User.findOne({
-      _id: user_id
-    });
-    if (user) {
-      user.is_email_verified = true;
-      new_user = await user.save();
-      res.render("emailVerified", {
-        user: ""
-      });
-      return
-    }
-    res.render("error");
-  }
+/* 
+  DOING:
+  1. destroy the session and redirect to home page
+
+  NO Of Delte: 1
+*/
+function logout(req, res) {
+  req.session.destroy();
+  res.redirect("/");
 }
 
 module.exports = {
   get,
   getProfilePicture,
-  logout,
   post,
   bookARide,
   postReview,
@@ -668,5 +800,6 @@ module.exports = {
   postForgetPassword,
   resetPassword,
   postResetPassword,
-  emailVerified
+  emailVerified,
+  logout
 };

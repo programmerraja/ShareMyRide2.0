@@ -32,6 +32,7 @@ const {
 const router = express.Router();
 
 //route for /user
+
 router.get("/profile", authUserHandler, userController.get);
 router.get("/profile/:name", userController.getProfilePicture);
 router.post("/profile", authUserHandler, upload.single("profile"), sanitizeHTML, checkBodyUserHandler, asyncHandler(userController.post));
@@ -44,8 +45,8 @@ router.get("/booked/rides/", authUserHandler, asyncHandler(userController.getMyB
 
 router.post("/post/review/", authUserHandler, checkMailVerified, sanitizeHTML, asyncHandler(userController.postReview));
 
-router.post("/set/alert/", sanitizeHTML, authUserHandler, asyncHandler(userController.setAlertOnSearch));
 router.get("/unset/alert/:id",authUserHandler, asyncHandler(userController.unSetAlertOnSearch));
+router.post("/set/alert/", sanitizeHTML, authUserHandler, asyncHandler(userController.setAlertOnSearch));
 
 router.get("/verifiy/email/:id", asyncHandler(userController.emailVerified));
 

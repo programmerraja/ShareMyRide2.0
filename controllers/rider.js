@@ -34,13 +34,27 @@ conn.once('open', () => {
 });
 
 
-//handling GET /signin
+/* 
+  DOING:
+  1.render the rider profile page 
+*/
+
 function get(req, res) {
   res.render("riderProfile", {
     rider: req.user
   });
 }
 
+/* 
+  DOING:
+  1.return the rider profile img based on the name
+
+  TODO:
+    1.remove the rider picture if he changed it 
+
+  
+  No of DB Read:1
+*/
 function getProfilePicture(req, res) {
   gfs.files.findOne({
     filename: req.params.name
@@ -59,12 +73,13 @@ function getProfilePicture(req, res) {
   });
 }
 
-//handling GET /rider/logout
-function logout(req, res) {
-  req.session.destroy();
-  res.redirect("/");
-}
+/* 
+  DOING:
+  1.get id and return the rider detail 
 
+  
+  No of DB Read:1
+*/
 async function getProfileById(req, res) {
   if (req.params.id) {
     let id = req.params.id;
@@ -78,11 +93,19 @@ async function getProfileById(req, res) {
       });
       return;
     }
-
-    //render 404
   }
+  res.render("error");
 }
 
+/* 
+  DOING:
+  1.post rider name,email,password,new password...
+  2.based on user given date change it on the rider doc 
+
+  
+  No of DB Read:1
+  NO of DB Write:1
+*/
 async function post(req, res) {
   //need to check if rider realy change anything else dont update if rider change his mail
   //send the confirmation message
@@ -116,7 +139,7 @@ async function post(req, res) {
           rider.password = new_password;
         }
         rider.name = name;
-        rider.email = email;
+        // rider.email = email;
         rider.gender = gender;
         rider.date_of_birth = date_of_birth;
         rider.phoneno = phoneno;
@@ -162,9 +185,14 @@ async function post(req, res) {
     rider: req.user,
     msg: "Please provide all data"
   });
-
 }
 
+/* 
+  DOING:
+  1.get all ride based on rider id and render it
+  
+  No of DB Read:1
+*/
 async function getMyRides(req, res) {
   let rider_id = req.user._id;
   let rides = await Ride.find({
@@ -177,28 +205,24 @@ async function getMyRides(req, res) {
     });
     return
   }
-  //render 404
   res.render("error");
 }
 
-function getMyRideFormTaxi(req, res) {
-  res.render("myRideFormTaxi", {
-    rider: req.user
-  });
-}
+/* 
+  DOING:
+  1.based ride id getting ride details (to find no of unbooked seats)
+  2.getting booking detail based on ride id
+  3.iterating booking doc to get the use id and no of passenger user booked and store it on the array 
+  4.iterating user id array to getting user detail and store that in array and adding passenger count to user doc
+  5.using ride doc finding no of seats are unbooked
+  6. rendering all detail
 
-function getMyRideFormGoods(req, res) {
-  res.render("myRideFormGoods", {
-    rider: req.user
-  });
-}
+  TODO:
+    1.reduce the fetching of database
 
-function getMyRideOptions(req, res) {
-  res.render("rideOptions", {
-    rider: req.user
-  });
-}
-
+  
+  No of DB Read:3 and  more depend on no of user booked
+*/
 async function getBookedUsers(req, res) {
   if (req.params.id) {
     let ride_id = req.params.id;
@@ -206,61 +230,108 @@ async function getBookedUsers(req, res) {
     let ride = await Ride.findOne({
       _id: ride_id
     });
+    //getting booking to get the booked user id
+    let booking = await Booking.find({
+      ride_id: ride_id
+    });
+    
+    let users_id = [];
+    let users = [];
+    let booked = 0
 
-    //allow only if rider has access but we bypass here so user can see 
-    if (1) {
-      //getting booking to get the booked user id
-      let booking = await Booking.find({
-        ride_id: ride_id
+    booking.forEach((booking, i) => {
+      //putting user id and no of passenger to array
+      if (booking.ride_id) {
+        users_id.push([booking.user_id, booking.passenger]);
+      }
+    });
+
+    let length = users_id.length
+    async function getUsers(index) {
+      //getting the user data
+      let user = await User.findOne({
+        _id: users_id[index][0]
       });
-      let users_id = [];
-      let users = [];
-      let booked = 0
-      booking.forEach((booking, i) => {
-        //putting user id and no of passenger to array
-        if (booking.ride_id) {
-          users_id.push([booking.user_id, booking.passenger]);
+      if (user) {
+        //adding no of passenget to user obj
+        user._doc.passenger = users_id[index][1];
+        //adding to find total booked seats
+        booked += users_id[index][1];
+        users.push(user);
+        if (index + 1 < length) {
+          await getUsers(index + 1)
         }
-      });
-
-      let length = users_id.length
-      async function getUsers(index) {
-        //getting the user data
-        let user = await User.findOne({
-          _id: users_id[index][0]
-        });
-        if (user) {
-          //adding no of passenget to user obj
-          user._doc.passenger = users_id[index][1];
-          //adding to find total booked seats
-          booked += users_id[index][1];
-          users.push(user);
-          if (index + 1 < length) {
-            await getUsers(index + 1)
-          }
-        } else {
-          if (index + 1 < length) {
-            await getUsers(index + 1)
-          }
+      } else {
+        if (index + 1 < length) {
+          await getUsers(index + 1)
         }
       }
-
-      if (length) {
-        await getUsers(0);
-      }
-
-      let unbooked = parseInt(ride.passenger) - parseInt(booked);
-      res.render("bookedUsers", {
-        seats: ride.passenger,
-        booked: booked,
-        unbooked: unbooked,
-        users: users,
-        rider: req.user
-      });
-
     }
+
+    if (length) {
+      await getUsers(0);
+    }
+
+    let unbooked = parseInt(ride.passenger) - parseInt(booked);
+    res.render("bookedUsers", {
+      seats: ride.passenger,
+      booked: booked,
+      unbooked: unbooked,
+      users: users,
+      rider: req.user
+    });
+
   }
 }
+
+/* 
+  DOING:
+  1. simply rendering
+  
+*/
+function getMyRideOptions(req, res) {
+  res.render("rideOptions", {
+    rider: req.user
+  });
+}
+
+/* 
+  DOING:
+  1. simply rendering
+  
+*/
+function getMyRideFormTaxi(req, res) {
+  res.render("myRideFormTaxi", {
+    rider: req.user
+  });
+}
+
+/* 
+  DOING:
+  1. simply rendering
+  
+*/
+function getMyRideFormGoods(req, res) {
+  res.render("myRideFormGoods", {
+    rider: req.user
+  });
+}
+
+/* 
+  DOING:
+  1.post from ,to... data 
+  2.converting from to to lowercase and convert time to string
+  3.create new ride 
+  4.update the rider doc by increamenting tota ride posted by one 
+  5.redirect the rider to myride
+  6.next check if it has alert if has get user doc by using user id and iterate all the user to  send mail to him
+
+  TODO:
+    1.seperate the functionallity of send alert 
+  
+  No of DB Read:2 and more depend on alert length
+  NO of DB Write:2
+*/
 async function postMyRideForm(req, res) {
   if (res.locals.is_correct_ride) {
     let {
@@ -350,8 +421,17 @@ async function postMyRideForm(req, res) {
       msg: "Please provide all data"
     });
   }
-
 }
+
+/* 
+  DOING:
+  1.get ride id find the type and render the correspoding page
+
+  TODO:
+    1.reduce db reading by puting type in the url 
+  
+  No of DB Read:1
+*/
 async function editMyRideForm(req, res) {
   if (req.params.id) {
     //used rider id to avoid other rider to edit the ride
@@ -375,9 +455,20 @@ async function editMyRideForm(req, res) {
   }
   // render the 404 page
   res.render("error");
-
 }
 
+/* 
+  DOING:
+  1.post from ,to ....
+  2.update the new data 
+  3.find the type and render the coresspond page if it has error
+  4.redirect to myrides
+
+  TODO:
+    1.inform the booked user that change has happen
+  
+  NO of DB Write:1
+*/
 async function postEditMyRideForm(req, res) {
   if (res.locals.is_correct_ride && req.params.id) {
 
@@ -425,9 +516,17 @@ async function postEditMyRideForm(req, res) {
       msg: "Please provide all data"
     });
   }
-
 }
 
+/* 
+  DOING:
+  1.get rider id find review and rider doc for getting rating and total rating
+  2.iterate through the review and get the user doc based on user id add user name and profile picture to review doc
+  3.if he is user render corresponding page and vice versa for rider
+
+  
+  No of DB Read:2 and based on review length
+*/
 async function getReviews(req, res) {
   if (req.params.id) {
     let reviews = await Review.find({
@@ -462,7 +561,6 @@ async function getReviews(req, res) {
     }
     if (req.user) {
       if (req.user.licenseno) {
-
         res.render("reviewRating", {
           rider: req.user,
           rider_id: req.params.id,
@@ -496,6 +594,16 @@ async function getReviews(req, res) {
   res.render("error");
 }
 
+/* 
+  DOING:
+  1.post rider id  remove ride doc based on id and rider id
+  2.And delte corresponding booking doc for that ride
+
+  TODO:
+    1.infrom the user who booked if rider remove before travel and ask for the reason to cancel the ride 
+  
+  NO of DB Delete:2
+*/
 async function removeMyRideForm(req, res) {
   if (req.body.id) {
     let ride_id = req.body.id;
@@ -523,17 +631,28 @@ async function removeMyRideForm(req, res) {
     return;
   }
   res.render("error");
-
 }
 
-
+/* 
+  DOING:
+  1. simply rendering
+*/
 async function forgetPassword(req, res) {
   res.render("forgetPassword", {
     rider: req.user
   })
-
 }
-//handling POST /rider/forget/password
+
+/* 
+  DOING:
+  1.post rider email
+  2.if email find generate the token store that in rider doc and send to the rider mail
+  3.if mail send sucess else failed 
+
+  
+  No of DB Read:1
+  NO of DB Write:1
+*/
 async function postForgetPassword(req, res) {
   if (req.body.email) {
     let email = req.body.email;
@@ -576,17 +695,27 @@ async function postForgetPassword(req, res) {
     return
   }
   res.render("error");
-
 }
 
-//handling GET /rider/reset/password
+/* 
+  DOING:
+  1. simply rendering
+*/
 async function resetPassword(req, res) {
   res.render("resetPassword", {
     rider: req.user
   })
 }
 
-//handling POST /rider/reset/password
+/* 
+  DOING:
+  1.post new password
+  2.find the rider based on password_reset_token and check if link expires
+  3.create hash for the new password and update it 
+  
+  No of DB Read:1
+  NO of DB Write:1
+*/
 async function postResetPassword(req, res) {
 
   if (req.params && req.body.password) {
@@ -622,10 +751,22 @@ async function postResetPassword(req, res) {
   res.render("error");
 }
 
+/* 
+  DOING:
+  1.getting user id and find the user detail 
+  2.update the email verified as true 
+  
+  TODO:
+    1. use find one and update
+
+  No of DB Read:1
+  NO of DB Write:1
+
+*/
 async function emailVerified(req, res) {
   if (req.params) {
     let rider_id = req.params.id;
-    var rider = await Rider.findOne({
+    var rider = await Rider.findOneAndUpdate({
       _id: rider_id
     });
     if (rider) {
@@ -639,6 +780,18 @@ async function emailVerified(req, res) {
     res.render("error");
   }
 }
+
+/* 
+  DOING:
+  1. destroy the session and redirect to home page
+  
+  NO of DB Delete:1
+*/
+function logout(req, res) {
+  req.session.destroy();
+  res.redirect("/");
+}
+
 
 module.exports = {
   get,
