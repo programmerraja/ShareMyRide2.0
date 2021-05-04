@@ -1,11 +1,11 @@
 :root {
   /*//#ff6a00*/
   --primary-color: white;
-  --secondary-color: yellow;
+  --secondary-color: blue;
   /*;*/
-  --third-color: yellow;
+  --third-color: blue;
   --secondary-color-less:#ffff00d9;
-  --font-color:green;
+  --font-color:white;
   /*#0028fffa;*/
 
 }

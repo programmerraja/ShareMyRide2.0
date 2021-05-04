@@ -34,7 +34,9 @@
 .tr:nth-child(odd) {
   background-color: #f3f3f4;
 }
-
+.td a{
+  font-weight: bold;
+}
 .th {
   background-color: #f3f3f4;
   font-weight: bold;
@@ -77,10 +79,6 @@
   background-color: red !important;
 }
 
-.remove_rider,
-.verifiy_rider {
-  color: white !important;
-}
 .remove_user:hover,
 .remove_rider:hover,
 .verifiy_user:hover,

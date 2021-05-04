@@ -259,7 +259,7 @@ footer {
 
   /*    Section 1*/
 
-  .section1_image img {
+  .section1_image svg{
     width: 286px;
     height: 180px;
   }
