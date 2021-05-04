@@ -50,7 +50,15 @@
   width: 100%;
   text-align: center;
 }
-
+.remove_rider,
+.verifiy_rider {
+  color: white !important;
+}
+.verifiy_rider {
+  background-color: green !important;
+  color: white !important;
+  border: 1px solid green !important;
+}
 .remove_user,
 .remove_rider,
 .verifiy_rider {

@@ -149,7 +149,7 @@ async function bookARide(req, res) {
   if (req.params.id) {
     let ride_id = req.params.id;
     let ride = await Ride.findOne({
-      _id: rides_id
+      _id: ride_id
     });
     if (ride) {
       res.render("bookARide", {
