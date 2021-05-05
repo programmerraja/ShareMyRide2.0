@@ -226,8 +226,8 @@ async function postBookARide(req, res) {
 
       //calculating balance seats if he booked taxi
       if (ride.type === "taxi" && passenger) {
-        let seats = Number(ride.passenger_left) - Number(passenger);
-        if (seats) {
+        let seats = Math.abs( Number(ride.passenger_left) - Number(passenger));
+        if (seats>0) {
           ride.status = seats + " Seats Left"
         }
         //if no seat 

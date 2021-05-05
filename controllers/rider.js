@@ -298,9 +298,9 @@ function getMyRideOptions(req, res) {
 /* 
   DOING:
   1. simply rendering
-  
 */
 function getMyRideFormTaxi(req, res) {
+  console.log("\n\n\n\nget my ride form taxi");
   res.render("myRideFormTaxi", {
     rider: req.user
   });
@@ -312,6 +312,8 @@ function getMyRideFormTaxi(req, res) {
   
 */
 function getMyRideFormGoods(req, res) {
+  console.log("\n\n\nget my ride form goods\n");
+
   res.render("myRideFormGoods", {
     rider: req.user
   });
@@ -466,6 +468,7 @@ async function editMyRideForm(req, res) {
 
   TODO:
     1.inform the booked user that change has happen
+    2.handle if user enter less no of passenger comapred to last one
   
   NO of DB Write:1
 */
@@ -490,7 +493,28 @@ async function postEditMyRideForm(req, res) {
 
     let rider = req.user;
     let rider_id = rider._id;
+    let ride=await Ride.findOne({
+      rider_id: rider_id,
+      _id: id
+    });
+    let status,passenger_left;
 
+     //calculating balance seats if he booked taxi
+      if (ride.type === "taxi" && passenger) {
+        //booked users
+        let seats = Math.abs(Number(ride.passenger_left) - Number(ride.passenger));
+
+        seats= Math.abs(seats- Number(passenger));
+
+        if (seats>0) {
+          status = seats + " Seats Left"
+        }
+        //if no seat 
+        else {
+          status = "unavailable";
+        }
+        passenger_left = seats;
+      }
     ride = await Ride.findOneAndUpdate({
       rider_id: rider_id,
       _id: id
@@ -501,9 +525,10 @@ async function postEditMyRideForm(req, res) {
       type,
       model,
       passenger,
-      passenger_left: passenger,
+      passenger_left: passenger_left,
       amount,
       time,
+      status:status,
       date
     });
 

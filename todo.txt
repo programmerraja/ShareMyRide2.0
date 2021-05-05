@@ -7,3 +7,5 @@
 
 3.allow user only travel with if rider accept the user.
 there is chance to spam the rider by booking all the seats 
+
+4. if user change ride detail tell the user and update the status
