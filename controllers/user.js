@@ -563,8 +563,6 @@ async function postReview(req, res) {
   1.post from ,to ,date ,user id ,vechile type
   2.create new doc on ride collection with given detail
 
-  TODO:
-    1.if some detail missing while posting inform the user
   No of DB Read:
   NO of DB Write:1
 

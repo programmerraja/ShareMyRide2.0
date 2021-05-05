@@ -1,11 +1,35 @@
 
+These are the todo thing for the project
 
 
-1.remove the user photo from db once user change his profile picture 
+#Admin controller todo
 
-2. if user unbook ask for the reason //done
+- [ ] Inform the user when admin removed the rider if rider post the ride that booked by user.
 
-3.allow user only travel with if rider accept the user.
+- [ ] Inform the rider when admin removed the user if user booked ride that belongs to rider
+
+- [ ] Inform the rider when admin removed the ride and reason
+
+
+#Rider controller todo
+
+- [ ] Remove the user photo from db once user change his profile picture.
+
+- [ ] If function more task then seperate in to different function
+
+- [ ] Inform the booked user when rider edit the ride details
+ 
+- [ ] Infrom the user who booked. if rider remove before travel and ask for the reason to cancel the ride.
+
+- [ ] Inform the booked user when rider edit the ride details
+
+
+- [ ] Allow user only travel with if rider accept the user.
 there is chance to spam the rider by booking all the seats 
 
-4. if user change ride detail tell the user and update the status
+#user controller todo
+
+- [x] If user unbook ask for the reason 
+
+- [ ] When user book's failed rollback to normal form.
+

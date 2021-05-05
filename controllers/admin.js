@@ -69,7 +69,7 @@ async function getRider(req, res) {
   2.also remove the booking doc related to the ride 
 
  TODO:
-    1. inform the rider about we removed the  ride and reason
+    1.Inform the rider when admin removed the ride and reason
 
   NO of DB Delete:2
 */
@@ -105,7 +105,7 @@ async function removeRide(req, res) {
   2.based on rider id remove his posted ride also
 
   TODO:
-    1. inform the user about we removed the rider and reason
+    1.Inform the user when admin removed the rider if rider post the ride that booked by user.
 
   NO of DB Delete:1 and more depend on no of ride posted
 */
@@ -250,7 +250,7 @@ async function getUser(req, res) {
   1.get user id and remove the user doc and he booked doc
 
   TODO:
-    1. inform the rider about we removed the  user 
+    1.Inform the rider when admin removed the user if user booked ride that belongs to rider
   
   NO of DB Delete:1
 */

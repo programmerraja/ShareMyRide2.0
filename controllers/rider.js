@@ -462,7 +462,7 @@ async function editMyRideForm(req, res) {
 /* 
   DOING:
   1.post from ,to ....
-  2.update the new data 
+  2.update the new data  and status
   3.find the type and render the coresspond page if it has error
   4.redirect to myrides
 
@@ -782,7 +782,7 @@ async function postResetPassword(req, res) {
   2.update the email verified as true 
   
   TODO:
-    1. use find one and update
+    1. use find one and update //done
 
   No of DB Read:1
   NO of DB Write:1
