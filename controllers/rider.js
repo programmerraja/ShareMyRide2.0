@@ -271,7 +271,7 @@ async function getBookedUsers(req, res) {
     if (length) {
       await getUsers(0);
     }
-
+    
     let unbooked = parseInt(ride.passenger) - parseInt(booked);
     res.render("bookedUsers", {
       seats: ride.passenger,
@@ -388,7 +388,7 @@ async function postMyRideForm(req, res) {
         from: from,
         to: to,
         date: {
-          "$eq": date
+          "$gte": date
         },
         type: type
       });

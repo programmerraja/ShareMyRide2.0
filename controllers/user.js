@@ -28,6 +28,7 @@ const {
   dbErrorHandler,
   sendBookRideMail,
   sendUnBookRideMail,
+  sendConfrimAlertMail,
   generateToken,
   sendPasswordReset
 } = require("../util/util");
@@ -207,6 +208,10 @@ async function postBookARide(req, res) {
         });
         return
       }
+    }
+    //if it is truck
+    else{
+      passenger=0;
     }
     //getting a rider detail to get email of rider
     let rider = await Rider.findOne({
@@ -441,7 +446,6 @@ async function getMyBookedRides(req, res) {
   //to store all [rides id and passenger count] 
   let rides_id = []
   let rides = []
-    console.log(booking,user_id)
   booking.forEach((booking, i) => {
     //putting id and passenger in array
     if (booking.ride_id) {
@@ -588,6 +592,11 @@ async function setAlertOnSearch(req, res) {
         "status": "success",
         "msg": "Alert Created successfully"
       });
+      let email = req.user.email;
+      let name = req.user.name;
+      let alert_link = req.protocol + "://" + req.get("host") + "/user/unset/alert/" + new_alert._id;
+      //sending mail to user who set alert
+      let msg = await  sendConfrimAlertMail(email, name,new_alert,alert_link);
     } else {
       res.json({
         "status": "Failure",

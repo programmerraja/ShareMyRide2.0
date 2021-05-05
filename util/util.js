@@ -107,7 +107,17 @@ async function sendAlertMail(to_mail, user_name, alert, link, alert_link) {
   return msg;
 
 }
+async function sendConfrimAlertMail(to_mail, user_name, alert,alert_link) {
+  let subject = "Your Ride alert has been created";
+  let body = "<p>Hai " + user_name + ",</p>\
+          <p>Your Ride alert has been created for search " + alert.from + " to " + alert.to + "\
+          </p>\
+          <p>To stop this alert click<a href='" + alert_link + "'>here</a> "
 
+  let msg = await sendMail(subject, body, to_mail);
+  return msg;
+
+}
 class AppError extends Error {
   constructor(err, status_code) {
     super(err.message);
@@ -219,6 +229,7 @@ module.exports = {
   sendBookRideMail,
   sendUnBookRideMail,
   sendAlertMail,
+  sendConfrimAlertMail,
   verfiyMail,
   AppError,
   logError,

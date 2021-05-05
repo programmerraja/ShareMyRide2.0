@@ -172,7 +172,7 @@ async function getBookedUsers(req, res) {
     if (length) {
       await getUsers(0);
     }
-
+    console.log(users)
     let unbooked = parseInt(ride.passenger) - parseInt(booked);
     res.render("bookedUsers", {
       seats: ride.passenger,
