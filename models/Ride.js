@@ -37,8 +37,7 @@ const RideSchema = new mongoose.Schema({
       default: 0
     },
     passenger_left: {
-      type: Number,
-      default: 0
+      type: Number
     },
     amount: {
       type: Number,

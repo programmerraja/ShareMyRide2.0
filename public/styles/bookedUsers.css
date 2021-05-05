@@ -9,6 +9,7 @@
 
 .user_face img {
   height: 70px;
+  border-radius: 50%;
 }
 
 .user_detail {

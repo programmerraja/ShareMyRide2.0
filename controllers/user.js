@@ -6,7 +6,7 @@ const Grid = require('gridfs-stream');
 //models
 const Ride = require("../models/Ride");
 const Rider = require("../models/Rider");
-const Booking = require("../models/Booking");
+const Booking = require("../models/Booking"); 
 const Alert = require("../models/Alert");
 const User = require("../models/User");
 const Review = require("../models/Review");
@@ -190,7 +190,7 @@ async function postBookARide(req, res) {
     });
 
     //if the ride is full simply return booked
-    if (ride.status === "unavailable") {
+    if (ride.passenger_left===0 ) {
       res.json({
         status: "Failure",
         msg: "seats all are booked"
