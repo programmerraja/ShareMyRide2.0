@@ -112,9 +112,8 @@
 
 .section2 {
   background-color: #f7f7f7;
-  padding-left: 20px;
   justify-content: space-around;
-  padding-right: 20px;
+  padding: 55px 20px;
 }
 
 .section1_image,
@@ -204,6 +203,7 @@ footer {
   text-align: center;
   color: var(--font-color);
   padding: 10px;
+  font-weight: bold;
 
 }
 

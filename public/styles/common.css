@@ -1,9 +1,9 @@
 :root {
   /*//#ff6a00*/
   --primary-color: white;
-  --secondary-color: blue;
+  --secondary-color:blue;
   /*;*/
-  --third-color: blue;
+  --third-color:blue;
   --secondary-color-less:#3f75de;
   --font-color:white;
   /*#0028fffa;*/
@@ -469,7 +469,12 @@ select {
     border-radius: 5px;
     transition: background 0.1s ease-in-out;
   }
-
+  .nav-item{
+    margin: 0 !important;
+  }
+  .home_dropdown{
+    padding-left:23px !important;
+  }
   .navbar-nav {
     align-items: flex-start;
   }
