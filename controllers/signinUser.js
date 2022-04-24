@@ -7,7 +7,8 @@ const passport = require("passport");
 function getHandler(req, res) {
   if (!req.user) {
     res.render("signin", {
-      link: "user"
+      link: "user",
+      msg:req.query.msg
     });
   } else {
     res.redirect("/user/booked/rides")

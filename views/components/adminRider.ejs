@@ -47,7 +47,7 @@
         <div class="rider_profile-text">
           <p class="text-capitalize "><i class="fas fa-envelope-open-text" style="color:var(--secondary-color);"></i>Email:</p>
           <p> <%= rider_profile.email %><br>
-            <% if(rider_profile.is_email_verified){ %>
+            <% if(rider_profile.isEmailVerified){ %>
             <span class="text-success">(verified)</span>
             <%}else{%>
             <span class="text-danger">(not verified)</span>

@@ -26,7 +26,8 @@ function getHandler(req, res) {
 
 //handling POST /signup/user
 async function postHandler(req, res) {
-
+  // console.log(req.body,"ss")
+  // return;
   if (!validator.isEmail(req.body.email)) {
     res.render("signupUser", {
       msg: "Invalid Email"
@@ -57,7 +58,9 @@ async function postHandler(req, res) {
       email: req.body.email,
       password: req.body.password,
       whatsappno: req.body.whatsappno,
-      profile: profile
+      adharNo:req.body.adharNo,
+      profile: profile,
+      isEmailVerified:true
     });
 
     new_user = await new_user.save().catch((err) => {
@@ -68,9 +71,9 @@ async function postHandler(req, res) {
     });
     if (new_user) {
       let link = req.protocol + "://" + req.get("host") + "/user/verifiy/email/" + new_user._id;
-      let msg = await verfiyMail(new_user.email, new_user.name, link);
+      let msg =true // await verfiyMail(new_user.email, new_user.name, link);
       if (msg) {
-        res.redirect("/signin/user");
+        res.redirect("/signin/user?msg=Account%20created%20successfully");
       } else {
         //need to remove user from database if mail not send successfully
         await User.deleteOne({

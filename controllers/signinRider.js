@@ -2,9 +2,11 @@ const passport = require("passport");
 
 //handling GET /signin
 function getHandler(req, res) {
+  console.log(req.params)
   if (!req.user) {
     res.render("signin", {
-      link: "rider"
+      link: "rider",
+      msg:req.query.msg
     });
   } else {
     res.redirect("/rider/get/myrides/")

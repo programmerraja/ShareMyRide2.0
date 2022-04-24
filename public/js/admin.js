@@ -9,7 +9,7 @@ async function removeRider(event, link, is_verifiy = false) {
   });
   if (is_verifiy) {
 
-    var res = await fetch("/admin/dashboard/rider/verifiy/", {
+    var res = await fetch("/admin/dashboard/"+link+"/verifiy/", {
       method: "post",
       headers: {
         "Content-Type": "application/json"
@@ -49,6 +49,7 @@ function insertToTable(obj, table, is_user = false) {
   <div class="td"><a href="/admin/dashboard/rider/id/' + obj.rider_id + '"> ' + obj.ridername + '</a></div>\
   <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
   <div class="td">' + obj.licenseno + '</div>\
+  <div class="td">' + obj.adharNo + '</div>\
   <div class="td">' + obj.is_verified + '</div>\
   <div class="td">\
     <input type="button" class="remove_rider" style="border:0 !important;color: white !important;" value="Remove" id="' + obj.rider_id + '">\
@@ -63,7 +64,12 @@ function insertToTable(obj, table, is_user = false) {
   <div class="td"><img src="/user/profile/' + obj.profile + '" class="user_img" alt="profile"></div>\
   <div class="td"><a href="/admin/dashboard/user/id/' + obj.user_id + '"> ' + obj.username + '</a></div>\
   <div class="td">' + obj.email_verified + '</div>\
+  <div class="td">' + obj.adharNo + '</div>\
   <div class="td">' + new Date(obj.created_at).toDateString() + '</div>\
+  <div class="td">' + obj.is_verified + '</div>\
+  <div class="td">\
+    <input type="button" class="verifiy_user" style="border:0 !important;color: white !important;" value="Verifiy" id="' + obj.user_id + '">\
+  </div>\
   <div class="td">\
     <input type="button" class="remove_user" style="border:0 !important;color: white !important;" value="Remove" id="' + obj.user_id + '">\
   </div>'
@@ -96,7 +102,7 @@ async function fetchRider() {
           let created_at = rider["created_at"];
           let licenseno = rider["licenseno"];
           let is_verified = rider["is_verified"];
-
+          let adharNo=rider["adharNo"];
           insertToTable({
               profile,
               licenseno,
@@ -104,7 +110,8 @@ async function fetchRider() {
               ridername,
               created_at,
               licenseno,
-              is_verified
+              is_verified,
+              adharNo,
             },
             table);
         });
@@ -123,7 +130,7 @@ async function fetchRider() {
     let verifiy_rider = document.querySelectorAll(".verifiy_rider");
     verifiy_rider.forEach((button) => {
       button.addEventListener("click", (e) => {
-        removeRider(e, "", true)
+        removeRider(e, "rider", true)
       })
     });
   }
@@ -150,9 +157,12 @@ async function fetchUser() {
           let profile = user["profile"];
           let username = user["name"];
           let email = user["email"];
-          let email_verified = user["is_email_verified"];
+          let email_verified = user["isEmailVerified"];
           let created_at = user["created_at"];
           let whatsappno = user["whatsappno"];
+          let adharNo=user["adharNo"];
+          let is_verified=user["isVerified"];
+
           insertToTable({
               profile,
               user_id,
@@ -160,7 +170,9 @@ async function fetchUser() {
               email,
               email_verified,
               created_at,
-              whatsappno
+              whatsappno,
+              adharNo,
+              is_verified
             },
             table, true);
         });
@@ -175,6 +187,13 @@ async function fetchUser() {
     remove_user.forEach((button) => {
       button.addEventListener("click", (e) => {
         removeRider(e, "user")
+      })
+    });
+
+    let verifiy_user = document.querySelectorAll(".verifiy_user");
+    verifiy_user.forEach((button) => {
+      button.addEventListener("click", (e) => {
+        removeRider(e, "user", true)
       })
     });
   }

@@ -654,7 +654,7 @@ async function emailVerified(req, res) {
       _id: user_id
     });
     if (user) {
-      user.is_email_verified = true;
+      user.isEmailVerified = true;
       new_user = await user.save();
       res.render("emailVerified", {
         user: ""

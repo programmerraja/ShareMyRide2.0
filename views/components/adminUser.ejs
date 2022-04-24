@@ -32,7 +32,7 @@
       <div class="rider_profile-text">
         <p class="d-flex "><i class="fas fa-envelope-open-text" style="color:var(--secondary-color);"></i><%= user_profile.email %>
 
-          <% if(user_profile.is_email_verified){ %>
+          <% if(user_profile.isEmailVerified){ %>
           <span class="text-success">(verified)</span>
           <%}else{%>
           <span class="text-danger">(not verified)</span>

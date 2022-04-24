@@ -18,7 +18,7 @@ const UserSchema = new mongoose.Schema({
     type: Boolean,
     default: false
   },
-  is_email_verified: {
+  isEmailVerified: {
     type: Boolean,
     default: false
   },
@@ -50,6 +50,10 @@ const UserSchema = new mongoose.Schema({
   licenseno: {
     type: String,
     required: true
+  },
+  adharNo:{
+      type: Number,
+      required: true
   },
   bio: {
     type: String

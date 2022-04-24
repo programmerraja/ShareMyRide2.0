@@ -17,7 +17,16 @@ const UserSchema = new mongoose.Schema({
       type: Number,
       required: true
     },
-    is_email_verified: {
+    adharNo:{
+      type: Number,
+      required: true
+    },
+    isVerified:{
+      type:Boolean,
+      required:true,
+      default:false
+    },
+    isEmailVerified: {
       type: Boolean,
       default: false
     },

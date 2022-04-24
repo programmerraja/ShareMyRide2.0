@@ -160,7 +160,28 @@ async function verifiyRiderById(req, res) {
     })
   }
 }
-
+async function verifiyUserById(req, res) {
+  if (req.body.id) {
+    let user_id = req.body.id;
+    let user = await User.findOneAndUpdate({
+      _id: user_id
+    }, {
+      isVerified: true
+    });
+    if (user) {
+      // console.log(user)
+      res.json({
+        status: "success",
+        msg: "successfully Verified"
+      });
+    }
+  } else {
+    res.json({
+      status: "Failure",
+      msg: "Don't be fool!"
+    })
+  }
+}
 /* 
   DOING:
   1.return all user as json
@@ -283,6 +304,7 @@ module.exports = {
   removeRide,
   removeRiderById,
   verifiyRiderById,
+  verifiyUserById,
   getUsers,
   getUser,
   removeUserById,

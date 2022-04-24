@@ -67,7 +67,9 @@ async function post(req, res) {
       drivingexpereince: req.body.drivingexpereince,
       licenseno: req.body.licenseno,
       bio: req.body.bio,
-      profile: profile
+      profile: profile,
+      adharNo:req.body.adharNo,
+      isEmailVerified:true
     });
 
     new_rider = await new_rider.save().catch((err) => {
@@ -78,9 +80,9 @@ async function post(req, res) {
     });
     if (new_rider) {
       let link = req.protocol + "://" + req.get("host") + "/rider/verifiy/email/" + new_rider._id;
-      let msg = await verfiyMail(new_rider.email, new_rider.name, link);
+      let msg =true // await verfiyMail(new_rider.email, new_rider.name, link);
       if (msg) {
-        res.redirect("/signin/rider");
+        res.redirect("/signin/rider?msg=Account%20created%20successfully");
       } else {
         //need to remove rider from database if mail not send successfully
         await Rider.deleteOne({

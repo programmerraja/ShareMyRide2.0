@@ -19,6 +19,8 @@ router.post("/remove/ride/", adminAuthHandler, asyncHandler(adminController.remo
 
 router.post("/rider/remove/", adminAuthHandler, asyncHandler(adminController.removeRiderById));
 router.post("/rider/verifiy/", adminAuthHandler, asyncHandler(adminController.verifiyRiderById));
+router.post("/user/verifiy/", adminAuthHandler, asyncHandler(adminController.verifiyUserById));
+
 
 router.get("/users", adminAuthHandler, asyncHandler(adminController.getUsers));
 router.get("/user/id/:id", adminAuthHandler, asyncHandler(adminController.getUser));
